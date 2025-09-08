@@ -18,6 +18,7 @@
                                 <th class="text-center" width="50px">No</th>
                                 <th class="text-center">Nama Poliklinik</th>
                                 <th class="text-center">Keterangan</th>
+                                 <th class="text-center">Gambar</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -55,9 +56,9 @@
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', class: 'text-center', orderable: false, searchable: false},
                 {data: 'nama_poli', name: 'nama_poli', class: 'text-left wrap-text'}, 
                 {data: 'keterangan', name: 'Keterangan', class: 'text-left wrap-text'}, 
+                {data: 'img', name: 'img', class: 'text-center wrap-text'},
                 // {data: 'tgl_publish', name: 'tgl_publish', class: 'text-center wrap-text'},
                 // {data: 'author_name', name: 'pegawai.nama', class: 'text-center wrap-text'},
-                // {data: 'img', name: 'img', class: 'text-center wrap-text'},
                 {data: 'action', name: 'action', orderable: false, searchable: false, class: 'text-center'}
             ]
         });
@@ -94,6 +95,28 @@
                 }
             });
         }
+    });
+    $(document).on('click', '.preview-img', function () {
+        const src   = $(this).attr('src');
+        const title = $(this).data('title') || 'Preview';
+        const alt   = $(this).attr('alt') || 'Preview';
+
+        Swal.fire({
+            title: title,
+            imageUrl: src,
+            imageAlt: alt,
+            showConfirmButton: false,
+            showCloseButton: true,
+            width: 'auto',
+            backdrop: true,
+            didOpen: () => {
+                const img = Swal.getImage();
+                if (img) {
+                    img.style.maxWidth = '90%';   
+                    img.style.height   = 'auto';
+                }
+            }
+        });
     });
 </script>
 @endpush

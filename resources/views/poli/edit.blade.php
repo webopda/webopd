@@ -16,6 +16,22 @@
                 <label for="keterangan">Keterangan</label>
                 <textarea class="form-control" rows="4" id="keterangan" name="keterangan">{{ old('keterangan', $poli->keterangan) }}</textarea>
             </div>
+            <div class="form-group">
+                <label>Gambar</label>
+                <input type="file" name="img" class="file-upload-default" id="img">
+                <div class="input-group col-xs-12">
+                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                    <span class="input-group-append">
+                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                    </span>
+                </div>
+
+                @if($poli->img) 
+                    <div class="mt-2">
+                        <img src="{{ asset('img_poli/'.$poli->img) }}" alt="Gambar Poli" width="150" class="img-thumbnail">
+                    </div>
+                @endif
+            </div>
             <div class="d-flex">
                 <!-- Tombol Submit -->
                 <button type="submit" class="btn btn-primary">Submit</button>

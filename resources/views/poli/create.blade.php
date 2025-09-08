@@ -20,7 +20,7 @@
             <!-- <button type="submit" class="btn btn-primary mr-2">Submit</button>
             <button class="btn btn-light" action="{{ route('poli.index') }}">Cancel</button>
             </form> -->
-<form action="{{ route('poli.store') }}" method="POST">
+<form action="{{ route('poli.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <!-- Form Fields -->
     <!-- <div class="form-group">
@@ -70,6 +70,16 @@
     <div class="form-group">
         <label for="keterangan">Keterangan</label>
         <textarea id="keterangan" type="text" class="form-control @error('keterangan') is-invalid @enderror" id="keterangan" name="keterangan" placeholder="Keterangan"></textarea>
+    </div>
+    <div class="form-group">
+        <label>Gambar</label>
+        <input type="file" name="img" class="file-upload-default" id="img">
+        <div class="input-group col-xs-12">
+        <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+        <span class="input-group-append">
+            <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+        </span>
+        </div>
     </div>
     <div class="d-flex">
         <!-- Tombol Submit -->
