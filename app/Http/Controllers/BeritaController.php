@@ -37,6 +37,9 @@ class BeritaController extends Controller
                         return '-';
                     }
                 })
+                ->addColumn('keterangan', function($row){
+                    return strip_tags($row->keterangan);
+                })
                 ->addColumn('action', function($row){
                     $editUrl = route('berita.edit', $row->id);
                     $btn = '<a href="'.$editUrl.'" class="edit btn btn-icon icon-left btn-warning btn-sm" style="padding: 10px 10px; font-size: 12px;">
@@ -52,7 +55,7 @@ class BeritaController extends Controller
                             </a>';
                     return $btn;
                 })
-                ->rawColumns(['action','img'])
+                ->rawColumns(['action','img', 'keterangan'])
                 ->make(true);
         }
         return view('informasi.berita.index');
