@@ -35,6 +35,9 @@ Route::get('/poli', [App\Http\Controllers\PoliController::class, 'index'])->name
 Route::get('/poli/create', [App\Http\Controllers\PoliController::class, 'create'])->name('poli.create');
 Route::post('/poli/store', [App\Http\Controllers\PoliController::class, 'store'])->name('poli.store');
 Route::delete('/poli/{id}', [App\Http\Controllers\PoliController::class,'destroy'])->name('poli.destroy');
+Route::get('/poli/{id}/edit', [App\Http\Controllers\PoliController::class, 'edit'])->name('poli.edit');
+Route::post('/poli/{id}/update', [App\Http\Controllers\PoliController::class, 'update'])->name('poli.update');
+
 
 Route::get('/pegawai', [App\Http\Controllers\PegawaiController::class, 'index'])->name('pegawai.index');
 Route::get('/pegawai/create', [App\Http\Controllers\PegawaiController::class, 'create'])->name('pegawai.create');
