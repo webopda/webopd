@@ -18,8 +18,8 @@
                         <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
                         <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li> -->
                         <li class="nav-item"> <a class="nav-link" href="{{ url('admin/slider') }}">Slider</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Profil</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Kontak</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ url('admin/profil') }}">Profil</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ url('/admin/kontak') }}">Kontak</a></li>
                     </ul>
                 </div>
             </li>

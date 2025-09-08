@@ -21,12 +21,14 @@
     <link rel="stylesheet" href="{{asset('template/css/vertical-layout-light/style.css')}}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{asset('template/images/favicon.png')}}" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- datatable -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="{{asset('ckeditor/ckeditor5.css')}}">
 
     <script src="{{asset('ckeditor/ckeditor5.js')}}"></script>
+@livewireStyles
 
     <!-- SweetAlert2 -->
 	<link rel="stylesheet" href="{{ asset('template/css/sweetalert.css') }}"> 
@@ -123,6 +125,9 @@
      <!-- datatable -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-</body>
+@include('sweetalert::alert')
+@livewireScripts
+
+  </body>
 
 </html>

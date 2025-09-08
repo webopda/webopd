@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\FotoDashboardController;
+use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\KontakController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,6 +45,9 @@ Route::post('/pegawai/store', [App\Http\Controllers\PegawaiController::class, 's
 Route::delete('/pegawai/{id}', [App\Http\Controllers\PegawaiController::class,'destroy'])->name('pegawai.destroy');
 Route::get('/pegawai/edit', [App\Http\Controllers\PegawaiController::class, 'edit'])->name('posts.edit');
 
+//kontak
+Route::get('/admin/kontak', [KontakController::class, 'index'])->name('kontak.index');
+
 //dokter
 Route::get('/dokter', [App\Http\Controllers\DokterController::class, 'index'])->name('dokter.index');
 Route::get('/dokter/create', [App\Http\Controllers\DokterController::class, 'create'])->name('dokter.create');
@@ -53,6 +58,14 @@ Route::post('/dokter/{id}/update', [App\Http\Controllers\DokterController::class
 Route::post('/jadwal-dokter', [App\Http\Controllers\JadwalDokterController::class, 'store'])->name('jadwal.store');
 Route::get('/jadwal-dokter/{id}', [App\Http\Controllers\JadwalDokterController::class, 'getJadwal'])->name('jadwal.get');
 
+
+//profil
+Route::get('admin/profil',[ProfilController::class,'index'])->name('admin.profil');
+Route::get('admin/profil/tambah',[ProfilController::class,'tambah'])->name('admin.profil.tambah');
+Route::get('admin/profil/edit/{id}',[ProfilController::class,'edit'])->name('admin.profil.edit');
+Route::post('admin/profil/create',[ProfilController::class,'create'])->name('admin.profil.create');
+Route::put('admin/profil/update/{id}',[ProfilController::class,'update'])->name('admin.profil.update');
+Route::delete('admin/profil/hapus/{id}',[ProfilController::class,'index'])->name('admin.profil.hapus');
 
 
 Route::get('/pegawai/{id}/edit', [App\Http\Controllers\PegawaiController::class, 'edit'])->name('pegawai.edit');

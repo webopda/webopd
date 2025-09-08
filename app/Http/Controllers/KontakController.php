@@ -15,6 +15,9 @@ class KontakController extends Controller
     public function index()
     {
         //
+        $data_kontak=Kontak::get();
+
+        return view('kontak.index');
     }
 
     /**
