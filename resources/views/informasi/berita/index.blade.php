@@ -99,5 +99,27 @@
             });
         }
     });
+    $(document).on('click', '.preview-img', function () {
+    const src   = $(this).attr('src');
+    const title = $(this).data('title') || 'Preview';
+    const alt   = $(this).attr('alt') || 'Preview';
+
+    Swal.fire({
+        title: title,
+        imageUrl: src,
+        imageAlt: alt,
+        showConfirmButton: false,
+        showCloseButton: true,
+        width: 'auto',
+        backdrop: true,
+        didOpen: () => {
+            const img = Swal.getImage();
+            if (img) {
+                img.style.maxWidth = '90%';   // supaya besar tapi responsif
+                img.style.height   = 'auto';
+            }
+        }
+    });
+});
 </script>
 @endpush

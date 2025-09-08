@@ -114,6 +114,36 @@
   </div>
 </div>
 
+
+{{-- struktur oraganisi --}}
+ <div class="max-w-6xl mx-auto my-4">
+    <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">Struktur Organisasi</h1>
+
+    <!-- Card Organisasi -->
+    <div class="grid gap-8">
+      <!-- Ulangi blok ini untuk setiap anggota organisasi -->
+      <div class="flex flex-col md:flex-row items-center bg-white shadow-lg rounded-xl overflow-hidden">
+        
+        <!-- Keterangan -->
+        <div class="p-6 flex-1">
+          <h2 class="text-2xl font-semibold text-gray-800 mb-2">Struktur Organisasi</h2>
+          <p class="text-gray-500 text-sm">Keterangan dari organisasi</p>
+        </div>
+
+        <!-- Gambar -->
+        <div class="w-full md:w-60 h-60 overflow-hidden">
+          <img src="https://via.placeholder.com/300x300" alt="Foto Anggota" class="object-cover w-full h-full">
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+
+{{-- endstruktur --}}
+
 <footer class="bg-gradient-to-r from-blue-700 to-blue-900 text-white">
   <div class="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-4 gap-8">
     

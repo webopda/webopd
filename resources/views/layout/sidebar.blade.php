@@ -17,7 +17,7 @@
                         <!-- <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Slider</a></li>
                         <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
                         <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li> -->
-                        <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Slider</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ url('admin/slider') }}">Slider</a></li>
                         <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Profil</a></li>
                         <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Kontak</a></li>
                     </ul>
@@ -31,9 +31,9 @@
                 </a>
                 <div class="collapse" id="form-elements">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">UGD</a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Rawat Jalan</a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Rawat Inap</a></li>                
+                        <li class="nav-item"><a class="nav-link" href="{{ route('ugd.index') }}">UGD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('rawatjalan.index') }}">Rawat Jalan</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('rawatinap.index') }}">Rawat Inap</a></li>                
                     </ul>
                 </div>
             </li>
@@ -67,7 +67,7 @@
                             <a class="nav-link {{ request()->routeIs('pegawai.index') ? 'active' : '' }}" href="{{ route('pegawai.index') }}">
                                 Pegawai</a>
                             </li>
-                        <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Dokter</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="{{ route('dokter.index') }}">Dokter</a></li>
                     </ul>
                 </div>
             </li>
@@ -85,17 +85,17 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('inovasi.*') ? 'active' : '' }}" href="#">
+                            <a class="nav-link {{ request()->routeIs('inovasi') ? 'active' : '' }}" href="{{ route('inovasi.index') }}">
                                 Inovasi
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('penunjang.*') ? 'active' : '' }}" href="#">
+                            <a class="nav-link {{ request()->routeIs('penunjang.*') ? 'active' : '' }}" href="{{ route('penunjang.index') }}">
                                 Penunjang
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('lainlain.*') ? 'active' : '' }}" href="#">
+                            <a class="nav-link {{ request()->routeIs('img.*') ? 'active' : '' }}" href="{{ route('img.index') }}">
                                 Lain-lain
                             </a>
                         </li>

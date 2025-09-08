@@ -35,7 +35,35 @@ class JadwalDokterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $dokterId = $request->dokter_id;
+        $jadwal   = $request->jadwal;
+
+        foreach ($jadwal as $hari => $jam) {
+            if ($jam['jam_mulai'] && $jam['jam_selesai']) {
+                JadwalDokter::updateOrCreate(
+                    ['dokter_id' => $dokterId, 'hari' => ucfirst($hari)],
+                    ['jam_mulai' => $jam['jam_mulai'], 'jam_selesai' => $jam['jam_selesai']]
+                );
+            }
+        }
+
+        return response()->json(['success' => true]);
+    }
+
+    public function getJadwal($id)
+    {
+        $jadwal = JadwalDokter::where('dokter_id', $id)
+            ->select('hari', 'jam_mulai', 'jam_selesai')
+            ->get()
+            ->map(function ($item) {
+                return [
+                    'hari' => $item->hari,
+                    'jam_mulai' => date('H:i', strtotime($item->jam_mulai)),
+                    'jam_selesai' => date('H:i', strtotime($item->jam_selesai)),
+                ];
+            });
+
+        return response()->json($jadwal);
     }
 
     /**

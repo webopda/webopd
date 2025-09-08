@@ -14,7 +14,7 @@
             </div>
             <div class="form-group">
                 <label for="keterangan">Konten Berita</label>
-                <textarea class="form-control" rows="4" id="keterangan" name="keterangan">{{ old('keterangan', $berita->keterangan) }}</textarea>
+                <textarea class="form-control" type="text" id="keterangan" name="keterangan">{{ old('keterangan', $berita->keterangan) }}</textarea>
             </div>
             <div class="form-group">
                 <label for="tgl_publish">Tanggal Publish</label>
@@ -77,6 +77,13 @@
             $('.file-upload-info').val(fileName1);
         });
     });
+</script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#keterangan'))
+        .catch(error => {
+            console.error(error);
+        });
 </script>
 @endpush
 

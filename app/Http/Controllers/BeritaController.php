@@ -31,10 +31,14 @@ class BeritaController extends Controller
                 ->addColumn('img', function($row){
                     if ($row->img) {
                         $url = asset('img_berita/'.$row->img);
-                        return '<img src="'.$url.'" alt="Gambar" width="180" class="img-thumbnail">';
+                        $judul = e($row->judul);
+                        return '<img src="'.$url.'" alt="Gambar" class="img-thumbnail preview-img" style="max-width:180px;cursor:pointer" data-title="'.$judul.'">';
                     } else {
                         return '-';
                     }
+                })
+                ->addColumn('keterangan', function($row){
+                    return strip_tags($row->keterangan);
                 })
                 ->addColumn('action', function($row){
                     $editUrl = route('berita.edit', $row->id);
@@ -51,7 +55,7 @@ class BeritaController extends Controller
                             </a>';
                     return $btn;
                 })
-                ->rawColumns(['action','img'])
+                ->rawColumns(['action','img', 'keterangan'])
                 ->make(true);
         }
         return view('informasi.berita.index');
