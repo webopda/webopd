@@ -31,9 +31,9 @@
                 </a>
                 <div class="collapse" id="form-elements">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">UGD</a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Rawat Jalan</a></li>
-                        <li class="nav-item"><a class="nav-link" href="pages/forms/basic_elements.html">Rawat Inap</a></li>                
+                        <li class="nav-item"><a class="nav-link" href="{{ route('ugd.index') }}">UGD</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('rawatjalan.index') }}">Rawat Jalan</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('rawatinap.index') }}">Rawat Inap</a></li>                
                     </ul>
                 </div>
             </li>
@@ -95,7 +95,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ request()->routeIs('lainlain.*') ? 'active' : '' }}" href="#">
+                            <a class="nav-link {{ request()->routeIs('img.*') ? 'active' : '' }}" href="{{ route('img.index') }}">
                                 Lain-lain
                             </a>
                         </li>

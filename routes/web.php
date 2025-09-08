@@ -53,7 +53,37 @@ Route::post('/dokter/{id}/update', [App\Http\Controllers\DokterController::class
 Route::post('/jadwal-dokter', [App\Http\Controllers\JadwalDokterController::class, 'store'])->name('jadwal.store');
 Route::get('/jadwal-dokter/{id}', [App\Http\Controllers\JadwalDokterController::class, 'getJadwal'])->name('jadwal.get');
 
+//rawat jalan
+Route::get('/rawatjalan', [App\Http\Controllers\RawatJalanController::class, 'index'])->name('rawatjalan.index');
+Route::get('/rawatjalan/create', [App\Http\Controllers\RawatJalanController::class, 'create'])->name('rawatjalan.create');
+Route::post('/rawatjalan/store', [App\Http\Controllers\RawatJalanController::class, 'store'])->name('rawatjalan.store');
+Route::delete('/rawatjalan/{id}', [App\Http\Controllers\RawatJalanController::class,'destroy'])->name('rawatjalan.destroy');
+Route::get('/rawatjalan/{id}/edit', [App\Http\Controllers\RawatJalanController::class, 'edit'])->name('rawatjalan.edit');
+Route::post('/rawatjalan/{id}/update', [App\Http\Controllers\RawatJalanController::class, 'update'])->name('rawatjalan.update');
 
+//rawat inap
+Route::get('/rawatinap', [App\Http\Controllers\RawatInapController::class, 'index'])->name('rawatinap.index');
+Route::get('/rawatinap/create', [App\Http\Controllers\RawatInapController::class, 'create'])->name('rawatinap.create');
+Route::post('/rawatinap/store', [App\Http\Controllers\RawatInapController::class, 'store'])->name('rawatinap.store');
+Route::delete('/rawatinap/{id}', [App\Http\Controllers\RawatInapController::class,'destroy'])->name('rawatinap.destroy');
+Route::get('/rawatinap/{id}/edit', [App\Http\Controllers\RawatInapController::class, 'edit'])->name('rawatinap.edit');
+Route::post('/rawatinap/{id}/update', [App\Http\Controllers\RawatInapController::class, 'update'])->name('rawatinap.update');
+
+//ugd
+Route::get('/ugd', [App\Http\Controllers\UgdController::class, 'index'])->name('ugd.index');
+Route::get('/ugd/create', [App\Http\Controllers\UgdController::class, 'create'])->name('ugd.create');
+Route::post('/ugd/store', [App\Http\Controllers\UgdController::class, 'store'])->name('ugd.store');
+Route::delete('/ugd/{id}', [App\Http\Controllers\UgdController::class,'destroy'])->name('ugd.destroy');
+Route::get('/ugd/{id}/edit', [App\Http\Controllers\UgdController::class, 'edit'])->name('ugd.edit');
+Route::post('/ugd/{id}/update', [App\Http\Controllers\UgdController::class, 'update'])->name('ugd.update');
+
+//img
+Route::get('/img', [App\Http\Controllers\ImgController::class, 'index'])->name('img.index');
+Route::get('/img/create', [App\Http\Controllers\ImgController::class, 'create'])->name('img.create');
+Route::post('/img/store', [App\Http\Controllers\ImgController::class, 'store'])->name('img.store');
+Route::delete('/img/{id}', [App\Http\Controllers\ImgController::class,'destroy'])->name('img.destroy');
+Route::get('/img/{id}/edit', [App\Http\Controllers\ImgController::class, 'edit'])->name('img.edit');
+Route::post('/img/{id}/update', [App\Http\Controllers\ImgController::class, 'update'])->name('img.update');
 
 ROute::get('/',[LandingController::class,'index'])->name('landing');
 
