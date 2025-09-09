@@ -5,9 +5,9 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Daftar Poliklinik</h4>
+                <h4 class="card-title">Daftar Image</h4>
                 <div class="col-sm-2 pt-6">
-                    <a href="{{ route('poli.create') }}" type="button" class="btn btn-block btn-primary"> 
+                    <a href="{{ route('img.create') }}" type="button" class="btn btn-block btn-primary"> 
                         <i class="fa fa-plus"></i> Tambah 
                     </a> <br>
                 </div>
@@ -16,9 +16,9 @@
                         <thead>
                             <tr>
                                 <th class="text-center" width="50px">No</th>
-                                <th class="text-center">Nama Poliklinik</th>
-                                <th class="text-center">Keterangan</th>
-                                 <th class="text-center">Gambar</th>
+                                <th class="text-center">Indikator Mutu</th>
+                                <th class="text-center">Standar Pelayanan</th>
+                                <th class="text-center">Jadwal Dokter</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -49,28 +49,27 @@
         var table = $('.data-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('poli.index') }}",
+            ajax: "{{ route('img.index') }}",
             scrollX: true,
             autoWidth: false, 
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', class: 'text-center', orderable: false, searchable: false},
-                {data: 'nama_poli', name: 'nama_poli', class: 'text-left wrap-text'}, 
-                {data: 'keterangan', name: 'Keterangan', class: 'text-left wrap-text'}, 
-                {data: 'img', name: 'img', class: 'text-center wrap-text'},
-                // {data: 'tgl_publish', name: 'tgl_publish', class: 'text-center wrap-text'},
-                // {data: 'author_name', name: 'pegawai.nama', class: 'text-center wrap-text'},
-                {data: 'action', name: 'action', orderable: false, searchable: false, class: 'text-center'}
+                {data: 'indikator_mutu', name: 'indikator_mutu', class: 'text-center wrap-text'},
+                {data: 'standar_pelayanan', name: 'standar_pelayanan', class: 'text-center wrap-text'},
+                {data: 'jadwal_dokter', name: 'jadwal_dokter', class: 'text-center wrap-text'},
+                {data: 'action', name: 'action', orderable: false, searchable: false, class: 'text-center'},
             ]
         });
+
         window.confirmDelete = function(id) {
             Swal.fire({
-                title: "Apakah Anda yakin?",
-                text: "Data ini tidak dapat dikembalikan setelah dihapus!",
-                icon: "Warning",
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Ya, hapus ini!"
+                confirmButtonText: "Yes, delete it!"
             }).then((result) => {
                 if (result.isConfirmed) {
                     deleteData(id);
@@ -80,43 +79,43 @@
 
         function deleteData(id) {
             $.ajax({
-                url: "{{ route('poli.destroy', '') }}/" + id,
+                url: "{{ route('img.destroy', '') }}/" + id,
                 type: 'POST',
                 data: {
                     _method: 'DELETE',
                     _token: '{{ csrf_token() }}',
                 },
                 success: function(response) {
-                    Swal.fire("Dihapus!", "Data berhasil dihapus.", "success");
+                    Swal.fire("Deleted!", "Your data has been deleted.", "success");
                     table.ajax.reload();
                 },
                 error: function(xhr) {
-                    Swal.fire("Gagal!", "Terjadi kesalahan saat menghapus data.", "error");
+                    Swal.fire("Failed!", "There was an error deleting the data.", "error");
                 }
             });
         }
     });
     $(document).on('click', '.preview-img', function () {
-        const src   = $(this).attr('src');
-        const title = $(this).data('title') || 'Preview';
-        const alt   = $(this).attr('alt') || 'Preview';
+    const src   = $(this).attr('src');
+    const title = $(this).data('title') || 'Preview';
+    const alt   = $(this).attr('alt') || 'Preview';
 
-        Swal.fire({
-            title: title,
-            imageUrl: src,
-            imageAlt: alt,
-            showConfirmButton: false,
-            showCloseButton: true,
-            width: 'auto',
-            backdrop: true,
-            didOpen: () => {
-                const img = Swal.getImage();
-                if (img) {
-                    img.style.maxWidth = '90%';   
-                    img.style.height   = 'auto';
-                }
+    Swal.fire({
+        title: title,
+        imageUrl: src,
+        imageAlt: alt,
+        showConfirmButton: false,
+        showCloseButton: true,
+        width: 'auto',
+        backdrop: true,
+        didOpen: () => {
+            const img = Swal.getImage();
+            if (img) {
+                img.style.maxWidth = '90%';   // supaya besar tapi responsif
+                img.style.height   = 'auto';
             }
-        });
+        }
     });
+});
 </script>
 @endpush

@@ -25,6 +25,14 @@ Route::get('/dsfdf', function () {
     return view('welcome');
 });
 
+//landing
+
+Route::get('landing/sejarah',[LandingController::class,'sejarah'])->name('landing.sejarah');
+
+//end landing
+
+
+
 //berita
 Route::get('/berita', [App\Http\Controllers\BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/create', [App\Http\Controllers\BeritaController::class, 'create'])->name('berita.create');
@@ -38,6 +46,9 @@ Route::get('/poli', [App\Http\Controllers\PoliController::class, 'index'])->name
 Route::get('/poli/create', [App\Http\Controllers\PoliController::class, 'create'])->name('poli.create');
 Route::post('/poli/store', [App\Http\Controllers\PoliController::class, 'store'])->name('poli.store');
 Route::delete('/poli/{id}', [App\Http\Controllers\PoliController::class,'destroy'])->name('poli.destroy');
+Route::get('/poli/{id}/edit', [App\Http\Controllers\PoliController::class, 'edit'])->name('poli.edit');
+Route::post('/poli/{id}/update', [App\Http\Controllers\PoliController::class, 'update'])->name('poli.update');
+
 
 Route::get('/pegawai', [App\Http\Controllers\PegawaiController::class, 'index'])->name('pegawai.index');
 Route::get('/pegawai/create', [App\Http\Controllers\PegawaiController::class, 'create'])->name('pegawai.create');
@@ -59,14 +70,6 @@ Route::post('/jadwal-dokter', [App\Http\Controllers\JadwalDokterController::clas
 Route::get('/jadwal-dokter/{id}', [App\Http\Controllers\JadwalDokterController::class, 'getJadwal'])->name('jadwal.get');
 
 
-//profil
-Route::get('admin/profil',[ProfilController::class,'index'])->name('admin.profil');
-Route::get('admin/profil/tambah',[ProfilController::class,'tambah'])->name('admin.profil.tambah');
-Route::get('admin/profil/edit/{id}',[ProfilController::class,'edit'])->name('admin.profil.edit');
-Route::post('admin/profil/create',[ProfilController::class,'create'])->name('admin.profil.create');
-Route::put('admin/profil/update/{id}',[ProfilController::class,'update'])->name('admin.profil.update');
-Route::delete('admin/profil/hapus/{id}',[ProfilController::class,'index'])->name('admin.profil.hapus');
-
 
 Route::get('/pegawai/{id}/edit', [App\Http\Controllers\PegawaiController::class, 'edit'])->name('pegawai.edit');
 Route::post('/pegawai/{id}/update', [App\Http\Controllers\PegawaiController::class, 'update'])->name('pegawai.update');
@@ -77,6 +80,13 @@ Route::post('/inovasi/store', [App\Http\Controllers\InovasiController::class, 's
 Route::delete('/inovasi/{id}', [App\Http\Controllers\InovasiController::class,'destroy'])->name('inovasi.destroy');
 Route::get('/inovasi/{id}/edit', [App\Http\Controllers\InovasiController::class, 'edit'])->name('inovasi.edit');
 Route::post('/inovasi/{id}/update', [App\Http\Controllers\InovasiController::class, 'update'])->name('inovasi.update');
+
+Route::get('/penunjang', [App\Http\Controllers\PenunjangController::class, 'index'])->name('penunjang.index');
+Route::get('/penunjang/create', [App\Http\Controllers\PenunjangController::class, 'create'])->name('penunjang.create');
+Route::post('/penunjang/store', [App\Http\Controllers\PenunjangController::class, 'store'])->name('penunjang.store');
+Route::delete('/penunjang/{id}', [App\Http\Controllers\PenunjangController::class,'destroy'])->name('penunjang.destroy');
+Route::get('/penunjang/{id}/edit', [App\Http\Controllers\PenunjangController::class, 'edit'])->name('penunjang.edit');
+Route::post('/penunjang/{id}/update', [App\Http\Controllers\PenunjangController::class, 'update'])->name('penunjang.update');
 
 ROute::get('/',[LandingController::class,'index'])->name('landing');
 

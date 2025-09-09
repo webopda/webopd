@@ -1,9 +1,7 @@
 @include('navbar.navbar')
-  <!-- HERO SWIPER untuk membuat gambar jadi slider -->
   <section class="relative w-full h-screen overflow-hidden">
     <div class="swiper h-full">
       <div class="swiper-wrapper">
-        <!-- Slide 1 bagian  -->
         <div class="swiper-slide relative">
           <img src="https://picsum.photos/id/1015/1600/900" class="w-full h-full object-cover" alt="">
           <div class="absolute inset-0 bg-black/40"></div>
@@ -11,7 +9,6 @@
             <h1 class="text-4xl md:text-6xl font-bold text-white">Selamat Datang di Rumah Sakit Sadikin</h1>
           </div>
         </div>
-        <!-- Slide 2 -->
         <div class="swiper-slide relative">
           <img src="https://picsum.photos/id/1005/1600/900" class="w-full h-full object-cover" alt="">
           <div class="absolute inset-0 bg-black/40"></div>
@@ -19,7 +16,6 @@
             <h1 class="text-4xl md:text-6xl font-bold text-white">Data Gizi Lebih Mudah</h1>
           </div>
         </div>
-        <!-- Slide 3 -->
         <div class="swiper-slide relative">
           <img src="https://picsum.photos/id/1025/1600/900" class="w-full h-full object-cover" alt="">
           <div class="absolute inset-0 bg-black/40"></div>
@@ -29,17 +25,101 @@
         </div>
       </div>
 
-      <!-- Swiper Pagination & Navigation -->
       <div class="swiper-pagination"></div>
       <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>
     </div>
   </section>
 
-  <!-- CONTENT -->
+
+{{-- statistik  --}}
+
+<div class="max-w-6xl mx-auto px-4 items-center justify-center flex mt-10 bg-white shadow-lg rounded-lg">
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-5"></h2>
+ <lottie-player 
+          src="{{asset('lottie/statistik.json')}}" 
+          background="transparent" 
+          speed="1" 
+          style="width: 400px; height: 400px;" 
+          loop 
+          autoplay>
+        </lottie-player>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+
+      <!-- Dokter -->
+      <div class="stat-card">
+        <div class="text-blue-600 text-4xl mb-2">🩺</div>
+        <h3 class="text-xl font-semibold text-gray-700">Dokter</h3>
+        <p class="text-3xl font-bold text-blue-700 mt-2 counter" data-target="12">0</p>
+      </div>
+
+      <!-- Perawat -->
+      <div class="stat-card">
+        <div class="text-green-600 text-4xl mb-2">👩‍⚕️</div>
+        <h3 class="text-xl font-semibold text-gray-700">Perawat</h3>
+        <p class="text-3xl font-bold text-green-700 mt-2 counter" data-target="28">0</p>
+      </div>
+
+      <!-- Bidan -->
+      <div class="stat-card">
+        <div class="text-pink-600 text-4xl mb-2">🤱</div>
+        <h3 class="text-xl font-semibold text-gray-700">Bidan</h3>
+        <p class="text-3xl font-bold text-pink-700 mt-2 counter" data-target="16">0</p>
+      </div>
+
+      <!-- Adm / Umum -->
+      <div class="stat-card">
+        <div class="text-yellow-600 text-4xl mb-2">🧑‍💼</div>
+        <h3 class="text-xl font-semibold text-gray-700">Adm / Umum</h3>
+        <p class="text-3xl font-bold text-yellow-700 mt-2 counter" data-target="10">0</p>
+      </div>
+
+    </div>
+  </div>
+{{-- end statistik --}}
+{{-- fasilitas layanan --}}
+<div class="flex items-center justify-center min-h-screen bg-white ml-3 mr-3 mt-10">
+  <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-6">
+    
+    <!-- Kolom Kiri: Lottie -->
+    <div class="bg-white rounded-xl shadow-lg border-2 border-white flex items-center justify-center h-72">
+ <lottie-player 
+          src="{{asset('lottie/ugd.json')}}" 
+          background="transparent" 
+          speed="1" 
+          style="width: 400px; height: 400px;" 
+          loop 
+          autoplay>
+        </lottie-player>    </div>
+
+    <!-- Kolom Kanan -->
+    <div class="grid grid-cols-2 gap-6">
+      
+      <!-- UGD -->
+      <div class="bg-white rounded-xl shadow-lg border-2 border-orange-400 flex flex-col items-center justify-center h-28">
+        <div class="text-3xl mb-2">🏥</div>
+        <h2 class="text-lg font-semibold">UGD</h2>
+      </div>
+
+      <!-- Rawat Jalan -->
+      <div class="bg-white rounded-xl shadow-lg border-2 border-orange-400 flex flex-col items-center justify-center h-28">
+        <div class="text-3xl mb-2">💉</div>
+        <h2 class="text-lg font-semibold">Rawat Jalan</h2>
+      </div>
+
+      <!-- Rawat Inap (Full width) -->
+      <div class="col-span-2 bg-white rounded-xl shadow-lg border-2 border-orange-400 flex flex-col items-center justify-center h-32">
+        <div class="text-3xl mb-2">🛏️</div>
+        <h2 class="text-lg font-semibold">Rawat Inap</h2>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+{{-- end fasilitas --}}
   <section class="bg-white py-16 px-6 md:px-20">
   <div class="grid md:grid-cols-2 gap-12 items-center">
-    <!-- Kiri -->
     <div>
       <span class="text-teal-600 font-semibold text-sm uppercase tracking-wide">
         Tentang Kami
@@ -55,7 +135,6 @@
         vaksinasi, hingga konsultasi khusus sesuai kebutuhan Anda.
       </p>
 
-      <!-- Tombol -->
       <div class="flex flex-col sm:flex-row gap-4 mt-6">
         <a href="#" 
            class="flex items-center gap-2 bg-teal-600 text-white px-6 py-3 rounded-xl shadow hover:bg-teal-700 transition">
@@ -68,7 +147,6 @@
       </div>
     </div>
 
-    <!-- Kanan -->
     <div class="relative flex justify-center">
       <div class="relative w-72 h-72">
         <img 
@@ -83,24 +161,29 @@
 
 <div class="max-w-5xl mx-auto my-10 p-6">
   <div class="grid md:grid-cols-2 gap-6 items-center bg-white shadow-lg rounded-2xl overflow-hidden">
-    <!-- Gambar -->
+    
+    <!-- Gambar Visi Misi -->
     <div class="h-full">
       <img src="https://www.stieykpn.ac.id/cni-content/uploads/modules/pages/20180115100741.jpg" 
            alt="Visi Misi" 
            class="w-full h-full object-cover">
     </div>
-    
-    <!-- Konten -->
-    <div class="p-6">
-      <h2 class="text-3xl font-bold text-gray-800 mb-4">Visi & Misi</h2>
+
+    <!-- Konten Visi, Misi & Motto -->
+    <div class="p-6 space-y-6">
       
-      <div class="mb-6">
+      <!-- Judul -->
+      <h2 class="text-3xl font-bold text-gray-800">Visi & Misi</h2>
+
+      <!-- Visi -->
+      <div>
         <h3 class="text-xl font-semibold text-blue-600">Visi</h3>
         <p class="text-gray-600 mt-2">
           Menjadi rumah sakit terdepan dengan pelayanan kesehatan yang profesional, modern, dan berlandaskan nilai kemanusiaan.
         </p>
       </div>
-      
+
+      <!-- Misi -->
       <div>
         <h3 class="text-xl font-semibold text-green-600">Misi</h3>
         <ul class="list-disc list-inside text-gray-600 mt-2 space-y-1">
@@ -110,9 +193,17 @@
           <li>Mengembangkan teknologi kesehatan yang modern.</li>
         </ul>
       </div>
+
+      <!-- Motto -->
+      <div class="bg-gradient-to-r from-blue-500 to-green-500 text-white text-center py-4 px-6 rounded-lg shadow-md">
+        <p class="text-lg font-semibold italic tracking-wide">"Melayani Sepenuh Hati, Menyembuhkan dengan Empati"</p>
+      </div>
+
     </div>
+
   </div>
 </div>
+
 
 
 {{-- struktur oraganisi --}}
@@ -216,30 +307,49 @@
     });
 
     // Toggle mobile menu sewaktu memamkai hp
-    document.getElementById("mobile-btn").addEventListener("click", function() {
-      document.getElementById("mobile-menu").classList.toggle("hidden");
-    });
+    // document.getElementById("mobile-btn").addEventListener("click", function() {
+    //   document.getElementById("mobile-menu").classList.toggle("hidden");
+    // });
 
-    // Navbar scroll effect ketika di scroll otoamtis warna navbar beruba
-    window.addEventListener("scroll", function() {
-      const nav = document.getElementById("navbar");
-      if (window.scrollY > 50) {
-        nav.classList.remove("bg-transparent");
-        nav.classList.add("bg-white", "shadow-lg");
-        nav.querySelectorAll("a, button, div.font-bold").forEach(el => {
-          el.classList.remove("text-white");
-          el.classList.add("text-gray-800");
-        });
-      } else {
-        nav.classList.remove("bg-white", "shadow-lg");
-        nav.classList.add("bg-transparent");
-        nav.querySelectorAll("a, button, div.font-bold").forEach(el => {
-          el.classList.remove("text-gray-800");
-          el.classList.add("text-white");
-        });
-      }
+    // // Navbar scroll effect ketika di scroll otoamtis warna navbar beruba
+    // window.addEventListener("scroll", function() {
+    //   const nav = document.getElementById("navbar");
+    //   if (window.scrollY > 50) {
+    //     nav.classList.remove("bg-transparent");
+    //     nav.classList.add("bg-white", "shadow-lg");
+    //     nav.querySelectorAll("a, button, div.font-bold").forEach(el => {
+    //       el.classList.remove("text-white");
+    //       el.classList.add("text-gray-800");
+    //     });
+    //   } else {
+    //     nav.classList.remove("bg-white", "shadow-lg");
+    //     nav.classList.add("bg-transparent");
+    //     nav.querySelectorAll("a, button, div.font-bold").forEach(el => {
+    //       el.classList.remove("text-gray-800");
+    //       el.classList.add("text-white");
+    //     });
+    //   }
+    // });
+  </script>
+<script>
+    const counters = document.querySelectorAll('.counter');
+
+    counters.forEach(counter => {
+      counter.innerText = '0';
+      const updateCounter = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const increment = Math.ceil(target / 50);
+
+        if (count < target) {
+          counter.innerText = count + increment;
+          setTimeout(updateCounter, 50);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      updateCounter();
     });
   </script>
-
 </body>
 </html>
