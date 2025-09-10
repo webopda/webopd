@@ -27,8 +27,34 @@
             </div>
             <div class="form-group">
                 <label for="jabatan">Jabatan</label>
-                <input type="text" class="form-control" id="jabatan" name="jabatan" placeholder="Jabatan">
-            </div>            
+                    <select name="jabatan" id="jabatan" class="form-control" required>
+                        <option value="" disabled selected>Pilih Bagian</option>
+                        <option value="Pimpinan" >Pimpinan</option>
+                        <option value="Tenaga Medis" >Tenaga Medis</option>    
+                        <option value="Tenaga Kesehatan" >Tenaga Kesehatan</option>
+                        <option value="Tenaga Penunjang Kesehatan" >Tenaga Penunjang Kesehatan</option>  
+                        <option value="Tenaga ADM/Umum" >Tenaga ADM/Umum</option>                                 
+                    </select>
+                @error('jabatan')
+                <div class="invalid-feedback">
+                    {{$message}}
+                </div>
+                @enderror
+            </div>        
+            <div class="form-group">
+                <label for="detail_jabatan">Detail Jabatan</label>
+                <input type="text" class="form-control" id="detail_jabatan" name="detail_jabatan" placeholder="Detail Jabatan">
+            </div>    
+            <div class="form-group">
+                <label>Foto</label>
+                <input type="file" name="img" class="file-upload-default" id="img">
+                <div class="input-group col-xs-12">
+                <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                <span class="input-group-append">
+                    <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                </span>
+                </div>
+            </div>
             <button type="submit" class="btn btn-primary mr-2">Submit</button>
             <button class="btn btn-light">Cancel</button>
             </form>

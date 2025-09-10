@@ -25,6 +25,15 @@ class PegawaiController extends Controller
 
             return DataTables::of($data)
                 ->addIndexColumn()
+                ->addColumn('img', function($row){
+                    if ($row->img) {
+                        $url = asset('img_pegawai/'.$row->img);
+                        $judul = e($row->nama);
+                        return '<img src="'.$url.'" alt="Gambar" class="img-thumbnail preview-img" style="max-width:180px;cursor:pointer" data-title="'.$judul.'">';
+                    } else {
+                        return '-';
+                    }
+                })
                 ->addColumn('action', function($row){
                     $editUrl = route('pegawai.edit', $row->id);
                     $btn = '<a href="'.$editUrl.'" class="edit btn btn-icon icon-left btn-warning btn-sm" style="padding: 10px 10px; font-size: 12px;">
@@ -40,7 +49,7 @@ class PegawaiController extends Controller
                             </a>';
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->rawColumns(['action', 'img'])
                 ->make(true);
         }
         return view('sdm.pegawai.index');
@@ -74,14 +83,23 @@ class PegawaiController extends Controller
             $request->validate([
                 'nama' => 'required',
                 'jk' => 'required',
-                'jabatan' => 'required',                
+                'jabatan' => 'required',   
+                'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',             
             ]);
 
-            
+            if ($request->hasFile('img')) {
+                $imageName = time() . '.' . $request->img->extension();
+                $request->img->move(public_path('img_pegawai'), $imageName);
+            } else {
+                $imageName = null;
+            }
+
             $pegawai = new Pegawai;            
             $pegawai->nama = $request->nama;
             $pegawai->jk = $request->jk;
             $pegawai->jabatan = $request->jabatan;
+            $pegawai->detail_jabatan = $request->detail_jabatan;
+            $pegawai->img = $imageName;
             $pegawai->save();
 
             \Session::flash('success', __('Data Pegawai Berhasil Ditambahkan'));
@@ -125,20 +143,32 @@ class PegawaiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $inovasi = Inovasi::findOrFail($id);
+        $pegawai = Pegawai::findOrFail($id);
 
         $request->validate([
-            'judul' => 'required|string',
-            'tahun' => 'required|string',
-            'tahapan' => 'required|string', 
-            'file' => 'required|string',  
-            'bentuk' => 'required|string',        
+           'nama' => 'required',
+           'jk' => 'required',
+           'jabatan' => 'required',   
+           'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  
         ]);
+
+        if ($request->hasFile('img')) {
+            if ($pegawai->img && file_exists(public_path('img_pegawai/'.$pegawai->img))) {
+                unlink(public_path('img_pegawai/'.$pegawai->img));
+            }
+
+            $imageName = time().'.'.$request->img->extension();
+            $request->img->move(public_path('img_pegawai'), $imageName);
+        } else {
+            $imageName = $pegawai->img; 
+        }
 
             $pegawai->update([
             'nama' => $request->nama,
             'jk' => $request->jk,
-            'jabatan' => $request->jabatan,            
+            'jabatan' => $request->jabatan,  
+            'detail_jabatan' => $request->detail_jabatan,
+            'img' => $imageName,             
         ]);
 
         return redirect()->route('pegawai.index')->with('success', 'Berita berhasil diperbarui');

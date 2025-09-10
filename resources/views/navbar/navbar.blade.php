@@ -34,9 +34,9 @@
             <i data-lucide="user"></i> Profil ▼
           </button>
           <div class="absolute hidden group-hover:block bg-white shadow-lg mt-2 rounded-lg w-48 dropdown-menu">
-            <a href="#" class="dropdown-link flex"><i data-lucide="book"></i> Sejarah</a>
-            <a href="#" class="dropdown-link flex"><i data-lucide="target"></i> Visi Misi</a>
-            <a href="#" class="dropdown-link flex"><i data-lucide="users"></i> Struktur Organisasi</a>
+            <a href="{{ route('landing.sejarah') }}" class="dropdown-link flex"><i data-lucide="book"></i> Sejarah</a>
+            <a href="{{ route('landing.visi') }}" class="dropdown-link flex"><i data-lucide="target"></i> Visi Misi</a>
+            <a href="{{ route('landing.struktur') }}" class="dropdown-link flex"><i data-lucide="users"></i> Struktur Organisasi</a>
           </div>
         </div>
 
@@ -46,10 +46,10 @@
             <i data-lucide="activity"></i> Layanan ▼
           </button>
           <div class="absolute hidden group-hover:block bg-white shadow-lg mt-2 rounded-lg w-48 dropdown-menu">
-            <a href="#" class="dropdown-link flex"><i data-lucide="ambulance"></i> UGD</a>
-            <a href="#" class="dropdown-link flex"><i data-lucide="stethoscope"></i> Rawat Jalan</a>
+            <a href="{{ route('landing.ugd') }}" class="dropdown-link flex"><i data-lucide="ambulance"></i> UGD</a>
+            <a href="{{ route('landing.rawatjalan') }}" class="dropdown-link flex"><i data-lucide="stethoscope"></i> Rawat Jalan</a>
             <a href="#" class="dropdown-link flex"><i data-lucide="bed"></i> Rawat Inap</a>
-            <a href="#" class="dropdown-link flex"><i data-lucide="flask-conical"></i> Laboratorium</a>
+            <a href="{{ route('landing.penunjang') }}" class="dropdown-link flex"><i data-lucide="flask-conical"></i> Penunjang</a>
           </div>
         </div>
 
@@ -59,9 +59,9 @@
             <i data-lucide="info"></i> Informasi Publik ▼
           </button>
           <div class="absolute hidden group-hover:block bg-white shadow-lg mt-2 rounded-lg w-56 dropdown-menu">
-            <a href="#" class="dropdown-link flex"><i data-lucide="newspaper"></i> Berita</a>
-            <a href="#" class="dropdown-link flex"><i data-lucide="bar-chart-2"></i> Indikator Mutu</a>
-            <a href="#" class="dropdown-link flex"><i data-lucide="clipboard-check"></i> Standar Pelayanan</a>
+            <a href="{{ route('landing.berita') }}" class="dropdown-link flex"><i data-lucide="newspaper"></i> Berita</a>
+            <a href="{{ route('landing.indmutu') }}" class="dropdown-link flex"><i data-lucide="bar-chart-2"></i> Indikator Mutu</a>
+            <a href="{{ route('landing.standarp') }}" class="dropdown-link flex"><i data-lucide="clipboard-check"></i> Standar Pelayanan</a>
           </div>
         </div>
 
@@ -71,16 +71,16 @@
             <i data-lucide="users"></i> SDM ▼
           </button>
           <div class="absolute hidden group-hover:block bg-white shadow-lg mt-2 rounded-lg w-56 dropdown-menu">
-            <a href="#" class="dropdown-link flex"><i data-lucide="crown"></i> Pimpinan</a>
-            <a href="#" class="dropdown-link flex"><i data-lucide="user-plus"></i> Tenaga Medis</a>
-            <a href="#" class="dropdown-link flex"><i data-lucide="heart-pulse"></i> Keperawatan & Kebidanan</a>
-            <a href="#" class="dropdown-link flex"><i data-lucide="activity-square"></i> Penunjang Medis</a>
-            <a href="#" class="dropdown-link flex"><i data-lucide="file-cog"></i> ADM/Umum</a>
+            <a href="{{ route('landing.pimpinan') }}" class="dropdown-link flex"><i data-lucide="crown"></i> Pimpinan</a>
+            <a href="{{ route('landing.tenagamedis') }}" class="dropdown-link flex"><i data-lucide="user-plus"></i> Tenaga Medis</a>
+            <a href="{{ route('landing.tenagakesehatan') }}" class="dropdown-link flex"><i data-lucide="heart-pulse"></i> Tenaga Kesehatan</a>
+            <a href="{{ route('landing.tpk') }}" class="dropdown-link flex"><i data-lucide="activity-square"></i> Tenaga Penunjang Kesehatan</a>
+            <a href="{{ route('landing.tau') }}" class="dropdown-link flex"><i data-lucide="file-cog"></i> Tenaga ADM/Umum</a>
           </div>
         </div>
 
-        <a href="#" class="nav-link flex items-center gap-2 dropdown-btn"><i data-lucide="sparkles"></i> Inovasi</a>
-        <a href="#" class="nav-link flex items-center gap-2 dropdown-btn"><i data-lucide="message-circle"></i> Pengaduan</a>
+        <a href="{{ route('landing.inovasi') }}" class="nav-link flex items-center gap-2 dropdown-btn"><i data-lucide="sparkles"></i> Inovasi</a>
+        <a href="{{ route('landing.pengaduan') }}" class="nav-link flex items-center gap-2 dropdown-btn"><i data-lucide="message-circle"></i> Pengaduan</a>
       </div>
 
       <!-- Mobile Button -->
@@ -107,7 +107,7 @@
         <a href="#" class="block py-1">🚑 UGD</a>
         <a href="#" class="block py-1">🩺 Rawat Jalan</a>
         <a href="#" class="block py-1">🛏️ Rawat Inap</a>
-        <a href="#" class="block py-1">⚗️ Laboratorium</a>
+        <a href="#" class="block py-1">⚗️ Penunjang</a>
       </div>
     </details>
 
@@ -125,9 +125,9 @@
       <div class="pl-4 space-y-1">
         <a href="#" class="block py-1">👑 Pimpinan</a>
         <a href="#" class="block py-1">➕ Tenaga Medis</a>
-        <a href="#" class="block py-1">❤️‍🩹 Keperawatan & Kebidanan</a>
-        <a href="#" class="block py-1">📋 Penunjang Medis</a>
-        <a href="#" class="block py-1">📂 ADM/Umum</a>
+        <a href="#" class="block py-1">❤️‍🩹 Tenaga Kesehatan</a>
+        <a href="#" class="block py-1">📋 Tenaga Penunjang Kesehatan</a>
+        <a href="#" class="block py-1">📂 Tenaga ADM/Umum</a>
       </div>
     </details>
 

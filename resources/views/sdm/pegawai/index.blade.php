@@ -19,6 +19,8 @@
                                 <th class="text-center">Nama</th>
                                 <th class="text-center">Jenis Kelamin</th>
                                 <th class="text-center">Jabatan</th>
+                                <th class="text-center">Detail Jabatan</th>
+                                <th class="text-center">Profil</th>
                                 <th class="text-center">Action</th>                                
                             </tr>
                         </thead>
@@ -56,7 +58,9 @@
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', class: 'text-center', orderable: false, searchable: false},
                 {data: 'nama', name: 'nama', class: 'text-center'}, 
                 {data: 'jk', name: 'jk', class: 'text-center wrap-text'}, 
-                {data: 'jabatan', name: 'jabatan', class: 'text-center wrap-text'},                
+                {data: 'jabatan', name: 'jabatan', class: 'text-center wrap-text'},    
+                {data: 'detail_jabatan', name: 'detail_jabatan', class: 'text-center wrap-text'},          
+                {data: 'img', name: 'img', class: 'text-center wrap-text'},         
                 {data: 'action', name: 'action', orderable: false, searchable: false, class: 'text-center'},
             ]
         });
@@ -93,6 +97,28 @@
                 }
             });
         }
+    });
+    $(document).on('click', '.preview-img', function () {
+        const src   = $(this).attr('src');
+        const title = $(this).data('title') || 'Preview';
+        const alt   = $(this).attr('alt') || 'Preview';
+
+        Swal.fire({
+            title: title,
+            imageUrl: src,
+            imageAlt: alt,
+            showConfirmButton: false,
+            showCloseButton: true,
+            width: 'auto',
+            backdrop: true,
+            didOpen: () => {
+                const img = Swal.getImage();
+                if (img) {
+                    img.style.maxWidth = '90%';   // supaya besar tapi responsif
+                    img.style.height   = 'auto';
+                }
+            }
+        });
     });
 </script>
 @endpush

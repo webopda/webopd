@@ -10,7 +10,7 @@ class Pegawai extends Model
     use HasFactory;
     protected $table = 'pegawai';
     protected $fillable = [
-        'nama', 'jk', 'jabatan'
+        'nama', 'jk', 'jabatan', 'img', 'detail_jabatan'
     ];
 
     public function Berita()

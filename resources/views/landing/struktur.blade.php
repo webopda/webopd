@@ -4,12 +4,12 @@
     <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl overflow-hidden">
             <div class="bg-blue-600 text-white text-center py-4">
-                <h2 class="text-2xl font-semibold">Sejarah</h2>
+                <h2 class="text-2xl font-semibold">Struktur Organisasi</h2>
             </div>
             <div class="p-6 space-y-4">
-                @foreach($data_sejarah as $item)
+                @foreach($data_struktur as $item)
                     <p class="text-gray-700 leading-relaxed text-justify">
-                        {!! nl2br(e($item->sejarah)) !!}
+                        {!! nl2br(e($item->struktur_org)) !!}
                     </p>
                 @endforeach
             </div>

@@ -28,7 +28,24 @@ Route::get('/dsfdf', function () {
 //landing
 
 Route::get('landing/sejarah',[LandingController::class,'sejarah'])->name('landing.sejarah');
-
+Route::get('landing/visi',[LandingController::class,'visi'])->name('landing.visi');
+Route::get('landing/struktur',[LandingController::class,'struktur'])->name('landing.struktur');
+Route::get('landing/ugd',[LandingController::class,'ugd'])->name('landing.ugd');
+Route::get('landing/rawatjalan',[LandingController::class,'rawatjalan'])->name('landing.rawatjalan');
+Route::get('/rawatjalan/poli/{id}', [LandingController::class, 'detailPoli'])->name('rawatjalan.poli');
+Route::get('/jadwal-dokter/{id}', [LandingController::class, 'jadwalDokter'])->name('jadwal.dokter');
+Route::get('landing/penunjang',[LandingController::class,'penunjang'])->name('landing.penunjang');
+Route::get('landing/berita',[LandingController::class,'berita'])->name('landing.berita');
+Route::get('/berita/{id}', [LandingController::class, 'show'])->name('berita.show');
+Route::get('landing/indmutu',[LandingController::class,'indmutu'])->name('landing.indmutu');
+Route::get('landing/standarp',[LandingController::class,'standarp'])->name('landing.standarp');
+Route::get('landing/pimpinan',[LandingController::class,'pimpinan'])->name('landing.pimpinan');
+Route::get('landing/tenagamedis',[LandingController::class,'tenagamedis'])->name('landing.tenagamedis');
+Route::get('landing/tenagakesehatan',[LandingController::class,'tenagakesehatan'])->name('landing.tenagakesehatan');
+Route::get('landing/tpk',[LandingController::class,'tpk'])->name('landing.tpk');
+Route::get('landing/tau',[LandingController::class,'tau'])->name('landing.tau');
+Route::get('landing/inovasi',[LandingController::class,'inovasi'])->name('landing.inovasi');
+Route::get('landing/pengaduan',[LandingController::class,'pengaduan'])->name('landing.pengaduan');
 //end landing
 
 
@@ -87,6 +104,38 @@ Route::post('/penunjang/store', [App\Http\Controllers\PenunjangController::class
 Route::delete('/penunjang/{id}', [App\Http\Controllers\PenunjangController::class,'destroy'])->name('penunjang.destroy');
 Route::get('/penunjang/{id}/edit', [App\Http\Controllers\PenunjangController::class, 'edit'])->name('penunjang.edit');
 Route::post('/penunjang/{id}/update', [App\Http\Controllers\PenunjangController::class, 'update'])->name('penunjang.update');
+
+//ugd
+Route::get('/ugd', [App\Http\Controllers\UgdController::class, 'index'])->name('ugd.index');
+Route::get('/ugd/create', [App\Http\Controllers\UgdController::class, 'create'])->name('ugd.create');
+Route::post('/ugd/store', [App\Http\Controllers\UgdController::class, 'store'])->name('ugd.store');
+Route::delete('/ugd/{id}', [App\Http\Controllers\UgdController::class,'destroy'])->name('ugd.destroy');
+Route::get('/ugd/{id}/edit', [App\Http\Controllers\UgdController::class, 'edit'])->name('ugd.edit');
+Route::post('/ugd/{id}/update', [App\Http\Controllers\UgdController::class, 'update'])->name('ugd.update');
+
+//rawatjalan
+Route::get('/rawatjalan', [App\Http\Controllers\RawatJalanController::class, 'index'])->name('rawatjalan.index');
+Route::get('/rawatjalan/create', [App\Http\Controllers\RawatJalanController::class, 'create'])->name('rawatjalan.create');
+Route::post('/rawatjalan/store', [App\Http\Controllers\RawatJalanController::class, 'store'])->name('rawatjalan.store');
+Route::delete('/rawatjalan/{id}', [App\Http\Controllers\RawatJalanController::class,'destroy'])->name('rawatjalan.destroy');
+Route::get('/rawatjalan/{id}/edit', [App\Http\Controllers\RawatJalanController::class, 'edit'])->name('rawatjalan.edit');
+Route::post('/rawatjalan/{id}/update', [App\Http\Controllers\RawatJalanController::class, 'update'])->name('rawatjalan.update');
+
+//rawatinap
+Route::get('/rawatinap', [App\Http\Controllers\RawatInapController::class, 'index'])->name('rawatinap.index');
+Route::get('/rawatinap/create', [App\Http\Controllers\RawatInapController::class, 'create'])->name('rawatinap.create');
+Route::post('/rawatinap/store', [App\Http\Controllers\RawatInapController::class, 'store'])->name('rawatinap.store');
+Route::delete('/rawatinap/{id}', [App\Http\Controllers\RawatInapController::class,'destroy'])->name('rawatinap.destroy');
+Route::get('/rawatinap/{id}/edit', [App\Http\Controllers\RawatInapController::class, 'edit'])->name('rawatinap.edit');
+Route::post('/rawatinap/{id}/update', [App\Http\Controllers\RawatInapController::class, 'update'])->name('rawatinap.update');
+
+//img
+Route::get('/img', [App\Http\Controllers\ImgController::class, 'index'])->name('img.index');
+Route::get('/img/create', [App\Http\Controllers\ImgController::class, 'create'])->name('img.create');
+Route::post('/img/store', [App\Http\Controllers\ImgController::class, 'store'])->name('img.store');
+Route::delete('/img/{id}', [App\Http\Controllers\ImgController::class,'destroy'])->name('img.destroy');
+Route::get('/img/{id}/edit', [App\Http\Controllers\ImgController::class, 'edit'])->name('img.edit');
+Route::post('/img/{id}/update', [App\Http\Controllers\ImgController::class, 'update'])->name('img.update');
 
 ROute::get('/',[LandingController::class,'index'])->name('landing');
 
