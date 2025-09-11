@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\FotoDashboardController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\VisimisiController;
+use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\KontakController;
 use Illuminate\Support\Facades\Route;
 
@@ -141,6 +143,36 @@ Route::get('landing/inovasi',[LandingController::class,'inovasi'])->name('landin
 Route::get('landing/pengaduan',[LandingController::class,'pengaduan'])->name('landing.pengaduan');
 //end landing
 
+//admin profil
+Route::get('admin/profil', [App\Http\Controllers\ProfilController::class, 'index'])->name('admin.profil');
+Route::get('admin/profil/tambah', [App\Http\Controllers\ProfilController::class, 'tambah'])->name('admin.profil');
+Route::post('admin/profil/create', [App\Http\Controllers\ProfilController::class, 'create'])->name('admin.profil');
+Route::get('admin/profil/edit/{id}', [App\Http\Controllers\ProfilController::class, 'edit'])->name('admin.profil');
+Route::put('admin/profil/update/{id}', [App\Http\Controllers\ProfilController::class, 'update'])->name('admin.profil');
+Route::delete('admin/profil/hapus/{id}', [App\Http\Controllers\ProfilController::class, 'hapus'])->name('admin.profil');
+//admin organisasi
+Route::get('admin/organisasi', [App\Http\Controllers\OrganisasiController::class, 'index'])->name('admin.organisasi');
+Route::get('admin/organisasi/tambah', [App\Http\Controllers\OrganisasiController::class, 'tambah'])->name('admin.organisasi');
+Route::post('admin/organisasi/create', [App\Http\Controllers\OrganisasiController::class, 'create'])->name('admin.organisasi');
+Route::get('admin/organisasi/edit/{id}', [App\Http\Controllers\OrganisasiController::class, 'edit'])->name('admin.organisasi');
+Route::put('admin/organisasi/update/{id}', [App\Http\Controllers\OrganisasiController::class, 'update'])->name('admin.organisasi');
+Route::delete('admin/organisasi/hapus/{id}', [App\Http\Controllers\OrganisasiController::class, 'hapus'])->name('admin.organisasi');
+
+//admin
+route::get( 'admin/misi',[VisimisiController::class,'index'])->name('data.misi.index');
+route::post( 'admin/misi/tambah',[VisimisiController::class,'create'])->name('data.misi.create');
+route::put( 'admin/misi/update/{id}',[VisimisiController::class,'update'])->name('data.misi.update');
+route::delete( 'admin/misi/hapus/{id}',[VisimisiController::class,'hapus'])->name('data.misi.hapus');
+//visi
+route::get( 'admin/visi',[VisimisiController::class,'indexvisi'])->name('data.visi.index');
+route::post( 'admin/visi/tambah',[VisimisiController::class,'createvisi'])->name('data.visi.create');
+route::put( 'admin/visi/update/{id}',[VisimisiController::class,'updatevisi'])->name('data.visi.update');
+route::delete( 'admin/visi/hapus/{id}',[VisimisiController::class,'hapusvisi'])->name('data.visi.hapus');
+//moto
+route::get( 'admin/moto',[VisimisiController::class,'indexmoto'])->name('data.moto.index');
+route::post( 'admin/moto/tambah',[VisimisiController::class,'createmoto'])->name('data.moto.create');
+route::put( 'admin/moto/update/{id}',[VisimisiController::class,'updatemoto'])->name('data.moto.update');
+route::delete( 'admin/moto/hapus/{id}',[VisimisiController::class,'hapusmoto'])->name('data.moto.hapus');
 
 
 //foto slider

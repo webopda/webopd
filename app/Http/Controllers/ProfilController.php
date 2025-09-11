@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Profil;
+use App\Models\Sejarah;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
   use Illuminate\Support\Str;
@@ -17,7 +17,7 @@ class ProfilController extends Controller
     public function index()
     {
         //
-$data_profil = Profil::get();
+$data_profil = Sejarah::get();
         return view('profil.index',compact('data_profil'));
     }
 
@@ -31,12 +31,11 @@ $data_profil = Profil::get();
     {
         $request->validate([
            
-            'struktur_org'=>'required|mimes:jpg,jpeg,png',
-            'misi'=>'required',
-            'visi'=>'required',
+            'gambar'=>'required|mimes:jpg,jpeg,png',
+            'sejarah'=>'required',
             
         ]);
- $cek_profil= profil::count();
+ $cek_profil= Sejarah::count();
  if($cek_profil>=1)
  {
     
@@ -46,21 +45,18 @@ $data_profil = Profil::get();
  }
 
         try{
-            $tambah_profil= new Profil;
+            $tambah_profil= new sejarah;
             $tambah_profil->sejarah= $request->sejarah;
-            $tambah_profil->visi= $request->visi;
-            $tambah_profil->misi= $request->misi;
-
-if($request->hasFile('struktur_org')){
-    $file=$request->file('struktur_org');
+         
+if($request->hasFile('gambar')){
+    $file=$request->file('gambar');
     $namafile= Str::random(10,20).$file->getClientOriginalName();
     $file->move(public_path().'/'.'profil/gambar',$namafile);
     $nama_gambar= $namafile;
-    $tambah_profil->struktur_org=$nama_gambar;
+    $tambah_profil->gambar=$nama_gambar;
 }
 
-            $tambah_profil->moto= $request->moto;
-            $tambah_profil->urutan= $request->urutan;
+           
             $tambah_profil->save();
             Alert::success('Berhasil','Data Berhasil Disimpan');
             return redirect('admin/profil');
@@ -68,7 +64,7 @@ if($request->hasFile('struktur_org')){
 
         }catch(\Exception $e)
         {
-            Alert::info('Gagal','Data Gagal Disimpan');
+            Alert::info('Gagal','Data Gagal Disimpan'.$e);
             return redirect()->back();
         }
     }
@@ -81,7 +77,7 @@ if($request->hasFile('struktur_org')){
     public function edit($id)
     {
         //
-        $edit_profil= Profil::find($id);
+        $edit_profil= Sejarah::find($id);
         return view('profil.edit',compact('edit_profil'));
     }
     
@@ -89,34 +85,29 @@ if($request->hasFile('struktur_org')){
     {
          $request->validate([
             'sejarah'=>'required',
-            'visi'=>'required',
-            'misi'=>'required',
-            'struktur_org'=>'nullable|mimes:jpg,jpeg,png',
-            'moto'=>'required',
-            'urutan'=>'required|unique:profil,urutan,'.$id,
+           
+            'gambar'=>'nullable|mimes:jpg,jpeg,png',
+           
         ]);
 
         try{
-                $edit_profil= Profil::find($id);
+                $edit_profil= Sejarah::find($id);
 
-if($request->hasFile('struktur_org')){
- if($edit_profil->struktur_org !=='' && file_exists(public_path().'/profil/gambar/',$edit_profil->struktur_org))
+if($request->hasFile('gambar')){
+ if($edit_profil->gambar !=='' && file_exists(public_path().'/profil/gambar/',$edit_profil->gambar))
  {
-                    $gambar_path = public_path().'/profil/gambar/'.$edit_profil->struktur_org;
+                    $gambar_path = public_path().'/profil/gambar/'.$edit_profil->gambar;
 
     unlink($gambar_path);
  }
-    $file=$request->file('struktur_org');
+    $file=$request->file('gambar');
     $namafile= Str::random(10,20).$file->getClientOriginalName();
     $file->move(public_path().'/'.'profil/gambar',$namafile);
     $nama_gambar= $namafile;
-    $edit_profil->struktur_org=$nama_gambar;
+    $edit_profil->gambar=$nama_gambar;
 }
   $edit_profil->sejarah= $request->sejarah;
-            $edit_profil->visi= $request->visi;
-            $edit_profil->misi= $request->misi;
-            $edit_profil->moto= $request->moto;
-            $edit_profil->urutan= $request->urutan;
+          
             $edit_profil->update();
             Alert::success('Berhasil','Data Berhasil Diupdate');
             return redirect('admin/profil');
@@ -140,8 +131,8 @@ if($request->hasFile('struktur_org')){
     public function hapus($id)
     {
         try{
-            $hapus_profil= Profil::find($id);
-             $gambar_path = public_path().'/profil/gambar/'.$hapus_profil->struktur_org;
+            $hapus_profil= Sejarah::find($id);
+             $gambar_path = public_path().'/profil/gambar/'.$hapus_profil->gambar;
                 
                 unlink($gambar_path);
             $hapus_profil->delete();

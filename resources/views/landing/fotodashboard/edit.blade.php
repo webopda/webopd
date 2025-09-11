@@ -24,7 +24,7 @@
 
   <div class="form-group">
     <label for="exampleInputPassword1">Gambar</label>
-    <input type="file" name="foto" class="form-control" id="exampleInputPassword1">
+    <input type="file" name="gambar" class="form-control" id="exampleInputPassword1">
   </div>
       </div>
       <div class="modal-footer">

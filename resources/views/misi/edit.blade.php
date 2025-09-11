@@ -1,0 +1,44 @@
+<div class="modal modal-blur fade tambah" wire:ignore.self id="edit-modal{{$item->id}}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Misi {{$item->misi}} </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+<form action="{{ url('admin/misi/update' .'/'. $item->id) }}" method="post">
+    @csrf
+@method('put')
+                <div class="mb-3">
+                    <label for="misi" class="form-label">Misi</label>
+                    <input type="text" class="form-control" id="misi" name="nama_kategori" placeholder="Enter misi" value="{{$item->misi}}" required>
+                    @error('misi')
+                    <span style="color:red">{{$message}}</span>
+
+                    @enderror
+                </div>
+
+               
+
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-link link-secondary" data-bs-dismiss="modal">
+                    Cancel
+                </a>
+                <button type="submit" wire:click="update({{$item->id}})" class="btn btn-primary ms-auto">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil-cancel"
+                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+                        <path d="M13.5 6.5l4 4" />
+                        <path d="M19 19m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" />
+                        <path d="M17 21l4 -4" />
+                    </svg>
+                    Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -14,24 +14,28 @@ class LandingController extends Controller
 
     public function index()
     {
-        return view('landing');
+        $slider= DB::table('foto_dashboard')->orderBy('urutan','desc')->get();
+        $misi=DB::table('misis')->get();
+        $visi=DB::table('visis')->get();
+        $moto=DB::table('motos')->get();
+        return view('landing',compact('slider','misi','visi','moto'));
     }
 
     public function sejarah()
     {
-        $data_sejarah=DB::table('profil')->get();
+        $data_sejarah=DB::table('sejarahs')->get();
         return view('landing.sejarah',compact('data_sejarah'));
     }
 
     public function visi()
     {
-        $data_visi=DB::table('profil')->get();
+        $data_visi=DB::table('visis')->get();
         return view('landing.visi',compact('data_visi'));
     }
 
     public function struktur()
     {
-        $data_struktur=DB::table('profil')->get();
+        $data_struktur=DB::table('struktur')->get();
         return view('landing.struktur',compact('data_struktur'));
     }
 
