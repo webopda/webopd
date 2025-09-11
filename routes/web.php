@@ -139,6 +139,13 @@ Route::post('/img/{id}/update', [App\Http\Controllers\ImgController::class, 'upd
 
 ROute::get('/',[LandingController::class,'index'])->name('landing');
 
+//admin profil
+Route::get('admin/profil', [App\Http\Controllers\ProfilController::class, 'index'])->name('admin.profil');
+Route::post('admin/profil/tambah', [App\Http\Controllers\ProfilController::class, 'create'])->name('admin.profil');
+Route::get('admin/profil/edit/{id}', [App\Http\Controllers\ProfilController::class, 'edit'])->name('admin.profil');
+Route::put('admin/profil/update/{id}', [App\Http\Controllers\ProfilController::class, 'update'])->name('admin.profil');
+Route::delete('admin/profil/hapus/{id}', [App\Http\Controllers\ProfilController::class, 'hapus'])->name('admin.profil');
+
 
 
 //foto slider
