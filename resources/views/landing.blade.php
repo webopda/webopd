@@ -2,27 +2,18 @@
   <section class="relative w-full h-screen overflow-hidden">
     <div class="swiper h-full">
       <div class="swiper-wrapper">
+       
+        @foreach ($slider as $slider_depan )
+          
         <div class="swiper-slide relative">
-          <img src="https://picsum.photos/id/1015/1600/900" class="w-full h-full object-cover" alt="">
+          <img src="{{ asset('slider/gambar') .'/'. $slider_depan->foto }}" class="w-full h-full object-cover" alt="">
           <div class="absolute inset-0 bg-black/40"></div>
           <div class="absolute inset-0 flex items-center justify-center">
-            <h1 class="text-4xl md:text-6xl font-bold text-white">Selamat Datang di Rumah Sakit Sadikin</h1>
+            <h1 class="text-4xl md:text-6xl font-bold text-white">{{ $slider_depan->judul }}</h1>
           </div>
         </div>
-        <div class="swiper-slide relative">
-          <img src="https://picsum.photos/id/1005/1600/900" class="w-full h-full object-cover" alt="">
-          <div class="absolute inset-0 bg-black/40"></div>
-          <div class="absolute inset-0 flex items-center justify-center">
-            <h1 class="text-4xl md:text-6xl font-bold text-white">Data Gizi Lebih Mudah</h1>
-          </div>
-        </div>
-        <div class="swiper-slide relative">
-          <img src="https://picsum.photos/id/1025/1600/900" class="w-full h-full object-cover" alt="">
-          <div class="absolute inset-0 bg-black/40"></div>
-          <div class="absolute inset-0 flex items-center justify-center">
-            <h1 class="text-4xl md:text-6xl font-bold text-white">Laporan Cepat & Akurat</h1>
-          </div>
-        </div>
+                @endforeach
+
       </div>
 
       <div class="swiper-pagination"></div>

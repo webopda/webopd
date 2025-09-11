@@ -7,9 +7,9 @@
   <div class="container mt-4">
         <div class="card shadow">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h4 class="mb-0">Data Sejarah</h4>
-                <a class="btn btn-primary" href="{{ url('admin/profil/tambah') }}" class="btn btn-block btn-primary">
-                    + Tambah Sejarah
+                <h4 class="mb-0">Data organisasi</h4>
+                <a class="btn btn-primary" href="{{ url('admin/organisasi/tambah') }}" class="btn btn-block btn-primary">
+                    + Tambah organisasi
                 </a>
             </div>
             <div class="card-body">   
@@ -25,25 +25,25 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($data_profil as $item )
+            @foreach ($data_organisasi as $item )
             <tr>
                 <td class="text-center">{{$loop->iteration}}</td>
                <td class="text-center justify-center">
-                    <img src="{{ asset('profil/gambar/' . $item->gambar) }}" 
+                    <img src="{{ asset('organisasi/gambar/' . $item->gambar) }}" 
                         alt="Struktur Organisasi" 
                         class="img-thumbnail rounded-3" 
                         style="max-width: 120px; cursor: pointer;" 
-                        onclick="showImage('{{ asset('profil/gambar/' . $item->gambar) }}')">
+                        onclick="showImage('{{ asset('organisasi/gambar/' . $item->gambar) }}')">
                 </td>
                 <td class="text-center">
                     <a class="btn btn-sm btn-warning  me-1" 
-                        href="{{ url('admin/profil/edit/' . $item->id) }}" 
+                        href="{{ url('admin/organisasi/edit/' . $item->id) }}" 
                         title="Edit Data">
                         <i class="bi bi-pencil-square"></i>
                     </a>
 
                     <button class="btn btn-sm btn-danger "
-                        onclick="hapusProfil({{ $item->id }})"
+                        onclick="hapusorganisasi({{ $item->id }})"
                         title="Hapus Data">
                         <i class="bi bi-trash3"></i>
                     </button>
@@ -53,7 +53,7 @@
                     </button>
 
                     <form id="hapus-form-{{ $item->id }}" 
-                        action="{{ url('admin/profil/hapus/' . $item->id) }}" 
+                        action="{{ url('admin/organisasi/hapus/' . $item->id) }}" 
                         method="POST" 
                         style="display: none;">
                         @csrf
@@ -61,7 +61,7 @@
                     </form>
                 </td>
             </tr>
-            @include('profil.detail')
+            @include('organisasi.detail')
             @endforeach
         </tbody>
     </table>
@@ -75,10 +75,10 @@
 <script src="https://cdn.datatables.net/2.3.3/js/dataTables.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-function hapusProfil(id) {
+function hapusorganisasi(id) {
     Swal.fire({
         title: 'Yakin ingin menghapus?',
-        text: "Data profil ini akan dihapus permanen!",
+        text: "Data organisasi ini akan dihapus permanen!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',

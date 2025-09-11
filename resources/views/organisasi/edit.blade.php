@@ -6,18 +6,18 @@
         <div class="col-lg-12 col-md-10 col-sm-12">
             <div class="card shadow-lg rounded-4">
                 <div class="card-header bg-success text-white rounded-top-4">
-                    <h3 class="mb-0">Edit Profil</h3>
+                    <h3 class="mb-0">Edit organisasi</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ url('admin/profil/update/' . $edit_profil->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ url('admin/organisasi/update/' . $edit_organisasi->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
                         <!-- Sejarah -->
                         <div class="mb-3">
                             <label for="sejarah" class="form-label">Sejarah</label>
-                            <textarea name="sejarah" id="sejarah" class="form-control @error('sejarah') is-invalid @enderror">{{ old('sejarah', $edit_profil->sejarah) }}</textarea>
-                            @error('sejarah')
+                            <textarea name="organisasi" id="sejarah" class="form-control @error('organisasi') is-invalid @enderror">{{ old('organisasi', $edit_organisasi->deskripsi) }}</textarea>
+                            @error('organisasi')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -35,8 +35,8 @@
                         
                         <!-- Preview Gambar -->
                         <div class="text-center mb-3">
-                            @if($edit_profil->gambar)
-                                <img src="{{ asset('profil/gambar/' . $edit_profil->gambar) }}" 
+                            @if($edit_organisasi->gambar)
+                                <img src="{{ asset('organisasi/gambar/' . $edit_organisasi->gambar) }}" 
                                      id="output" 
                                      class="img-thumbnail rounded-3" 
                                      style="max-width: 200px; max-height: 200px;">
