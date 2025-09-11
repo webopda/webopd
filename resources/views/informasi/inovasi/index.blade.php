@@ -18,9 +18,12 @@
                                 <th class="text-center" width="50px">No</th>
                                 <th class="text-center">Judul</th>
                                 <th class="text-center">Tahun</th>
-                                <th class="text-center">Tahapan</th>
-                                <th class="text-center">File</th>
-                                <th class="text-center">Bentuk</th>                                
+                                <th class="text-center">Deskripsi</th>
+                                <th class="text-center">SOP</th>
+                                <th class="text-center">Manual Book</th>
+                                <th class="text-center">Foto Inovasi 1</th>
+                                <th class="text-center">Foto Inovasi 2</th> 
+                                <th class="text-center">Tanggal Publish</th>                              
                                 <th class="text-center">Action</th>                                
                             </tr>
                         </thead>
@@ -58,9 +61,12 @@
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', class: 'text-center', orderable: false, searchable: false},
                 {data: 'judul', name: 'judul', class: 'text-center'}, 
                 {data: 'tahun', name: 'tahun', class: 'text-center'}, 
-                {data: 'tahapan', name: 'tahapan', class: 'text-center'},                
-                {data: 'file', name: 'file', class: 'text-center wrap-text'},
-                {data: 'bentuk', name: 'bentuk', class: 'text-center'},  
+                {data: 'deskripsi', name: 'deskripsi', class: 'text-center wrap-text'},                                 
+                {data: 'sop', name: 'sop', class: 'text-center wrap-text'},
+                {data: 'manual_book', name: 'manual_book', class: 'text-center wrap-text'},
+                {data: 'img1', name: 'img1', class: 'text-center wrap-text'},
+                {data: 'img2', name: 'img2', class: 'text-center wrap-text'},
+                {data: 'tgl_publish', name: 'tgl_publish', class: 'text-center wrap-text'},  
                 {data: 'action', name: 'action', orderable: false, searchable: false, class: 'text-center'},
             ]
         });
@@ -98,6 +104,28 @@
                 }
             });
         }
+    });
+    $(document).on('click', '.preview-img', function () {
+        const src   = $(this).attr('src');
+        const title = $(this).data('title') || 'Preview';
+        const alt   = $(this).attr('alt') || 'Preview';
+
+        Swal.fire({
+            title: title,
+            imageUrl: src,
+            imageAlt: alt,
+            showConfirmButton: false,
+            showCloseButton: true,
+            width: 'auto',
+            backdrop: true,
+            didOpen: () => {
+                const img = Swal.getImage();
+                if (img) {
+                    img.style.maxWidth = '90%';   // supaya besar tapi responsif
+                    img.style.height   = 'auto';
+                }
+            }
+        });
     });
 </script>
 @endpush

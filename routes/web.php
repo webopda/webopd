@@ -25,28 +25,7 @@ Route::get('/dsfdf', function () {
     return view('welcome');
 });
 
-//landing
 
-Route::get('landing/sejarah',[LandingController::class,'sejarah'])->name('landing.sejarah');
-Route::get('landing/visi',[LandingController::class,'visi'])->name('landing.visi');
-Route::get('landing/struktur',[LandingController::class,'struktur'])->name('landing.struktur');
-Route::get('landing/ugd',[LandingController::class,'ugd'])->name('landing.ugd');
-Route::get('landing/rawatjalan',[LandingController::class,'rawatjalan'])->name('landing.rawatjalan');
-Route::get('/rawatjalan/poli/{id}', [LandingController::class, 'detailPoli'])->name('rawatjalan.poli');
-Route::get('/jadwal-dokter/{id}', [LandingController::class, 'jadwalDokter'])->name('jadwal.dokter');
-Route::get('landing/penunjang',[LandingController::class,'penunjang'])->name('landing.penunjang');
-Route::get('landing/berita',[LandingController::class,'berita'])->name('landing.berita');
-Route::get('/berita/{id}', [LandingController::class, 'show'])->name('berita.show');
-Route::get('landing/indmutu',[LandingController::class,'indmutu'])->name('landing.indmutu');
-Route::get('landing/standarp',[LandingController::class,'standarp'])->name('landing.standarp');
-Route::get('landing/pimpinan',[LandingController::class,'pimpinan'])->name('landing.pimpinan');
-Route::get('landing/tenagamedis',[LandingController::class,'tenagamedis'])->name('landing.tenagamedis');
-Route::get('landing/tenagakesehatan',[LandingController::class,'tenagakesehatan'])->name('landing.tenagakesehatan');
-Route::get('landing/tpk',[LandingController::class,'tpk'])->name('landing.tpk');
-Route::get('landing/tau',[LandingController::class,'tau'])->name('landing.tau');
-Route::get('landing/inovasi',[LandingController::class,'inovasi'])->name('landing.inovasi');
-Route::get('landing/pengaduan',[LandingController::class,'pengaduan'])->name('landing.pengaduan');
-//end landing
 
 
 
@@ -138,6 +117,29 @@ Route::get('/img/{id}/edit', [App\Http\Controllers\ImgController::class, 'edit']
 Route::post('/img/{id}/update', [App\Http\Controllers\ImgController::class, 'update'])->name('img.update');
 
 ROute::get('/',[LandingController::class,'index'])->name('landing');
+
+//landing
+
+Route::get('landing/sejarah',[LandingController::class,'sejarah'])->name('landing.sejarah');
+Route::get('landing/visi',[LandingController::class,'visi'])->name('landing.visi');
+Route::get('landing/struktur',[LandingController::class,'struktur'])->name('landing.struktur');
+Route::get('landing/ugd',[LandingController::class,'ugd'])->name('landing.ugd');
+Route::get('landing/rawatjalan',[LandingController::class,'rawatjalan'])->name('landing.rawatjalan');
+Route::get('/rawatjalan/poli/{id}', [LandingController::class, 'detailPoli'])->name('rawatjalan.poli');
+Route::get('/jadwal-dokter/{id}', [LandingController::class, 'jadwalDokter'])->name('jadwal.dokter');
+Route::get('landing/penunjang',[LandingController::class,'penunjang'])->name('landing.penunjang');
+Route::get('landing/berita',[LandingController::class,'berita'])->name('landing.berita');
+Route::get('/berita/{id}', [LandingController::class, 'show'])->name('berita.show');
+Route::get('landing/indmutu',[LandingController::class,'indmutu'])->name('landing.indmutu');
+Route::get('landing/standarp',[LandingController::class,'standarp'])->name('landing.standarp');
+Route::get('landing/pimpinan',[LandingController::class,'pimpinan'])->name('landing.pimpinan');
+Route::get('landing/tenagamedis',[LandingController::class,'tenagamedis'])->name('landing.tenagamedis');
+Route::get('landing/tenagakesehatan',[LandingController::class,'tenagakesehatan'])->name('landing.tenagakesehatan');
+Route::get('landing/tpk',[LandingController::class,'tpk'])->name('landing.tpk');
+Route::get('landing/tau',[LandingController::class,'tau'])->name('landing.tau');
+Route::get('landing/inovasi',[LandingController::class,'inovasi'])->name('landing.inovasi');
+Route::get('landing/pengaduan',[LandingController::class,'pengaduan'])->name('landing.pengaduan');
+//end landing
 
 
 
