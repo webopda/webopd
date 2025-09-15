@@ -24,7 +24,7 @@
 
       <!-- Desktop Menu -->
       <div class="hidden md:flex space-x-6 items-center">
-        <a href="#" class="nav-link flex items-center gap-2 dropdown-btn">
+        <a href="/" class="nav-link flex items-center gap-2 dropdown-btn">
           <i data-lucide="home"></i> Beranda
         </a>
 

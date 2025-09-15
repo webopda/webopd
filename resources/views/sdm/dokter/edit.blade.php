@@ -13,6 +13,23 @@
                 <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama', $dokter->nama) }}">
             </div>
             <div class="form-group">
+                <label for="jk">Jenis Kelamin</label>
+                    <select name="jk" id="jk" class="form-control" required>
+                        <option value="" disabled selected>Pilih Jenis Kelamin</option>
+                        <option  value="Perempuan" {{ $dokter->jk == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                        <option value="Laki-Laki" {{ $dokter->jk == 'Laki-Laki' ? 'selected' : '' }}>Laki-Laki</option>                         
+                    </select>
+                @error('jk')
+                <div class="invalid-feedback">
+                    {{$message}}
+                </div>
+                @enderror
+            </div>
+             <div class="form-group">
+                <label for="detail_jabatan">Detail Jabatan</label>
+                <input type="text" class="form-control" id="detail_jabatan" name="detail_jabatan" value="{{ old('detail_jabatan', $dokter->detail_jabatan) }}">
+            </div>  
+            <div class="form-group">
                 <label for="poli">Poliklinik</label>
                 <select name="poli_id" id="poli_id" class="form-control" required>
                     <option value="" disabled>Pilih Polliklinik</option>

@@ -17,7 +17,7 @@
                             <tr>
                                 <th class="text-center" width="50px">No</th>
                                 <th class="text-center">Detail Pelayanan</th>
-                                <th class="text-center">Foto</th>
+                                <th class="text-center">Media</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>

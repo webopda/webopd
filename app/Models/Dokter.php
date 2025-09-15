@@ -10,18 +10,13 @@ class Dokter extends Model
     use HasFactory;
     protected $table = 'dokter';
     protected $fillable = [
-        'nama', 'poli_id',
+        'nama', 'poli_id', 'jk', 'jabatan', 'detail_jabatan'
     ];
 
     public function Poli()
     {
         return $this->belongsTo(Poli::class, 'poli_id');
 	}
-
-    public function RawatInap()
-    {
-        return $this->hasMany(RawatInap::class, 'dokter_id', 'id');
-    }
 
     public function RawatJalan()
     {
