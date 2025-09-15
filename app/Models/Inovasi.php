@@ -10,6 +10,6 @@ class Inovasi extends Model
     use HasFactory;
     protected $table = 'inovasi';
     protected $fillable = [
-        'judul', 'tahun', 'tahapan', 'bentuk'
+        'judul', 'tahun', 'deskripsi', 'sop', 'manual_book', 'img1', 'img2', 'tgl_publish'
     ];
 }

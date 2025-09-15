@@ -17,14 +17,12 @@
                 <input type="text" class="form-control" id="tahun" name="tahun" value="{{ old('tahun', $inovasi->tahun) }}">
             </div>
             <div class="form-group">
-                <label for="tahapan">Tahapan</label>
-                <input type="text" class="form-control" id="tahapan" name="tahapan" value="{{ old('tahapan', $inovasi->tahapan) }}">
-            </div>
+                <label for="deskripsi">Deskripsi</label>
+                <textarea class="form-control" type="text" id="deskripsi" name="deskripsi">{{ old('deskripsi', $inovasi->deskripsi) }}</textarea>            
             <div class="form-group">
-    <label>File</label>
-
+                <label>File SOP</label>
                 <!-- Input file -->
-                <input type="file" name="file" class="file-upload-default" id="file">
+                <input type="file" name="sop" class="file-upload-default" id="sop">
                 <div class="input-group col-xs-12">
                     <input type="text" class="form-control file-upload-info" disabled placeholder="Upload File">
                     <span class="input-group-append">
@@ -33,18 +31,86 @@
                 </div>
 
                 <!-- File yang sudah diupload sebelumnya -->
-                @if($inovasi->file)
+                @if($inovasi->sop)
+                    <div class="mt-2">
+                        <p>File SOP Sebelumnya:</p>
+                        <a href="{{ asset('file_sop_inovasi/' . $inovasi->sop) }}" target="_blank" class="btn btn-sm btn-info">
+                            Lihat / Download File
+                        </a>
+                    </div>
+                @endif
+            </div>            
+            <div class="form-group">
+                <label>Manual Book</label>
+
+                <!-- Input file -->
+                <input type="file" name="manual_book" class="file-upload-default" id="manual_book">
+                <div class="input-group col-xs-12">
+                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload File">
+                    <span class="input-group-append">
+                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                    </span>
+                </div>
+
+                <!-- File yang sudah diupload sebelumnya -->
+                @if($inovasi->manual_book)
                     <div class="mt-2">
                         <p>File Sebelumnya:</p>
-                        <a href="{{ asset('file_inovasi/' . $inovasi->file) }}" target="_blank" class="btn btn-sm btn-info">
+                        <a href="{{ asset('file_manual_book/' . $inovasi->manual_book) }}" target="_blank" class="btn btn-sm btn-info">
+                            Lihat / Download File
+                        </a>
+                    </div>
+                @endif
+            </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Foto Inovasi 1</label>
+
+                <!-- Input file -->
+                <input type="file" name="img1" class="file-upload-default" id="img1">
+                <div class="input-group col-xs-12">
+                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload File">
+                    <span class="input-group-append">
+                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                    </span>
+                </div>
+
+                <!-- File yang sudah diupload sebelumnya -->
+                @if($inovasi->img1)
+                    <div class="mt-2">
+                        <p>File Foto 1 Sebelumnya:</p>
+                        <a href="{{ asset('img1_inovasi/' . $inovasi->img1) }}" target="_blank" class="btn btn-sm btn-info">
                             Lihat / Download File
                         </a>
                     </div>
                 @endif
             </div>
             <div class="form-group">
-                <label for="bentuk">Bentuk</label>
-                <input type="text" class="form-control" id="bentuk" name="bentuk" value="{{ old('bentuk', $inovasi->bentuk) }}">
+                <label>Foto Inovasi 2</label>
+
+                <!-- Input file -->
+                <input type="file" name="img2" class="file-upload-default" id="img2">
+                <div class="input-group col-xs-12">
+                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload File">
+                    <span class="input-group-append">
+                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                    </span>
+                </div>
+
+                <!-- File yang sudah diupload sebelumnya -->
+                @if($inovasi->img2)
+                    <div class="mt-2">
+                        <p>File Foto 2 Sebelumnya:</p>
+                        <a href="{{ asset('img2_inovasi/' . $inovasi->img2) }}" target="_blank" class="btn btn-sm btn-info">
+                            Lihat / Download File
+                        </a>
+                    </div>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="tgl_publish">Tanggal Publish</label>
+                <input type="date" class="form-control" id="tgl_publish" name="tgl_publish" value="{{ old('tgl_publish', $inovasi->tgl_publish) }}">
             </div>
             <div class="d-flex">
                 <!-- Tombol Submit -->
@@ -62,15 +128,25 @@
 @push('scripts')
 <script>
     $(document).ready(function() {
-        $('.file-upload-browse').on('click', function() {
-            $('#file').trigger('click');
-        });
-        $('#file').on('change', function() {
-            var fileName1 = $(this).val().split('\\').pop();
-            $('.file-upload-info').val(fileName1);
-        });
+    // klik tombol -> trigger file input di form-group yang sama
+    $('.file-upload-browse').on('click', function() {
+        $(this).closest('.form-group').find('.file-upload-default').trigger('click');
+    });
+
+    // ketika file dipilih -> set nama file ke input tampilan di form-group yang sama
+    $('.file-upload-default').on('change', function() {
+        var fileName = (this.files && this.files.length) ? this.files[0].name : $(this).val().split(/(\\|\/)/g).pop();
+        $(this).closest('.form-group').find('.file-upload-info').val(fileName);
+    });
     });
 </script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#deskripsi'))
+        .catch(error => {
+            console.error(error);
+        });
+</script
 @endpush
 
 

@@ -2,25 +2,25 @@
 
 @section('content')
  <link rel="stylesheet" href="https://cdn.datatables.net/2.3.3/css/dataTables.dataTables.css" />
-<div class="content-wrapper">
-    <div class="col-lg-12 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Daftar Profile</h4>
-                <div class="col-sm-2 pt-6">
-                    <a  href="{{ url('admin/profil/tambah') }}" class="btn btn-block btn-primary"> 
-                        <i class="fa fa-plus"></i> Tambah 
-                    </a> <br>
-        
-                </div>
+
+                 
+  <div class="container mt-4">
+        <div class="card shadow">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">Data Sejarah</h4>
+                <a class="btn btn-primary" href="{{ url('admin/profil/tambah') }}" class="btn btn-block btn-primary">
+                    + Tambah Sejarah
+                </a>
+            </div>
+            <div class="card-body">   
                 <div class="table-responsive">
-    <table id="myTable" class="table table-striped">
+                               
+                <table class="table table-bordered table-striped">     
         <thead>
             <tr>
                 <th class="text-center" width="50px">No</th>
-                <th class="text-center">Visi</th>
-                <th class="text-center">Urutan</th>
-                <th class="text-center">Struktur ORG</th>
+                <th class="text-center">gambar</th>
+               
                 <th class="text-center">Action</th>
             </tr>
         </thead>
@@ -28,14 +28,12 @@
             @foreach ($data_profil as $item )
             <tr>
                 <td class="text-center">{{$loop->iteration}}</td>
-                <td class="text-center">{{$item->visi}}</td>
-                <td class="text-center">{{$item->urutan}}</td>
-                <td class="text-center">
-                    <img src="{{ asset('profil/gambar/' . $item->struktur_org) }}" 
+               <td class="text-center justify-center">
+                    <img src="{{ asset('profil/gambar/' . $item->gambar) }}" 
                         alt="Struktur Organisasi" 
                         class="img-thumbnail rounded-3" 
                         style="max-width: 120px; cursor: pointer;" 
-                        onclick="showImage('{{ asset('profil/gambar/' . $item->struktur_org) }}')">
+                        onclick="showImage('{{ asset('profil/gambar/' . $item->gambar) }}')">
                 </td>
                 <td class="text-center">
                     <a class="btn btn-sm btn-warning  me-1" 
@@ -49,6 +47,10 @@
                         title="Hapus Data">
                         <i class="bi bi-trash3"></i>
                     </button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong{{ $item->id }}" 
+                        >
+                        <i class="bi bi-list-columns"></i>
+                    </button>
 
                     <form id="hapus-form-{{ $item->id }}" 
                         action="{{ url('admin/profil/hapus/' . $item->id) }}" 
@@ -59,14 +61,15 @@
                     </form>
                 </td>
             </tr>
+            @include('profil.detail')
             @endforeach
         </tbody>
     </table>
 </div>
 
-                </div>
             </div>
         </div>
+  </div>
   
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.datatables.net/2.3.3/js/dataTables.js"></script>

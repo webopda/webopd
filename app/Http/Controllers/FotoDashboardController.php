@@ -69,9 +69,9 @@ public function update(Request $request,$id)
 
 
 if($request->hasFile('gambar')){
-            if($slider_gambar->gambar !==''){
+            if(!empty($slider_gambar->foto && file_exists(public_path().'/slider/gambar/'.$slider_gambar->foto))){
             
-                $gambar_path = public_path().'/slider/gambar/'.$slider_gambar->gambar;
+                $gambar_path = public_path().'/slider/gambar/'.$slider_gambar->foto;
                 
                 unlink($gambar_path);
                 }
@@ -79,7 +79,7 @@ if($request->hasFile('gambar')){
             $nameFile=Str::random(20,30).$file->getClientOriginalName();
             $file->move(public_path(). '/slider/gambar', $nameFile);
             $gambar_slider=$nameFile;
-            $slider_gambar->gambar=$gambar_slider;
+            $slider_gambar->foto=$gambar_slider;
         }
         $slider_gambar->judul=$request->judul;
         $slider_gambar->urutan=$request->urutan;
@@ -88,8 +88,9 @@ if($request->hasFile('gambar')){
                 return redirect()->back();
          }catch(\Exception $e)
        {
+
         //error jika data ada masalah
-        Alert::info('Gagal', 'Gagal Update Data'.$e);
+        Alert::info('Gagal', 'Gagal Update Data');
                 return redirect()->back();
 
        }

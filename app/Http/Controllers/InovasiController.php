@@ -25,15 +25,49 @@ class InovasiController extends Controller
 
            return DataTables::of($data)
             ->addIndexColumn()
-            ->addColumn('file', function ($row) {
-                if ($row->file) {
-                    $url = asset('file_inovasi/' . $row->file);
-                    $namaFile = basename($row->file);
+            ->addColumn('sop', function ($row) {
+                if ($row->sop) {
+                    $url = asset('file_sop_inovasi/' . $row->sop);
+                    $namaFile = basename($row->sop);
                     return '<a href="'.$url.'" target="_blank">'.$namaFile.'</a>';
                 } else {
                     return '<span class="text-muted">Belum ada file</span>';
                 }
+                
             })
+            ->addColumn('manual_book', function ($row) {
+                if ($row->manual_book) {
+                    $url = asset('file_manual_book/' . $row->manual_book);
+                    $namaFile = basename($row->manual_book);
+                    return '<a href="'.$url.'" target="_blank">'.$namaFile.'</a>';
+                } else {
+                    return '<span class="text-muted">Belum ada file</span>';
+                }
+                
+            })
+            ->addColumn('img1', function($row){
+                    if ($row->img1) {
+                        $url = asset('img1_inovasi/'.$row->img1);
+                        $judul = e($row->judul);
+                        return '<img src="'.$url.'" alt="Gambar" class="img-thumbnail preview-img" style="max-width:180px;cursor:pointer" data-title="'.$judul.'">';
+                    } else {
+                        return '-';
+                    }
+                })
+                ->addColumn('img2', function($row){
+                    if ($row->img2) {
+                        $url = asset('img2_inovasi/'.$row->img2);
+                        $judul = e($row->judul);
+                        return '<img src="'.$url.'" alt="Gambar" class="img-thumbnail preview-img" style="max-width:180px;cursor:pointer" data-title="'.$judul.'">';
+                    } else {
+                        return '-';
+                    }
+                })
+
+            ->addColumn('deskripsi', function($row){
+                    return strip_tags($row->deskripsi);
+                })
+            
             ->addColumn('action', function($row){
                 $editUrl = route('inovasi.edit', $row->id);
                 $btn = '<a href="'.$editUrl.'" class="edit btn btn-icon icon-left btn-warning btn-sm" style="padding: 10px 10px; font-size: 12px;">
@@ -44,7 +78,7 @@ class InovasiController extends Controller
                         </a>';
                 return $btn;
             })
-            ->rawColumns(['file', 'action']) // tambahkan 'file' di sini
+            ->rawColumns(['sop','manual_book','img1','img2','action']) // tambahkan 'file' di sini
             ->make(true);
         }
         return view('informasi.inovasi.index');
@@ -78,25 +112,50 @@ class InovasiController extends Controller
             $request->validate([
                 'judul' => 'required|string|max:255',
                 'tahun' => 'required',
-                'tahapan' => 'required',
-                'file' => 'nullable|file|mimes:pdf|max:2048',
-                'bentuk' => 'required',
+                'deskripsi' => 'required',
+                'sop' => 'nullable|file|mimes:pdf|max:2048',
+                'manual_book' => 'nullable|file|mimes:pdf|max:2048',
+                'img1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'img2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'tgl_publish' => 'required|date',
+                
             ]);
 
-            if ($request->hasFile('file')) {
-                $imageName = time() . '.' . $request->file->extension();
-                $request->file->move(public_path('file_inovasi'), $imageName);
+            if ($request->hasFile('sop')) {
+                $imageName = time() . '.' . $request->sop->extension();
+                $request->sop->move(public_path('file_sop_inovasi'), $imageName);
             } else {
                 $imageName = null;
+            }
+            if ($request->hasFile('manual_book')) {
+                $imageName1 = time() . '.' . $request->manual_book->extension();
+                $request->manual_book->move(public_path('file_manual_book'), $imageName1);
+            } else {
+                $imageName1 = null;
+            }
+            if ($request->hasFile('img1')) {
+                $imageName2 = time() . '.' . $request->img1->extension();
+                $request->img1->move(public_path('img1_inovasi'), $imageName2);
+            } else {
+                $imageName2 = null;
+            }
+            if ($request->hasFile('img2')) {
+                $imageName3 = time() . '.' . $request->img2->extension();
+                $request->img2->move(public_path('img2_inovasi'), $imageName3);
+            } else {
+                $imageName3 = null;
             }
 
             $inovasi = new Inovasi;
            
             $inovasi->judul = $request->judul;
             $inovasi->tahun = $request->tahun;
-            $inovasi->tahapan = $request->tahapan;            
-            $inovasi->file = $imageName;
-            $inovasi->bentuk = $request->bentuk; 
+            $inovasi->deskripsi = $request->deskripsi;            
+            $inovasi->sop = $imageName;
+            $inovasi->manual_book = $imageName1;
+            $inovasi->img1 = $imageName2;
+            $inovasi->img2 = $imageName3;
+            $inovasi->tgl_publish = $request->tgl_publish; 
             $inovasi->save();
 
             \Session::flash('success', __('Inovasi Berhasil Ditambahkan'));
@@ -143,38 +202,91 @@ class InovasiController extends Controller
         $inovasi = Inovasi::findOrFail($id);
 
         $request->validate([
-            'judul'   => 'required|string|max:255',
-            'tahun'   => 'required',
-            'tahapan' => 'required',
-            'file'    => 'nullable|file|mimes:pdf|max:2048',
-            'bentuk'  => 'required',
+            'judul' => 'required|string|max:255',
+            'tahun' => 'required',
+            'deskripsi' => 'required',
+            'sop' => 'nullable|file|mimes:pdf|max:2048',
+            'manual_book' => 'nullable|file|mimes:pdf|max:2048',
+            'img1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'img2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'tgl_publish' => 'required|date',
         ]);
 
         // Simpan nama file lama
-        $oldFile = $inovasi->file;
+        $oldFile = $inovasi->sop;
+        $oldFile1 = $inovasi->manual_book;
+        $oldFile2 = $inovasi->img1;
+        $oldFile3 = $inovasi->img2;
 
         // Jika ada file baru diupload
-        if ($request->hasFile('file')) {
+        if ($request->hasFile('sop')) {
             // Hapus file lama jika ada
-            if ($oldFile && file_exists(public_path('file_inovasi/' . $oldFile))) {
-                unlink(public_path('file_inovasi/' . $oldFile));
+            if ($oldFile && file_exists(public_path('file_sop_inovasi/' . $oldFile))) {
+                unlink(public_path('file_sop_inovasi/' . $oldFile));
             }
 
             // Simpan file baru
-            $file = $request->file('file');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('file_inovasi'), $filename);
+            $sop = $request->file('sop');
+            $filename = time() . '_' . $sop->getClientOriginalName();
+            $sop->move(public_path('file_sop_inovasi'), $filename);
 
             // Update field file di database
-            $inovasi->file = $filename;
+            $inovasi->sop = $filename;
+        }
+        if ($request->hasFile('manual_book')) {
+            // Hapus file lama jika ada
+            if ($oldFile1 && file_exists(public_path('file_manual_book/' . $oldFile1))) {
+                unlink(public_path('file_manual_book/' . $oldFile1));
+            }
+
+            // Simpan file baru
+            $manual_book = $request->file('manual_book');
+            $filename1 = time() . '_' . $manual_book->getClientOriginalName();
+            $manual_book->move(public_path('file_manual_book'), $filename1);
+
+            // Update field file di database
+            $inovasi->manual_book = $filename1;
+        }
+        if ($request->hasFile('img1')) {
+            // Hapus file lama jika ada
+            if ($inovasi->img1 && file_exists(public_path('img1_inovasi/' . $inovasi->img1))) {
+                unlink(public_path('img1_inovasi/' . $inovasi->img1));
+            }
+
+            // Generate a unique filename using uniqid
+            $imageName2 = uniqid() . '.' . $request->img1->extension();
+            $request->img1->move(public_path('img1_inovasi'), $imageName2);
+
+            // Update img1 in database
+            $inovasi->img1 = $imageName2;
+        } else {
+            $imageName2 = $inovasi->img1; 
+        }
+        if ($request->hasFile('img2')) {
+            // Hapus file lama jika ada
+            if ($inovasi->img2 && file_exists(public_path('img2_inovasi/' . $inovasi->img2))) {
+                unlink(public_path('img2_inovasi/' . $inovasi->img2));
+            }
+
+            // Generate a unique filename using uniqid
+            $imageName3 = uniqid() . '.' . $request->img2->extension();
+
+            // Move img2 file
+            $request->img2->move(public_path('img2_inovasi'), $imageName3);
+
+            // Update img2 in database
+            $inovasi->img2 = $imageName3;
+        } else {
+            $imageName3 = $inovasi->img2;
         }
 
         // Update field lain
-        $inovasi->judul   = $request->judul;
-        $inovasi->tahun   = $request->tahun;
-        $inovasi->tahapan = $request->tahapan;
-        $inovasi->bentuk  = $request->bentuk;
+        $inovasi->judul = $request->judul;
+        $inovasi->tahun = $request->tahun;
+        $inovasi->deskripsi = $request->deskripsi;
+        $inovasi->tgl_publish = $request->tgl_publish;
 
+        // Save to database
         $inovasi->save();
 
         return redirect()->route('inovasi.index')->with('success', 'Inovasi berhasil diperbarui');

@@ -21,29 +21,11 @@
                             @enderror
                         </div>
 
-                        <!-- Visi -->
+                       
                         <div class="mb-3">
-                            <label for="visi" class="form-label">Visi</label>
-                            <textarea name="visi" id="visi" class="form-control @error('visi') is-invalid @enderror">{{ old('visi') }}</textarea>
-                            @error('visi')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Misi -->
-                        <div class="mb-3">
-                            <label for="misi" class="form-label">Misi</label>
-                            <textarea name="misi" id="misi" class="form-control @error('misi') is-invalid @enderror">{{ old('misi') }}</textarea>
-                            @error('misi')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Struktur Organisasi -->
-                        <div class="mb-3">
-                            <label for="struktur_org" class="form-label">Struktur Organisasi</label>
-                            <input type="file" name="struktur_org" accept="image/*" onchange="loadFile(event)" id="struktur_org" class="form-control @error('struktur_org') is-invalid @enderror">
-                            @error('struktur_org')
+                            <label for="gambar" class="form-label">Gambar</label>
+                            <input type="file" name="gambar" accept="image/*" onchange="loadFile(event)" id="gambar" class="form-control @error('gambar') is-invalid @enderror">
+                            @error('gambar')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -51,23 +33,7 @@
                             <img id="output" class="img-thumbnail rounded-3" style="max-width: 200px; max-height: 200px;">
                         </div>
 
-                        <!-- Moto -->
-                        <div class="mb-3">
-                            <label for="moto" class="form-label">Moto</label>
-                            <input type="text" name="moto" id="moto" value="{{ old('moto') }}" class="form-control @error('moto') is-invalid @enderror" required>
-                            @error('moto')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <!-- Urutan -->
-                        <div class="mb-3">
-                            <label for="urutan" class="form-label">Urutan</label>
-                            <input type="number" name="urutan" id="urutan" value="{{ old('urutan') }}" class="form-control @error('urutan') is-invalid @enderror">
-                            @error('urutan')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
+                       
 
                         <!-- Submit -->
                         <div class="text-end">
@@ -83,7 +49,7 @@
 
 <script>
     ClassicEditor
-        .create(document.querySelector('#misi'))
+        .create(document.querySelector('#sejarah'))
         .catch(error => {
             console.error(error);
         });

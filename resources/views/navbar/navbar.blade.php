@@ -24,7 +24,7 @@
 
       <!-- Desktop Menu -->
       <div class="hidden md:flex space-x-6 items-center">
-        <a href="/" class="nav-link flex items-center gap-2 dropdown-btn">
+        <a href="{{ url('/') }}" class="nav-link flex items-center gap-2 dropdown-btn">
           <i data-lucide="home"></i> Beranda
         </a>
 
@@ -90,7 +90,7 @@
 
   <!-- Mobile Menu -->
   <div id="mobile-menu" class="hidden md:hidden bg-white px-4 py-3 space-y-2 shadow">
-    <a href="#" class="block py-2">🏠 Beranda</a>
+    <a href="{{ url('/') }}"class="block py-2">🏠 Beranda</a>
 
     <details>
       <summary class="py-2 cursor-pointer">👤 Profil</summary>

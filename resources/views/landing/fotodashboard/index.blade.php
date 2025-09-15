@@ -2,27 +2,29 @@
 
 @section('content')
  
-<div class="content-wrapper">
-    <div class="col-lg-12 grid-margin stretch-card">
-        <div class="card">
+  <div class="container mt-4">
+        <div class="card shadow">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h4 class="mb-0">Data Slider</h4>
+                <button class="btn btn-primary" wire:click="closeModal" data-toggle="modal" data-target="#staticBackdrop">
+                    + Tambah Data Slider
+                </button>
+            </div>
             <div class="card-body">
-                <h4 class="card-title">Daftar Slider</h4>
-                <div class="col-sm-2 pt-6">
-                    <a  data-toggle="modal" data-target="#staticBackdrop" class="btn btn-block btn-primary"> 
-                        <i class="fa fa-plus"></i> Tambah 
-                    </a> <br>
+                           
+                       
                     @error('judul')
                         <span style="color:red">{{ $message }}</span>
                     @enderror
                     @error('urutan')
                         <span style="color:red">{{ $message }}</span>
                     @enderror
-                    @error('foto')
+                    @error('gambar')
                         <span style="color:red">{{ $message }}</span>
                     @enderror
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-striped">
+                 <div class="table-responsive">
+                               
+                <table class="table table-bordered table-striped"> 
                         <thead>
                             <tr>
                                 <th class="text-center" width="50px">No</th>
@@ -55,11 +57,11 @@
                                                 @endforeach
 
                     </table>
-                </div>
+                 </div>
             </div>
         </div>
-    </div>
-</div>
+  </div>
+  
 @include('landing.fotodashboard.tambah')
 <script>
   var loadFile = function(event) {
