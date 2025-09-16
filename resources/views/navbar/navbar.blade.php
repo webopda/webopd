@@ -48,7 +48,7 @@
           <div class="absolute hidden group-hover:block bg-white shadow-lg mt-2 rounded-lg w-48 dropdown-menu">
             <a href="{{ route('landing.ugd') }}" class="dropdown-link flex"><i data-lucide="ambulance"></i> UGD</a>
             <a href="{{ route('landing.rawatjalan') }}" class="dropdown-link flex"><i data-lucide="stethoscope"></i> Rawat Jalan</a>
-            <a href="#" class="dropdown-link flex"><i data-lucide="bed"></i> Rawat Inap</a>
+            <a href="{{ route('landing.rawatinap') }}" class="dropdown-link flex"><i data-lucide="bed"></i> Rawat Inap</a>
             <a href="{{ route('landing.penunjang') }}" class="dropdown-link flex"><i data-lucide="flask-conical"></i> Penunjang</a>
           </div>
         </div>

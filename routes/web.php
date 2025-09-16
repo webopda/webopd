@@ -149,7 +149,9 @@ Route::get('landing/tenagakesehatan',[LandingController::class,'tenagakesehatan'
 Route::get('landing/tpk',[LandingController::class,'tpk'])->name('landing.tpk');
 Route::get('landing/tau',[LandingController::class,'tau'])->name('landing.tau');
 Route::get('landing/inovasi',[LandingController::class,'inovasi'])->name('landing.inovasi');
+Route::get('/inovasi/{id}', [LandingController::class, 'showInovasi'])->name('landing.inovasi.show');
 Route::get('landing/pengaduan',[LandingController::class,'pengaduan'])->name('landing.pengaduan');
+Route::get('landing/rawatinap',[LandingController::class,'rawatinap'])->name('landing.rawatinap');
 //end landing
 
 //admin profil

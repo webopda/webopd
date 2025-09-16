@@ -53,7 +53,7 @@
             autoWidth: false, 
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', class: 'text-center', orderable: false, searchable: false},
-                {data: 'detail_pelayanan', name: 'detail_pelayanan', class: 'text-center'}, 
+                {data: 'detail_pelayanan', name: 'detail_pelayanan', class: 'text-center wrap-text'}, 
                 {data: 'foto', name: 'foto', class: 'text-center wrap-text'},
                 {data: 'action', name: 'action', orderable: false, searchable: false, class: 'text-center'},
             ]

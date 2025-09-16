@@ -65,8 +65,9 @@ class InovasiController extends Controller
                 })
 
             ->addColumn('deskripsi', function($row){
-                    return strip_tags($row->deskripsi);
-                })
+                $text = strip_tags($row->deskripsi);
+                return strlen($text) > 255 ? substr($text, 0, 255) . '...' : $text;
+            })
             
             ->addColumn('action', function($row){
                 $editUrl = route('inovasi.edit', $row->id);
@@ -78,7 +79,7 @@ class InovasiController extends Controller
                         </a>';
                 return $btn;
             })
-            ->rawColumns(['sop','manual_book','img1','img2','action']) // tambahkan 'file' di sini
+            ->rawColumns(['sop','manual_book','img1','img2','action', 'deskripsi']) // tambahkan 'file' di sini
             ->make(true);
         }
         return view('informasi.inovasi.index');

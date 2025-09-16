@@ -100,7 +100,7 @@ class UgdController extends Controller
     {
         try {
             $request->validate([
-                'detail_pelayanan' => 'required|string|max:255',
+                'detail_pelayanan' => 'required|string|max:2500',
                 'foto' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,mp4,avi,mov,wmv',
             ]);
 
@@ -113,7 +113,7 @@ class UgdController extends Controller
                         return back()->withErrors(['foto' => 'Ukuran foto maksimal 2MB']);
                     }
                 } elseif (str_starts_with($mimeType, 'video/')) {
-                    if ($file->getSize() > 10 * 1024 * 1024) {
+                    if ($file->getSize() > 30 * 1024 * 1024) {
                         return back()->withErrors(['foto' => 'Ukuran video maksimal 10MB']);
                     }
                 }
@@ -173,7 +173,7 @@ class UgdController extends Controller
         $ugd = Ugd::findOrFail($id);
 
         $request->validate([
-            'detail_pelayanan' => 'required|string|max:255',
+            'detail_pelayanan' => 'required|string|max:2500',
             'foto' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,mp4,avi,mov,wmv',
         ]);
 
@@ -186,7 +186,7 @@ class UgdController extends Controller
                     return back()->withErrors(['foto' => 'Ukuran foto maksimal 2MB']);
                 }
             } elseif (str_starts_with($mimeType, 'video/')) {
-                if ($file->getSize() > 10 * 1024 * 1024) {
+                if ($file->getSize() > 30 * 1024 * 1024) {
                     return back()->withErrors(['foto' => 'Ukuran video maksimal 10MB']);
                 }
             }

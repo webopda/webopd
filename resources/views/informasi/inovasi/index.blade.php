@@ -15,16 +15,16 @@
                     <table class="table table-striped nowrap data-table">
                         <thead>
                             <tr>
-                                <th class="text-center" width="50px">No</th>
-                                <th class="text-center">Judul</th>
+                                <th class="text-center" width="5px">No</th>
+                                <th class="text-center" width="60px">Judul</th>
                                 <th class="text-center">Tahun</th>
-                                <th class="text-center">Deskripsi</th>
-                                <th class="text-center">SOP</th>
-                                <th class="text-center">Manual Book</th>
-                                <th class="text-center">Foto Inovasi 1</th>
-                                <th class="text-center">Foto Inovasi 2</th> 
-                                <th class="text-center">Tanggal Publish</th>                              
-                                <th class="text-center">Action</th>                                
+                                <th class="text-center" width="300px">Deskripsi</th>
+                                <th class="text-center" width="100px">SOP</th>
+                                <th class="text-center"  width="100px">Manual Book</th>
+                                <th class="text-center"  width="100px">Foto Inovasi 1</th>
+                                <th class="text-center"  width="100px">Foto Inovasi 2</th> 
+                                <th class="text-center"  width="100px">Tanggal Publish</th>                              
+                                <th class="text-center"  width="50px">Action</th>                                
                             </tr>
                         </thead>
                         <tbody>
@@ -59,7 +59,7 @@
             autoWidth: false, 
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', class: 'text-center', orderable: false, searchable: false},
-                {data: 'judul', name: 'judul', class: 'text-center'}, 
+                {data: 'judul', name: 'judul', class: 'text-center wrap-text'}, 
                 {data: 'tahun', name: 'tahun', class: 'text-center'}, 
                 {data: 'deskripsi', name: 'deskripsi', class: 'text-center wrap-text'},                                 
                 {data: 'sop', name: 'sop', class: 'text-center wrap-text'},

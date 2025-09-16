@@ -17,7 +17,7 @@ class DetailInapController extends Controller
     {
         $validator = \Validator::make($request->all(), [
             'inap_id' => 'required|exists:rawat_inap,id',
-            'img.*'   => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'img.*'   => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
         ]);
 
         if ($validator->fails()) {
