@@ -88,7 +88,7 @@
     <div class="grid grid-cols-2 gap-6">
       
       <!-- UGD -->
-      <div class="bg-white rounded-xl shadow-lg border-2 border-orange-400 flex flex-col items-center justify-center h-28">
+      <div href="{{ route('landing.ugd') }}"  class="bg-white rounded-xl shadow-lg border-2 border-orange-400 flex flex-col items-center justify-center h-28">
         <div class="text-3xl mb-2">🏥</div>
         <h2 class="text-lg font-semibold">UGD</h2>
       </div>

@@ -38,7 +38,8 @@ class BeritaController extends Controller
                     }
                 })
                 ->addColumn('keterangan', function($row){
-                    return strip_tags($row->keterangan);
+                    $text = strip_tags($row->keterangan);
+                    return strlen($text) > 255 ? substr($text, 0, 255) . '...' : $text;
                 })
                 ->addColumn('action', function($row){
                     $editUrl = route('berita.edit', $row->id);

@@ -41,25 +41,6 @@ Route::post('landing/pengaduan/create', [GoogleController::class, 'pengaduanmail
 //landing
 ROute::get('/',[LandingController::class,'index'])->name('landing');
 
-Route::get('landing/sejarah',[LandingController::class,'sejarah'])->name('landing.sejarah');
-Route::get('landing/visi',[LandingController::class,'visi'])->name('landing.visi');
-Route::get('landing/struktur',[LandingController::class,'struktur'])->name('landing.struktur');
-Route::get('landing/ugd',[LandingController::class,'ugd'])->name('landing.ugd');
-Route::get('landing/rawatjalan',[LandingController::class,'rawatjalan'])->name('landing.rawatjalan');
-Route::get('/rawatjalan/poli/{id}', [LandingController::class, 'detailPoli'])->name('rawatjalan.poli');
-Route::get('/jadwal-dokter/{id}', [LandingController::class, 'jadwalDokter'])->name('jadwal.dokter');
-Route::get('landing/penunjang',[LandingController::class,'penunjang'])->name('landing.penunjang');
-Route::get('landing/berita',[LandingController::class,'berita'])->name('landing.berita');
-Route::get('/berita/{id}', [LandingController::class, 'show'])->name('berita.show');
-Route::get('landing/indmutu',[LandingController::class,'indmutu'])->name('landing.indmutu');
-Route::get('landing/standarp',[LandingController::class,'standarp'])->name('landing.standarp');
-Route::get('landing/pimpinan',[LandingController::class,'pimpinan'])->name('landing.pimpinan');
-Route::get('landing/tenagamedis',[LandingController::class,'tenagamedis'])->name('landing.tenagamedis');
-Route::get('landing/tenagakesehatan',[LandingController::class,'tenagakesehatan'])->name('landing.tenagakesehatan');
-Route::get('landing/tpk',[LandingController::class,'tpk'])->name('landing.tpk');
-Route::get('landing/tau',[LandingController::class,'tau'])->name('landing.tau');
-Route::get('landing/inovasi',[LandingController::class,'inovasi'])->name('landing.inovasi');
-Route::get('landing/pengaduan',[LandingController::class,'pengaduan'])->name('landing.pengaduan');
 //end landing
 Route::middleware('auth')->group(function () {
 //register user
@@ -74,7 +55,7 @@ Route::delete('admin/user/hapus/{id}',[RegisterController::class,'hapus'])->name
 
 //berita
 Route::get('/berita', [App\Http\Controllers\BeritaController::class, 'index'])->name('berita.index');
-Route::get('/berita/create', [App\Http\Controllers\BeritaController::class, 'create'])->name('berita.create');
+Route::get('/berita/tambah', [App\Http\Controllers\BeritaController::class, 'create'])->name('berita.tambah');
 Route::post('/berita/store', [App\Http\Controllers\BeritaController::class, 'store'])->name('berita.store');
 Route::delete('/berita/{id}', [App\Http\Controllers\BeritaController::class,'destroy'])->name('berita.destroy');
 Route::get('/berita/{id}/edit', [App\Http\Controllers\BeritaController::class, 'edit'])->name('berita.edit');
@@ -193,6 +174,10 @@ Route::get('landing/inovasi',[LandingController::class,'inovasi'])->name('landin
 Route::get('/inovasi/{id}', [LandingController::class, 'showInovasi'])->name('landing.inovasi.show');
 Route::get('landing/pengaduan',[LandingController::class,'pengaduan'])->name('landing.pengaduan');
 Route::get('landing/rawatinap',[LandingController::class,'rawatinap'])->name('landing.rawatinap');
+
+
+
+
 //end landing
 
 //admin profil

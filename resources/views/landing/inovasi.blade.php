@@ -48,8 +48,8 @@
             autoWidth: false,
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', className: 'text-center', orderable: false, searchable: false},
-                {data: 'judul', name: 'judul', className: 'text-center'},
-                {data: 'tahun', name: 'tahun', className: 'text-center'},
+                {data: 'judul', name: 'judul', className: 'text-left'},
+                {data: 'tahun', name: 'tahun', className: 'text-left'},
                 {data: 'action', name: 'action', orderable: false, searchable: false, class: 'text-center'},
             ]
         });

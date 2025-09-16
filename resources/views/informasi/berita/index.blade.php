@@ -7,7 +7,7 @@
             <div class="card-body">
                 <h4 class="card-title">Daftar Berita</h4>
                 <div class="col-sm-2 pt-6">
-                    <a href="{{ route('berita.create') }}" type="button" class="btn btn-block btn-primary"> 
+                    <a href="{{ route('berita.tambah') }}" type="button" class="btn btn-block btn-primary"> 
                         <i class="fa fa-plus"></i> Tambah 
                     </a> <br>
                 </div>
@@ -15,13 +15,13 @@
                     <table class="table table-striped nowrap data-table">
                         <thead>
                             <tr>
-                                <th class="text-center" width="50px">No</th>
-                                <th class="text-center">Judul</th>
-                                <th class="text-center">Keterangan</th>
-                                <th class="text-center">Tanggal Publish</th>
-                                <th class="text-center">Author</th>
-                                <th class="text-center">Img</th>
-                                <th class="text-center">Action</th>
+                                <th class="text-center" width="5px">No</th>
+                                <th class="text-center" width="100px">Judul</th>
+                                <th class="text-center" width="300px">Keterangan</th>
+                                <th class="text-center" width="100px">Tanggal Publish</th>
+                                <th class="text-center" width="100px">Author</th>
+                                <th class="text-center" width="100px">Img</th>
+                                <th class="text-center" width="100px">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,7 +56,7 @@
             autoWidth: false, 
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', class: 'text-center', orderable: false, searchable: false},
-                {data: 'judul', name: 'judul', class: 'text-center'}, 
+                {data: 'judul', name: 'judul', class: 'text-center wrap-text'}, 
                 {data: 'keterangan', name: 'keterangan', class: 'text-center wrap-text'}, 
                 {data: 'tgl_publish', name: 'tgl_publish', class: 'text-center wrap-text'},
                 {data: 'author_name', name: 'pegawai.nama', class: 'text-center wrap-text'},
