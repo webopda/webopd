@@ -17,6 +17,8 @@
                             <tr>
                                 <th class="text-center" width="50px">No</th>
                                 <th class="text-center">Nama</th>
+                                <th class="text-center">Jenis Kelamin</th>
+                                <th class="text-center">Jabatan</th>
                                 <th class="text-center">Poliklinik</th>
                                 <th class="text-center">Profil</th>
                                 <th class="text-center">Action</th>
@@ -57,6 +59,8 @@ $(document).ready(function() {
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', class: 'text-center', orderable: false, searchable: false},
             {data: 'nama', name: 'nama', class: 'text-center'}, 
+            {data: 'jk', name: 'jk', class: 'text-center'},
+            {data: 'detail_jabatan', name: 'detail_jabatan', class: 'text-center'},
             {data: 'poli_name', name: 'poli.nama_poli', class: 'text-center wrap-text'},
             {data: 'img', name: 'img', class: 'text-center wrap-text'},
             {data: 'action', name: 'action', orderable: false, searchable: false, class: 'text-center'},

@@ -12,7 +12,7 @@
                 <label>Indikator Mutu</label>
                 <input type="file" name="indikator_mutu" class="file-upload-default" id="indikator_mutu">
                 <div class="input-group col-xs-12">
-                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload File">
                     <span class="input-group-append">
                         <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                     </span>
@@ -20,15 +20,31 @@
 
                 @if($img->indikator_mutu) 
                     <div class="mt-2">
-                        <img src="{{ asset('indikator_mutu/'.$img->indikator_mutu) }}" alt="Indikator Mutu" width="150" class="img-thumbnail">
+                        @php
+                            $ext = pathinfo($img->indikator_mutu, PATHINFO_EXTENSION);
+                        @endphp
+
+                        @if(in_array(strtolower($ext), ['jpg','jpeg','png','gif','svg','webp']))
+                            <img src="{{ asset('indikator_mutu/'.$img->indikator_mutu) }}" 
+                                alt="Indikator Mutu" width="150" class="img-thumbnail">
+                        @elseif(strtolower($ext) === 'pdf')
+                            <iframe src="{{ asset('indikator_mutu/'.$img->indikator_mutu) }}" 
+                                    width="100%" height="400"></iframe>
+                        @else
+                            <a href="{{ asset('indikator_mutu/'.$img->indikator_mutu) }}" 
+                            target="_blank" class="btn btn-info">
+                            Lihat File
+                            </a>
+                        @endif
                     </div>
                 @endif
             </div>
+
             <div class="form-group">
                 <label>Standar Pelayanan</label>
                 <input type="file" name="standar_pelayanan" class="file-upload-default" id="standar_pelayanan">
                 <div class="input-group col-xs-12">
-                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload File">
                     <span class="input-group-append">
                         <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
                     </span>
@@ -36,7 +52,22 @@
 
                 @if($img->standar_pelayanan) 
                     <div class="mt-2">
-                        <img src="{{ asset('standar_pelayanan/'.$img->standar_pelayanan) }}" alt="Standar Pelayanan" width="150" class="img-thumbnail">
+                        @php
+                            $ext = pathinfo($img->standar_pelayanan, PATHINFO_EXTENSION);
+                        @endphp
+
+                        @if(in_array(strtolower($ext), ['jpg','jpeg','png','gif','svg','webp']))
+                            <img src="{{ asset('standar_pelayanan/'.$img->standar_pelayanan) }}" 
+                                alt="Standar Pelayanan" width="150" class="img-thumbnail">
+                        @elseif(strtolower($ext) === 'pdf')
+                            <iframe src="{{ asset('standar_pelayanan/'.$img->standar_pelayanan) }}" 
+                                    width="100%" height="400"></iframe>
+                        @else
+                            <a href="{{ asset('standar_pelayanan/'.$img->standar_pelayanan) }}" 
+                            target="_blank" class="btn btn-info">
+                            Lihat File
+                            </a>
+                        @endif
                     </div>
                 @endif
             </div>

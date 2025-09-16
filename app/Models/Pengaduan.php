@@ -8,13 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pengaduan extends Model
 {
     use HasFactory;
-
-    protected $fillable=[
-        'nama',
-           'nik',
-           'tanggal_kunjungan',
-           'email',
-            'pesan',
-            'balasan',
+    protected $fillable = [
+        'nama', 'nik', 'tanggal_kunjungan', 'email', 'pesan', 'balasan', 'tanggal'
     ];
 }

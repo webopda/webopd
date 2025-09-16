@@ -10,13 +10,13 @@ class RawatInap extends Model
     use HasFactory;
     protected $table = 'rawat_inap';
     protected $fillable = [
-        'dokter_id'
+        'nama', 'keterangan', 'icon'
     ];
 
-    public function Dokter()
+    public function DetailInap()
     {
-        return $this->belongsTo(Dokter::class, 'dokter_id');
-	}
-
+        return $this->hasMany(DetailInap::class, 'inap_id', 'id');
+    }
+    
 
 }

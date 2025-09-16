@@ -12,6 +12,23 @@
                 <label for="nama">Nama</label>
                 <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama">
             </div>
+             <div class="form-group">
+                <label for="jk">Jenis Kelamin</label>
+                    <select name="jk" id="jk" class="form-control" required>
+                        <option value="" disabled selected>Pilih Jenis Kelamin</option>
+                        <option value="Perempuan" >Perempuan</option>
+                        <option value="Laki-Laki" >Laki-Laki</option>                         
+                    </select>
+                @error('jk')
+                <div class="invalid-feedback">
+                    {{$message}}
+                </div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="detail_jabatan">Detail Jabatan</label>
+                <input type="text" class="form-control" id="detail_jabatan" name="detail_jabatan" placeholder="Contoh: Dr. Spesialis Paru">
+            </div> 
             <div class="form-group">
                 <label for="poli">Poliklinik</label>
                     <select name="poli_id" id="poli" class="form-control" required>

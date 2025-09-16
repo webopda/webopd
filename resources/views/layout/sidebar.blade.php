@@ -123,6 +123,14 @@
                     </ul>
                 </div>
             </li>
+            <li class="nav-item">
+                <!-- <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Poli</a></li> -->
+                 <a class="nav-link"  aria-expanded="false" aria-controls="charts" href="{{ route('pengaduan.index') }}">
+                    <i class="icon-bar-graph menu-icon"></i>
+                    <span class="menu-title">Pengaduan</span>
+                    <!-- <i class="menu-arrow"></i> -->
+                </a>
+            </li>
             <!-- <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                     <i class="icon-head menu-icon"></i>

@@ -102,6 +102,8 @@ class DokterController extends Controller
                 'nama' => 'required|string|max:255',
                 'poli_id' => 'required|exists:poli,id',
                 'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'jk' => 'required|string|max:255',
+                'detail_jabatan' => 'required|string|max:800',
             ]);
 
             if ($request->hasFile('img')) {
@@ -115,6 +117,9 @@ class DokterController extends Controller
             $dokter->poli_id = $request->poli_id;
             $dokter->nama = $request->nama;
             $dokter->img = $imageName;
+            $dokter->jk = $request->jk;
+            $dokter->detail_jabatan = $request->detail_jabatan;
+            $dokter->jabatan = "Tenaga Medis";
             $dokter->save();
 
             \Session::flash('success', __('Data Dokter Berhasil Ditambahkan'));
@@ -165,6 +170,8 @@ class DokterController extends Controller
             'nama'    => 'required|string|max:255',
             'poli_id' => 'required|exists:poli,id',
             'img'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'jk'      => 'required|string|max:255',
+            'detail_jabatan' => 'required|string|max:800',
         ]);
 
         // kalau ada file baru
@@ -186,6 +193,9 @@ class DokterController extends Controller
         // update field lain
         $dokter->nama    = $request->nama;
         $dokter->poli_id = $request->poli_id;
+        $dokter->jk      = $request->jk;
+        $dokter->detail_jabatan = $request->detail_jabatan;
+        $dokter->jabatan = "Tenaga Medis";
 
         $dokter->save(); // pakai save() biar langsung simpan semua perubahan
 

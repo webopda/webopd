@@ -8,7 +8,7 @@
                     <div class="bg-blue-600 text-white text-center py-3 rounded-lg mb-4">
                         <h2 class="text-xl font-semibold">Moto</h2>
                     </div>
-                    @foreach($data_visi as $item)
+                    @foreach($data_moto as $item)
                         <p class="text-gray-700 leading-relaxed text-justify">
                             {!! nl2br(e($item->moto)) !!}
                         </p>
@@ -27,11 +27,12 @@
                     <div class="bg-blue-600 text-white text-center py-3 rounded-lg mt-6 mb-4">
                         <h2 class="text-xl font-semibold">Misi</h2>
                     </div>
-                    @foreach($data_visi as $item)
-                        <p class="text-gray-700 leading-relaxed text-justify">
-                            {!! nl2br(e($item->misi)) !!}
-                        </p>
-                    @endforeach
+
+                    <ul class="list-disc list-outside pl-6 text-gray-700 leading-relaxed text-justify space-y-2">
+                        @foreach($data_misi as $item)
+                            <li>{!! nl2br(e($item->misi)) !!}</li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>

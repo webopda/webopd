@@ -1,4 +1,3 @@
-
 @include('navbar.navbar')
 
 <div class="min-h-screen bg-gray-100 py-10 mt-20">
@@ -10,6 +9,13 @@
             <div class="p-6 space-y-6">
                 @foreach($data_penunjang as $item)
                     <div class="p-5 border rounded-xl hover:shadow-md transition bg-gray-50">
+                        @if($item->img)
+                            <div class="flex justify-center mb-4">
+                                <img src="{{ asset('img_penunjang/'.$item->img) }}" 
+                                     alt="Gambar {{ $item->penunjang }}" 
+                                     class="rounded-lg shadow-md max-h-60 object-cover">
+                            </div>
+                        @endif
                         <h3 class="text-xl font-bold text-blue-700 mb-2">
                             {{ $item->penunjang }}
                         </h3>
@@ -24,4 +30,3 @@
 </div>
 
 @include('navbar.footer')
-

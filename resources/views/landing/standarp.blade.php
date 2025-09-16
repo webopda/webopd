@@ -8,13 +8,29 @@
             </div>
 
             <div class="p-6">
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     @foreach($standarp as $item)
-                        <div class="bg-gray-50 rounded-lg shadow-md p-2 flex justify-center">
-                            <img src="{{ asset('standar_pelayanan/'.$item->standar_pelayanan) }}" 
-                                 alt="Standar Pelayanan" 
-                                 class="rounded-lg object-contain max-h-64 w-full cursor-pointer"
-                                 onclick="openModal('{{ asset('standar_pelayanan/'.$item->standar_pelayanan) }}')">
+                        @php
+                            $filePath = asset('standar_pelayanan/'.$item->standar_pelayanan);
+                            $extension = strtolower(pathinfo($item->standar_pelayanan, PATHINFO_EXTENSION));
+                            $isImage = in_array($extension, ['jpeg','jpg','png','gif','svg']);
+                        @endphp
+
+                        <div class="bg-gray-50 rounded-lg shadow-md p-4 flex flex-col items-center">
+                            @if($isImage)
+                                <img src="{{ $filePath }}" 
+                                    alt="Indikator Mutu" 
+                                    class="rounded-lg object-contain max-h-64 w-full cursor-pointer"
+                                    onclick="openModal('{{ $filePath }}')">
+                            @elseif($extension === 'pdf')
+                                <iframe src="{{ $filePath }}" 
+                                        class="w-full h-64 rounded-lg" 
+                                        frameborder="0"></iframe>
+                                <a href="{{ $filePath }}" target="_blank" 
+                                   class="mt-2 text-blue-600 underline text-sm">
+                                    Buka File
+                                </a>
+                            @endif
                         </div>
                     @endforeach
                 </div>
@@ -23,6 +39,7 @@
     </div>
 </div>
 
+<!-- Modal untuk gambar -->
 <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center hidden z-50">
     <div class="relative">
         <button onclick="closeModal()" 

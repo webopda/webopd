@@ -14,13 +14,11 @@
             <div class="p-6">
                 <table class="table table-bordered w-full text-center data-table">
                     <thead class="bg-gray-100">
-                        <tr>
+                         <tr>
                             <th width="5%">No</th>
                             <th>Judul</th>
                             <th>Tahun</th>
-                            <th>Tahapan</th>
-                            <th>Bentuk</th>
-                            <th>File</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -52,9 +50,7 @@
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', className: 'text-center', orderable: false, searchable: false},
                 {data: 'judul', name: 'judul', className: 'text-center'},
                 {data: 'tahun', name: 'tahun', className: 'text-center'},
-                {data: 'tahapan', name: 'tahapan', className: 'text-center'},
-                {data: 'bentuk', name: 'bentuk', className: 'text-center'},
-                {data: 'file', name: 'file', className: 'text-center'}
+                {data: 'action', name: 'action', orderable: false, searchable: false, class: 'text-center'},
             ]
         });
     });

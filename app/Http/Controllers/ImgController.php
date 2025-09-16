@@ -26,21 +26,51 @@ class ImgController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('indikator_mutu', function($row){
-                    if ($row->indikator_mutu) {
-                        $url = asset('indikator_mutu/'.$row->indikator_mutu);
-                        return '<img src="'.$url.'" alt="Gambar" class="img-thumbnail preview-img" style="max-width:180px;cursor:pointer" data-title="Indikator Mutu">';
+                if ($row->indikator_mutu) {
+                    $url = asset('indikator_mutu/'.$row->indikator_mutu);
+                    $ext = strtolower(pathinfo($row->indikator_mutu, PATHINFO_EXTENSION));
+
+                    $imageExt = ['jpg','jpeg','png','gif','svg'];
+
+                    if (in_array($ext, $imageExt)) {
+                        return '<img src="'.$url.'" alt="Indikator Mutu" 
+                                    class="img-thumbnail preview-img" 
+                                    style="max-width:180px;cursor:pointer" 
+                                    data-title="Indikator Mutu">';
+                    } elseif ($ext === 'pdf') {
+                        return '<a href="'.$url.'" target="_blank" class="btn btn-sm btn-danger">
+                                    <i class="fa fa-file-pdf"></i> Lihat PDF
+                                </a>';
                     } else {
-                        return '-';
+                        return 'File tidak didukung';
                     }
-                })
-                ->addColumn('standar_pelayanan', function($row){
-                    if ($row->standar_pelayanan) {
-                        $url = asset('standar_pelayanan/'.$row->standar_pelayanan);
-                        return '<img src="'.$url.'" alt="Gambar" class="img-thumbnail preview-img" style="max-width:180px;cursor:pointer" data-title="Standar Pelayanan">';
+                } else {
+                    return '-';
+                }
+            })
+            ->addColumn('standar_pelayanan', function($row){
+                if ($row->standar_pelayanan) {
+                    $url = asset('standar_pelayanan/'.$row->standar_pelayanan);
+                    $ext = strtolower(pathinfo($row->standar_pelayanan, PATHINFO_EXTENSION));
+
+                    $imageExt = ['jpg','jpeg','png','gif','svg'];
+
+                    if (in_array($ext, $imageExt)) {
+                        return '<img src="'.$url.'" alt="Standar Pelayanan" 
+                                    class="img-thumbnail preview-img" 
+                                    style="max-width:180px;cursor:pointer" 
+                                    data-title="Standar Pelayanan">';
+                    } elseif ($ext === 'pdf') {
+                        return '<a href="'.$url.'" target="_blank" class="btn btn-sm btn-danger">
+                                    <i class="fa fa-file-pdf"></i> Lihat PDF
+                                </a>';
                     } else {
-                        return '-';
+                        return 'File tidak didukung';
                     }
-                })
+                } else {
+                    return '-';
+                }
+            })
                 ->addColumn('jadwal_dokter', function($row){
                     if ($row->jadwal_dokter) {
                         $url = asset('jadwal_dokter/'.$row->jadwal_dokter);
@@ -96,39 +126,42 @@ class ImgController extends Controller
     {
         try {
             $request->validate([
-                'indikator_mutu' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'standar_pelayanan' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'indikator_mutu' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,pdf|max:10240', // 10 MB max
+                'standar_pelayanan' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,pdf|max:10240',
                 'jadwal_dokter' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
             if ($request->hasFile('indikator_mutu')) {
-                $imageName = time() . '.' . $request->indikator_mutu->extension();
-                $request->indikator_mutu->move(public_path('indikator_mutu'), $imageName);
+                $file1 = $request->file('indikator_mutu');
+                $fileName1 = time().'_indikator.'.$file1->getClientOriginalExtension();
+                $file1->move(public_path('indikator_mutu'), $fileName1);
             } else {
-                $imageName = null;
+                $fileName1 = null;
             }
 
             if ($request->hasFile('standar_pelayanan')) {
-                $imageName2 = time() . '.' . $request->standar_pelayanan->extension();
-                $request->standar_pelayanan->move(public_path('standar_pelayanan'), $imageName2);
+                $file2 = $request->file('standar_pelayanan');
+                $fileName2 = time().'_standar.'.$file2->getClientOriginalExtension();
+                $file2->move(public_path('standar_pelayanan'), $fileName2);
             } else {
-                $imageName2 = null;
+                $fileName2 = null;
             }
 
             if ($request->hasFile('jadwal_dokter')) {
-                $imageName3 = time() . '.' . $request->jadwal_dokter->extension();
-                $request->jadwal_dokter->move(public_path('jadwal_dokter'), $imageName3);
+                $file3 = $request->file('jadwal_dokter');
+                $fileName3 = time().'_jadwal.'.$file3->getClientOriginalExtension();
+                $file3->move(public_path('jadwal_dokter'), $fileName3);
             } else {
-                $imageName3 = null;
+                $fileName3 = null;
             }
 
             $img = new Img;
-            $img->indikator_mutu = $imageName;
-            $img->standar_pelayanan = $imageName2;
-            $img->jadwal_dokter = $imageName3;
+            $img->indikator_mutu = $fileName1;
+            $img->standar_pelayanan = $fileName2;
+            $img->jadwal_dokter = $fileName3;
             $img->save();
 
-            \Session::flash('success', __('Data Image Berhasil Ditambahkan'));
+            \Session::flash('success', __('Data Berhasil Ditambahkan'));
             return redirect()->route('img.index');
         } catch (\Exception $e) {
             $errorMessage = $e->getMessage();
@@ -172,8 +205,8 @@ class ImgController extends Controller
         $img = Img::findOrFail($id);
 
         $request->validate([
-            'indikator_mutu' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'standar_pelayanan' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'indikator_mutu' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,pdf|max:10240', 
+            'standar_pelayanan' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,pdf|max:10240',
             'jadwal_dokter' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -182,10 +215,11 @@ class ImgController extends Controller
                 unlink(public_path('indikator_mutu/'.$img->indikator_mutu));
             }
 
-            $imageName = time().'.'.$request->indikator_mutu->extension();
-            $request->indikator_mutu->move(public_path('indikator_mutu'), $imageName);
+            $file1 = $request->file('indikator_mutu');
+            $fileName1 = time().'_indikator.'.$file1->getClientOriginalExtension();
+            $file1->move(public_path('indikator_mutu'), $fileName1);
         } else {
-            $imageName = $img->indikator_mutu; 
+            $fileName1 = $img->indikator_mutu;
         }
 
         if ($request->hasFile('standar_pelayanan')) {
@@ -193,10 +227,11 @@ class ImgController extends Controller
                 unlink(public_path('standar_pelayanan/'.$img->standar_pelayanan));
             }
 
-            $imageName2 = time().'.'.$request->standar_pelayanan->extension();
-            $request->standar_pelayanan->move(public_path('standar_pelayanan'), $imageName2);
+            $file2 = $request->file('standar_pelayanan');
+            $fileName2 = time().'_standar.'.$file2->getClientOriginalExtension();
+            $file2->move(public_path('standar_pelayanan'), $fileName2);
         } else {
-            $imageName2 = $img->standar_pelayanan; 
+            $fileName2 = $img->standar_pelayanan;
         }
 
         if ($request->hasFile('jadwal_dokter')) {
@@ -204,16 +239,17 @@ class ImgController extends Controller
                 unlink(public_path('jadwal_dokter/'.$img->jadwal_dokter));
             }
 
-            $imageName3 = time().'.'.$request->jadwal_dokter->extension();
-            $request->jadwal_dokter->move(public_path('jadwal_dokter'), $imageName3);
+            $file3 = $request->file('jadwal_dokter');
+            $fileName3 = time().'_jadwal.'.$file3->getClientOriginalExtension();
+            $file3->move(public_path('jadwal_dokter'), $fileName3);
         } else {
-            $imageName3 = $img->jadwal_dokter; 
+            $fileName3 = $img->jadwal_dokter;
         }
 
         $img->update([
-            'indikator_mutu' => $imageName,
-            'standar_pelayanan' => $imageName2,
-            'jadwal_dokter' => $imageName3,
+            'indikator_mutu' => $fileName1,
+            'standar_pelayanan' => $fileName2,
+            'jadwal_dokter' => $fileName3,
         ]);
 
         return redirect()->route('img.index')->with('success', 'Data Img berhasil diperbarui');

@@ -28,10 +28,30 @@ class UgdController extends Controller
                 ->addColumn('foto', function($row){
                     if ($row->foto) {
                         $url = asset('img_ugd/'.$row->foto);
-                        return '<img src="'.$url.'" alt="Gambar" class="img-thumbnail preview-img" style="max-width:180px;cursor:pointer" data-title="Foto UGD">';
+                        $extension = strtolower(pathinfo($row->foto, PATHINFO_EXTENSION));
+
+                        $imageExtensions = ['jpg','jpeg','png','gif','svg'];
+
+                        $videoExtensions = ['mp4','avi','mov','wmv'];
+
+                        if (in_array($extension, $imageExtensions)) {
+                         
+                            return '<img src="'.$url.'" alt="Gambar" class="img-thumbnail preview-img" 
+                                        style="max-width:180px;cursor:pointer" data-title="Foto UGD">';
+                        } elseif (in_array($extension, $videoExtensions)) {
+                            return '<video width="180" height="120" controls style="cursor:pointer">
+                                        <source src="'.$url.'" type="video/'.$extension.'">
+                                        Browser Anda tidak mendukung video.
+                                    </video>';
+                        } else {
+                            return 'File tidak didukung';
+                        }
                     } else {
                         return '-';
                     }
+                })
+                ->addColumn('detail_pelayanan', function($row){
+                    return strip_tags($row->detail_pelayanan);
                 })
                 ->addColumn('action', function($row){
                     $editUrl = route('ugd.edit', $row->id);
@@ -48,7 +68,7 @@ class UgdController extends Controller
                             </a>';
                     return $btn;
                 })
-                ->rawColumns(['action','foto'])
+                ->rawColumns(['action','foto','detail_pelayanan'])
                 ->make(true);
         }
         return view('layanan.ugd.index');
@@ -80,20 +100,33 @@ class UgdController extends Controller
     {
         try {
             $request->validate([
-                'detail_pelayanan' => 'required|string|max:255',
-                'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'detail_pelayanan' => 'required|string|max:2500',
+                'foto' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,mp4,avi,mov,wmv',
             ]);
 
             if ($request->hasFile('foto')) {
-                $imageName = time() . '.' . $request->foto->extension();
-                $request->foto->move(public_path('img_ugd'), $imageName);
+                $file = $request->file('foto');
+                $mimeType = $file->getMimeType();
+
+                if (str_starts_with($mimeType, 'image/')) {
+                    if ($file->getSize() > 2 * 1024 * 1024) {
+                        return back()->withErrors(['foto' => 'Ukuran foto maksimal 2MB']);
+                    }
+                } elseif (str_starts_with($mimeType, 'video/')) {
+                    if ($file->getSize() > 30 * 1024 * 1024) {
+                        return back()->withErrors(['foto' => 'Ukuran video maksimal 10MB']);
+                    }
+                }
+
+                $fileName = time() . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('img_ugd'), $fileName);
             } else {
-                $imageName = null;
+                $fileName = null;
             }
 
             $ugd = new Ugd;
             $ugd->detail_pelayanan = $request->detail_pelayanan;
-            $ugd->foto = $imageName;
+            $ugd->foto = $fileName;
             $ugd->save();
 
             \Session::flash('success', __('Data UGD Berhasil Ditambahkan'));
@@ -140,24 +173,38 @@ class UgdController extends Controller
         $ugd = Ugd::findOrFail($id);
 
         $request->validate([
-            'detail_pelayanan' => 'required|string|max:255',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'detail_pelayanan' => 'required|string|max:2500',
+            'foto' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,mp4,avi,mov,wmv',
         ]);
 
         if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $mimeType = $file->getMimeType();
+
+            if (str_starts_with($mimeType, 'image/')) {
+                if ($file->getSize() > 2 * 1024 * 1024) {
+                    return back()->withErrors(['foto' => 'Ukuran foto maksimal 2MB']);
+                }
+            } elseif (str_starts_with($mimeType, 'video/')) {
+                if ($file->getSize() > 30 * 1024 * 1024) {
+                    return back()->withErrors(['foto' => 'Ukuran video maksimal 10MB']);
+                }
+            }
+
             if ($ugd->foto && file_exists(public_path('img_ugd/'.$ugd->foto))) {
                 unlink(public_path('img_ugd/'.$ugd->foto));
             }
 
-            $imageName = time().'.'.$request->foto->extension();
-            $request->foto->move(public_path('img_ugd'), $imageName);
+            $fileName = time().'.'.$file->getClientOriginalExtension();
+            $file->move(public_path('img_ugd'), $fileName);
         } else {
-            $imageName = $ugd->foto; 
+            $fileName = $ugd->foto; 
         }
 
+        // Update data
         $ugd->update([
             'detail_pelayanan' => $request->detail_pelayanan,
-            'foto' => $imageName,
+            'foto' => $fileName,
         ]);
 
         return redirect()->route('ugd.index')->with('success', 'Data UGD berhasil diperbarui');

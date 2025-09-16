@@ -16,8 +16,9 @@
                         <thead>
                             <tr>
                                 <th class="text-center" width="50px">No</th>
-                                <th class="text-center">Dokter</th>
-                                <th class="text-center">Poliklinik</th>
+                                <th class="text-center">Nama</th>
+                                <th class="text-center">Keterangan</th>
+                                <th class="text-center">Icon</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -52,73 +53,105 @@
             autoWidth: false, 
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', class: 'text-center', orderable: false, searchable: false},
-                {data: 'dokter_name', name: 'dokter.nama', class: 'text-center wrap-text'},
-                {data: 'poli_name', name: 'poli.nama_poli', class: 'text-center wrap-text'},
+                {data: 'nama', name: 'nama', class: 'text-center wrap-text'},
+                {data: 'keterangan', name: 'keterangan', class: 'text-center wrap-text'},
+                {data: 'icon', name: 'icon', class: 'text-center wrap-text'},
                 {data: 'action', name: 'action', orderable: false, searchable: false, class: 'text-center'},
             ]
         });
 
         $('#btnAddRawatInap').click(function () {
-            $.get("{{ url('rawatinap/create') }}", function (res) {
-                let options = '<option value="" disabled selected>-- Pilih Dokter --</option>';
-                res.dokters.forEach(d => {
-                    options += `<option value="${d.id}">${d.nama}</option>`;
-                });
+            let formHtml = `
+                <form id="addFormSwal" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group text-left">
+                        <label>Nama</label>
+                        <input type="text" name="nama" class="form-control" required>
+                    </div>
+                    <div class="form-group text-left">
+                        <label>Keterangan</label>
+                        <textarea name="keterangan" id="keterangan" class="form-control" required></textarea>
+                    </div>
+                    <div class="form-group text-left">
+                        <label>Icon</label>
+                        <input type="file" name="icon" class="form-control">
+                    </div>
+                </form>
+            `;
 
-                let formHtml = `
-                    <form id="addFormSwal">
-                        @csrf
-                        <div class="form-group text-left">
-                            <label>Nama Dokter</label>
-                            <select name="dokter_id" class="form-control" required>
-                                ${options}
-                            </select>
-                        </div>
-                    </form>
-                `;
-
-                Swal.fire({
-                    title: "Tambah Rawat Inap",
-                    html: formHtml,
-                    width: "50%",
-                    showCancelButton: true,
-                    confirmButtonText: "Simpan",
-                    cancelButtonText: "Batal",
-                    focusConfirm: false,
-                    preConfirm: () => {
-                        let form = document.getElementById("addFormSwal");
-                        return $(form).serialize(); 
+            let editorInstance;
+            Swal.fire({
+                title: "Tambah Rawat Inap",
+                html: formHtml,
+                width: "50%",
+                showCancelButton: true,
+                confirmButtonText: "Simpan",
+                cancelButtonText: "Batal",
+                focusConfirm: false,
+                preConfirm: () => {
+                    if (editorInstance) {
+                        $('#keterangan').val(editorInstance.getData());
                     }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: "{{ route('rawatinap.store') }}",
-                            method: "POST",
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            data: result.value,
-                            success: function(response){
-                                if (response.success) {
-                                    Swal.fire("Sukses", response.message, "success");
-                                    table.ajax.reload();
-                                } else {
-                                    let errorMsg = response.errors ? response.errors.join("<br>") : "Terjadi kesalahan";
-                                    Swal.fire("Gagal", errorMsg, "error");
-                                }
-                            },
-                            error: function(err){
-                                let errorMessage = "Terjadi error saat simpan data";
-                                if (err.responseJSON && err.responseJSON.errors) {
-                                    errorMessage = Object.values(err.responseJSON.errors)
-                                        .map(e => e.join("<br>"))
-                                        .join("<br>");
-                                }
-                                Swal.fire("Gagal", errorMessage, "error");
+
+                    let form = document.getElementById("addFormSwal");
+                    let formData = new FormData(form);
+
+                    if (!formData.get("nama")?.trim()) {
+                        Swal.showValidationMessage("Nama wajib diisi.");
+                        return false;
+                    }
+
+                    if (!formData.get("keterangan")?.trim()) {
+                        Swal.showValidationMessage("Keterangan wajib diisi.");
+                        return false;
+                    }
+
+                    return formData;
+                },
+                didOpen: () => {
+                    const editorTarget = document.querySelector('#keterangan');
+                    if (editorTarget) {
+                        ClassicEditor
+                            .create(editorTarget)
+                            .then(editor => {
+                                editorInstance = editor; 
+                            })
+                            .catch(error => {
+                                console.error('CKEditor init error:', error);
+                            });
+                    }
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ route('rawatinap.store') }}",
+                        method: "POST",
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: result.value,
+                        processData: false,
+                        contentType: false,
+                        success: function(response){
+                            if (response.success) {
+                                Swal.fire("Sukses", response.message, "success");
+                                table.ajax.reload();
+                            } else {
+                                let errorMsg = response.errors ? response.errors.join("<br>") : "Terjadi kesalahan";
+                                Swal.fire("Gagal", errorMsg, "error");
                             }
-                        });
-                    }
-                });
+                        },
+                        error: function(err){
+                            let errorMessage = "Terjadi error saat simpan data";
+                            if (err.responseJSON && err.responseJSON.errors) {
+                                errorMessage = Object.values(err.responseJSON.errors)
+                                    .map(e => e.join("<br>"))
+                                    .join("<br>");
+                            }
+                            Swal.fire("Gagal", errorMessage, "error");
+                        }
+                    });
+                }
             });
         });
 
@@ -154,23 +187,27 @@
 
         window.openEditModal = function(id) {
             $.get("{{ url('rawatinap') }}/" + id + "/edit", function(res) {
-                let options = '';
-                res.dokters.forEach(d => {
-                    options += `<option value="${d.id}" ${d.id == res.rawatInap.dokter_id ? 'selected' : ''}>${d.nama}</option>`;
-                });
-
                 let formHtml = `
-                    <form id="editFormSwal">
+                    <form id="editFormSwal" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="id" value="${res.rawatInap.id}">
                         <div class="form-group text-left">
-                            <label>Nama Dokter</label>
-                            <select name="dokter_id" class="form-control">
-                                ${options}
-                            </select>
+                            <label>Nama</label>
+                            <input type="text" name="nama" value="${res.rawatInap.nama}" class="form-control" required>
+                        </div>
+                        <div class="form-group text-left">
+                            <label>Keterangan</label>
+                            <textarea name="keterangan" id="keteranganEdit" class="form-control" required>${res.rawatInap.keterangan}</textarea>
+                        </div>
+                        <div class="form-group text-left">
+                            <label>Icon (biarkan kosong jika tidak diganti)</label>
+                            <input type="file" name="icon" class="form-control">
+                            ${res.rawatInap.icon ? `<br><img src="/icon_inap/${res.rawatInap.icon}" alt="icon" width="80">` : ""}
                         </div>
                     </form>
                 `;
+
+                let editorInstance = null;
 
                 Swal.fire({
                     title: "Edit Rawat Inap",
@@ -181,8 +218,39 @@
                     cancelButtonText: "Batal",
                     focusConfirm: false,
                     preConfirm: () => {
+                        // ✅ Sinkronisasi CKEditor ke textarea
+                        if (editorInstance) {
+                            document.querySelector('#keteranganEdit').value = editorInstance.getData();
+                        }
+
                         let form = document.getElementById("editFormSwal");
-                        return $(form).serialize(); 
+                        let formData = new FormData(form); 
+
+                        // Optional: validasi manual
+                        if (!formData.get("nama")?.trim()) {
+                            Swal.showValidationMessage("Nama wajib diisi.");
+                            return false;
+                        }
+
+                        if (!formData.get("keterangan")?.trim()) {
+                            Swal.showValidationMessage("Keterangan wajib diisi.");
+                            return false;
+                        }
+
+                        return formData;
+                    },
+                    didOpen: () => {
+                        const editorTarget = document.querySelector('#keteranganEdit');
+                        if (editorTarget) {
+                            ClassicEditor
+                                .create(editorTarget)
+                                .then(editor => {
+                                    editorInstance = editor;
+                                })
+                                .catch(error => {
+                                    console.error('CKEditor init error:', error);
+                                });
+                        }
                     }
                 }).then((result) => {
                     if (result.isConfirmed) {
@@ -193,6 +261,8 @@
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
                             data: result.value,
+                            processData: false,
+                            contentType: false,
                             success: function(response){
                                 if (response.success) {
                                     Swal.fire("Sukses", response.message, "success");
@@ -215,7 +285,152 @@
                     }
                 });
             });
+        };
+
+        window.openDetailModal = function(inapId, imgData = []) {
+            console.log("Preview imgData:", imgData);
+
+            let previewHtml = "";
+            if (imgData.length > 0) {
+                previewHtml = `<div class="form-group text-left">
+                    <label>Foto Detail Saat Ini</label><br>
+                    <div style="display:flex; flex-wrap:wrap; gap:10px;">`;
+
+                imgData.forEach(item => {
+                    previewHtml += `
+                        <div id="img-${item.id}" style="position:relative; display:inline-block;">
+                            <img src="${item.url}" alt="Foto Detail" 
+                                class="img-thumbnail" width="120">
+                            <button type="button" class="btn btn-danger btn-sm" 
+                                style="position:absolute; top:0; right:0; border-radius:50%;" 
+                                onclick="deleteDetailImage(${item.id})">&times;</button>
+                        </div>
+                    `;
+                });
+
+                previewHtml += `</div></div>`;
+            }
+
+            let formHtml = `
+                <form id="detailFormSwal" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="inap_id" value="${inapId}">
+                    ${previewHtml}
+                    <div class="form-group text-left">
+                        <label>Tambah Foto Detail</label>
+                        <input type="file" name="img[]" class="form-control" multiple>
+                    </div>
+                </form>
+            `;
+
+            Swal.fire({
+                title: "Kelola Foto Detail",
+                html: formHtml,
+                width: "60%",
+                showCancelButton: true,
+                confirmButtonText: "Simpan",
+                cancelButtonText: "Batal",
+                focusConfirm: false,
+                preConfirm: () => {
+                    let form = document.getElementById("detailFormSwal");
+                    return new FormData(form);
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ route('detailinap.store') }}",
+                        method: "POST",
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: result.value,
+                        processData: false,
+                        contentType: false,
+                        success: function(response){
+                            if (response.success) {
+                                Swal.fire("Sukses", response.message, "success");
+                                table.ajax.reload();
+                            } else {
+                                let errorMsg = response.errors ? response.errors.join("<br>") : "Terjadi kesalahan";
+                                Swal.fire("Gagal", errorMsg, "error");
+                            }
+                        },
+                        error: function(err){
+                            let errorMessage = "Terjadi error saat simpan data";
+                            if (err.responseJSON && err.responseJSON.errors) {
+                                errorMessage = Object.values(err.responseJSON.errors)
+                                    .map(e => e.join("<br>"))
+                                    .join("<br>");
+                            }
+                            Swal.fire("Gagal", errorMessage, "error");
+                        }
+                    });
+                }
+            });
         }
+
+        // fungsi hapus per gambar
+        window.deleteDetailImage = function(id) {
+            Swal.fire({
+                title: 'Hapus foto ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/detailinap/" + id, // route destroy
+                        type: "DELETE",
+                        data: {_token: $('meta[name="csrf-token"]').attr('content')},
+                        success: function(res) {
+                            if(res.success){
+                                Swal.fire("Terhapus!", res.message, "success").then(() => {
+                                    table.ajax.reload(); 
+                                    Swal.close();       
+                                });
+                            } else {
+                                Swal.fire("Gagal", res.message, "error");
+                            }
+                        },
+                        error: function() {
+                            Swal.fire("Error", "Terjadi kesalahan server", "error");
+                        }
+                    });
+                }
+            });
+        }
+
     });
+
+    $(document).on('click', '.preview-img', function () {
+        const src   = $(this).attr('src');
+        const title = $(this).data('title') || 'Preview';
+        const alt   = $(this).attr('alt') || 'Preview';
+
+        Swal.fire({
+            title: title,
+            imageUrl: src,
+            imageAlt: alt,
+            showConfirmButton: false,
+            showCloseButton: true,
+            width: 'auto',
+            backdrop: true,
+            didOpen: () => {
+                const img = Swal.getImage();
+                if (img) {
+                    img.style.maxWidth = '90%';   
+                    img.style.height   = 'auto';
+                }
+            }
+        });
+    });
+</script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#keterangan'))
+        .catch(error => {
+            console.error(error);
+        });
 </script>
 @endpush

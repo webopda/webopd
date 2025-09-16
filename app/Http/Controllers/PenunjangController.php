@@ -88,8 +88,8 @@ class PenunjangController extends Controller
         
         try {
             $request->validate([
-                'penunjang' => 'required|string|max:255',
-                'keterangan' => 'required',
+                'penunjang' => 'required|string|max:2500',
+                'keterangan' => 'required|string|max:2500',
                 'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
 
@@ -182,8 +182,8 @@ class PenunjangController extends Controller
         $penunjang = Penunjang::findOrFail($id);
 
         $request->validate([
-            'penunjang' => 'required|string|max:255',
-            'keterangan' => 'required',
+            'penunjang' => 'required|string|max:2500',
+            'keterangan' => 'required|string|max:2500',
             'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',     
         ]);
 

@@ -6,11 +6,19 @@
             <div class="bg-blue-600 text-white text-center py-4">
                 <h2 class="text-2xl font-semibold">Struktur Organisasi</h2>
             </div>
-            <div class="p-6 space-y-4">
+            <div class="p-6 space-y-6 text-center">
                 @foreach($data_struktur as $item)
-                    <p class="text-gray-700 leading-relaxed text-justify">
-                        {!! nl2br(e($item->struktur_org)) !!}
-                    </p>
+                    <div>
+                        <img src="{{ asset('organisasi/gambar/'.$item->gambar) }}" 
+                             alt="Struktur Organisasi" 
+                             class="mx-auto mb-4 rounded-lg shadow-md max-w-full">
+
+                        @if(!empty($item->deskripsi))
+                            <p class="text-gray-700 leading-relaxed text-justify">
+                                {!! ($item->deskripsi) !!}
+                            </p>
+                        @endif
+                    </div>
                 @endforeach
             </div>
         </div>

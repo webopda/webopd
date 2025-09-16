@@ -10,10 +10,10 @@
             @csrf
             <div class="form-group">
                 <label for="detail_pelayanan">Detail Pelayanan</label>
-                <input type="text" class="form-control" id="detail_pelayanan" name="detail_pelayanan" placeholder="Detail Pelayanan">
+                <textarea class="form-control" type="text"  id="detail_pelayanan" name="detail_pelayanan" placeholder="Detail Pelayanan"></textarea>
             </div>
             <div class="form-group">
-                <label>Foto</label>
+                <label>Foto/Video</label>
                 <input type="file" name="foto" class="file-upload-default" id="foto">
                 <div class="input-group col-xs-12">
                 <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
@@ -46,6 +46,13 @@
             $('.file-upload-info').val(fileName1);
         });
     });
+</script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#detail_pelayanan'))
+        .catch(error => {
+            console.error(error);
+        });
 </script>
 @endpush
 

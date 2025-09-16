@@ -44,12 +44,14 @@ $jumlah_adm = DB::table('pegawai')
     public function visi()
     {
         $data_visi=DB::table('visis')->get();
-        return view('landing.visi',compact('data_visi'));
+        $data_misi=DB::table('misis')->get();
+        $data_moto=DB::table('motos')->get();
+        return view('landing.visi',compact('data_visi', 'data_misi', 'data_moto'));
     }
 
     public function struktur()
     {
-        $data_struktur=DB::table('strukturs')->get();
+        $data_struktur=DB::table('organisasis')->get();
         return view('landing.struktur',compact('data_struktur'));
     }
 
@@ -147,7 +149,7 @@ $jumlah_adm = DB::table('pegawai')
     public function tenagamedis(Request $request)
     {
         if ($request->ajax()) {
-            $tenagamedis = DB::table('pegawai')
+            $tenagamedis = DB::table('dokter')
                 ->where('jabatan', 'Tenaga Medis')
                 ->select('nama', 'jk', 'detail_jabatan');
 
@@ -207,29 +209,44 @@ $jumlah_adm = DB::table('pegawai')
     public function inovasi(Request $request)
     {
         if ($request->ajax()) {
-            $data = DB::table('inovasi')
-                ->select('judul', 'tahun', 'tahapan', 'bentuk');
+            $data = DB::table('inovasi')->select('id', 'judul', 'tahun');
 
             return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('file', function ($row) {
-                if ($row->file) {
-                    $url = asset('file_inovasi/' . $row->file);
-                    $namaFile = basename($row->file);
-                    return '<a href="'.$url.'" target="_blank">'.$namaFile.'</a>';
-                } else {
-                    return '<span class="text-muted">Belum ada file</span>';
-                }
-            })
-                ->rawColumns(['file'])
+                ->addColumn('action', function($row){
+                    return '<a href="'.route('landing.inovasi.show', $row->id).'" 
+                                class="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded-lg shadow text-sm">
+                                Info
+                            </a>';
+                })
+                ->rawColumns(['action'])
                 ->make(true);
         }
 
         return view('landing.inovasi');
     }
 
+    public function showInovasi($id)
+    {
+        $inovasi = DB::table('inovasi')->where('id', $id)->first();
+        return view('landing.inovasi_show', compact('inovasi'));
+    }
+
     public function pengaduan()
     {
         return view('landing.pengaduan');
+    }
+
+    public function rawatinap()
+    {
+        $rawat_inap = DB::table('rawat_inap')->get();
+
+        foreach ($rawat_inap as $item) {
+            $item->images = DB::table('detail_inap')
+                ->where('inap_id', $item->id)
+                ->pluck('img');
+        }
+
+        return view('landing.rawatinap', compact('rawat_inap'));
     }
 }
