@@ -1,5 +1,7 @@
 @include('navbar.navbar')
-  <section class="relative w-full h-screen overflow-hidden">
+<div id="content" style="display:none;">
+
+  <section class="relative w-full h-screen overflow-hidden rellax" data-rellax-speed="-2">
     <div class="swiper h-full">
       <div class="swiper-wrapper">
        
@@ -41,28 +43,27 @@
       <div class="stat-card">
         <div class="text-blue-600 text-4xl mb-2">🩺</div>
         <h3 class="text-xl font-semibold text-gray-700">Dokter</h3>
-        <p class="text-3xl font-bold text-blue-700 mt-2 counter" data-target="12">0</p>
+        <p class="text-3xl font-bold text-blue-700 mt-2 counter" data-target="{{ $jumlah_dokter }}">0</p>
       </div>
-
       <!-- Perawat -->
       <div class="stat-card">
         <div class="text-green-600 text-4xl mb-2">👩‍⚕️</div>
         <h3 class="text-xl font-semibold text-gray-700">Perawat</h3>
-        <p class="text-3xl font-bold text-green-700 mt-2 counter" data-target="28">0</p>
+        <p class="text-3xl font-bold text-green-700 mt-2 counter" data-target="{{ $jumlah_kesehatan }}">0</p>
       </div>
 
       <!-- Bidan -->
       <div class="stat-card">
         <div class="text-pink-600 text-4xl mb-2">🤱</div>
         <h3 class="text-xl font-semibold text-gray-700">Bidan</h3>
-        <p class="text-3xl font-bold text-pink-700 mt-2 counter" data-target="16">0</p>
+        <p class="text-3xl font-bold text-pink-700 mt-2 counter" data-target="{{ $jumlah_penunjang }}">0</p>
       </div>
 
       <!-- Adm / Umum -->
       <div class="stat-card">
         <div class="text-yellow-600 text-4xl mb-2">🧑‍💼</div>
         <h3 class="text-xl font-semibold text-gray-700">Adm / Umum</h3>
-        <p class="text-3xl font-bold text-yellow-700 mt-2 counter" data-target="10">0</p>
+        <p class="text-3xl font-bold text-yellow-700 mt-2 counter" data-target="{{ $jumlah_adm }}">0</p>
       </div>
 
     </div>
@@ -155,9 +156,14 @@
     
     <!-- Gambar Visi Misi -->
     <div class="h-full">
-      <img src="https://www.stieykpn.ac.id/cni-content/uploads/modules/pages/20180115100741.jpg" 
-           alt="Visi Misi" 
-           class="w-full h-full object-cover">
+      <lottie-player 
+          src="{{asset('misi.json')}}" 
+          background="transparent" 
+          speed="1" 
+          class="w-full"
+          loop 
+          autoplay>
+        </lottie-player>
     </div>
 
     <!-- Konten Visi, Misi & Motto -->
@@ -169,25 +175,30 @@
       <!-- Visi -->
       <div>
         <h3 class="text-xl font-semibold text-blue-600">Visi</h3>
-        <p class="text-gray-600 mt-2">
-          Menjadi rumah sakit terdepan dengan pelayanan kesehatan yang profesional, modern, dan berlandaskan nilai kemanusiaan.
-        </p>
+        @foreach ($visi as $visis )
+          <p class="text-gray-600 mt-2">
+          {{ $visis->visi }}
+        </p> 
+        @endforeach
+       
       </div>
 
       <!-- Misi -->
       <div>
         <h3 class="text-xl font-semibold text-green-600">Misi</h3>
         <ul class="list-disc list-inside text-gray-600 mt-2 space-y-1">
-          <li>Memberikan pelayanan kesehatan yang cepat, tepat, dan ramah.</li>
-          <li>Meningkatkan kualitas SDM melalui pelatihan berkelanjutan.</li>
-          <li>Mengutamakan keselamatan pasien dalam setiap tindakan medis.</li>
-          <li>Mengembangkan teknologi kesehatan yang modern.</li>
+          @foreach ($misi as $misis )
+                      <li>{{$misis->misi}}</li>
+          @endforeach
         </ul>
       </div>
 
       <!-- Motto -->
       <div class="bg-gradient-to-r from-blue-500 to-green-500 text-white text-center py-4 px-6 rounded-lg shadow-md">
-        <p class="text-lg font-semibold italic tracking-wide">"Melayani Sepenuh Hati, Menyembuhkan dengan Empati"</p>
+        @foreach ($moto as $mot )
+                  <p class="text-lg font-semibold italic tracking-wide">"{{ $mot->moto }}"</p>
+
+        @endforeach
       </div>
 
     </div>
@@ -198,7 +209,7 @@
 
 
 {{-- struktur oraganisi --}}
- <div class="max-w-6xl mx-auto my-4">
+ {{-- <div class="max-w-6xl mx-auto my-4">
     <h1 class="text-3xl md:text-4xl font-bold text-center text-gray-800 mb-12">Struktur Organisasi</h1>
 
     <!-- Card Organisasi -->
@@ -220,9 +231,9 @@
 
 
     </div>
-  </div>
+  </div> --}}
 
-
+</div>
 
 {{-- endstruktur --}}
 

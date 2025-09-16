@@ -76,12 +76,12 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+                <a class="nav-link" data-toggle="collapse" href="#user" aria-expanded="false" aria-controls="user">
                     <i class="icon-contract menu-icon"></i>
                     <span class="menu-title">Informasi</span>
                     <i class="menu-arrow"></i>
                 </a>
-                <div class="collapse {{ request()->routeIs('berita.*') ? 'show' : '' }}" id="icons">
+                <div class="collapse {{ request()->routeIs('berita.*') ? 'show' : '' }}" id="user">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('berita.index') ? 'active' : '' }}" href="{{ route('berita.index') }}">
@@ -103,6 +103,23 @@
                                 Lain-lain
                             </a>
                         </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+                    <i class="icon-users menu-icon"></i>
+                    <span class="menu-title">User Setting</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse {{ request()->routeIs('admin.*') ? 'show' : '' }}" id="icons">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link {{ request()->routeIs('admin.user') ? 'active' : '' }}" href="{{ url('admin/user') }}">
+                                User
+                            </a>
+                        </li>
+                        
                     </ul>
                 </div>
             </li>

@@ -3,3 +3,5 @@
         &copy; {{ date('Y') }} DISKOMINFO Kota Pariaman
     </span>
 </footer>
+
+

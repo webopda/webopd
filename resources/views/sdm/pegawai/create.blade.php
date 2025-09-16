@@ -30,7 +30,6 @@
                     <select name="jabatan" id="jabatan" class="form-control" required>
                         <option value="" disabled selected>Pilih Bagian</option>
                         <option value="Pimpinan" >Pimpinan</option>
-                        <option value="Tenaga Medis" >Tenaga Medis</option>    
                         <option value="Tenaga Kesehatan" >Tenaga Kesehatan</option>
                         <option value="Tenaga Penunjang Kesehatan" >Tenaga Penunjang Kesehatan</option>  
                         <option value="Tenaga ADM/Umum" >Tenaga ADM/Umum</option>                                 

@@ -8,7 +8,7 @@
                 </button>
             </div>
             <div class="card-body">
-
+ 
                 {{-- Input Search --}}
                 <div class="mb-3">
                     <input type="text" wire:model="search" class="form-control" placeholder="Cari nama atau keterangan...">

@@ -6,7 +6,9 @@ use App\Http\Controllers\FotoDashboardController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\VisimisiController;
 use App\Http\Controllers\OrganisasiController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\KontakController;
+use App\Http\Controllers\GoogleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +29,17 @@ Route::get('/dsfdf', function () {
     return view('welcome');
 });
 
+
+
+///login google
+Route::get('auth/google/callback', [GoogleController::class, 'callback']);
+Route::get('auth/google', [GoogleController::class, 'redirect'])->name('google.redirect');
+Route::get('auth/logout', [GoogleController::class, 'logout'])->name('google.logout');
+Route::post('landing/pengaduan/create', [GoogleController::class, 'pengaduanmail'])->name('google.pengaduan');
+
+
 //landing
+ROute::get('/',[LandingController::class,'index'])->name('landing');
 
 Route::get('landing/sejarah',[LandingController::class,'sejarah'])->name('landing.sejarah');
 Route::get('landing/visi',[LandingController::class,'visi'])->name('landing.visi');
@@ -49,7 +61,13 @@ Route::get('landing/tau',[LandingController::class,'tau'])->name('landing.tau');
 Route::get('landing/inovasi',[LandingController::class,'inovasi'])->name('landing.inovasi');
 Route::get('landing/pengaduan',[LandingController::class,'pengaduan'])->name('landing.pengaduan');
 //end landing
-
+Route::middleware('auth')->group(function () {
+//register user
+Route::get('admin/user',[RegisterController::class,'index'])->name('admin.user');
+Route::post('admin/user/create',[RegisterController::class,'create'])->name('admin.user.create');
+Route::put('admin/user/update/{id}',[RegisterController::class,'update'])->name('admin.user.update');
+Route::put('admin/user/password/{id}',[RegisterController::class,'password'])->name('admin.user.password');
+Route::delete('admin/user/hapus/{id}',[RegisterController::class,'hapus'])->name('admin.user.hapus');
 
 
 //berita
@@ -139,7 +157,6 @@ Route::delete('/img/{id}', [App\Http\Controllers\ImgController::class,'destroy']
 Route::get('/img/{id}/edit', [App\Http\Controllers\ImgController::class, 'edit'])->name('img.edit');
 Route::post('/img/{id}/update', [App\Http\Controllers\ImgController::class, 'update'])->name('img.update');
 
-ROute::get('/',[LandingController::class,'index'])->name('landing');
 
 //admin profil
 Route::get('admin/profil', [App\Http\Controllers\ProfilController::class, 'index'])->name('admin.profil');
@@ -183,7 +200,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

@@ -45,4 +45,8 @@
   <div class="border-t border-gray-600 text-center py-4 text-sm text-gray-300">
     © 2025 Diskominfo Kota Pariaman. Semua Hak Dilindungi.
   </div>
-</footer>
+</footer><script src="https://cdnjs.cloudflare.com/ajax/libs/rellax/1.12.1/rellax.min.js"></script>
+<script>
+  var rellax = new Rellax('.rellax');
+</script>
+@include('sweetalert::alert')

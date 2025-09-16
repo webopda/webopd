@@ -18,7 +18,21 @@ class LandingController extends Controller
         $misi=DB::table('misis')->get();
         $visi=DB::table('visis')->get();
         $moto=DB::table('motos')->get();
-        return view('landing',compact('slider','misi','visi','moto'));
+        $jumlah_dokter=DB::table('dokter')->count();
+       $jumlah_kesehatan = DB::table('pegawai')
+    ->where('jabatan', 'Tenaga Kesehatan')
+    ->count();
+
+$jumlah_penunjang = DB::table('pegawai')
+    ->where('jabatan', 'Tenaga Penunjang Kesehatan')
+    ->count();
+
+$jumlah_adm = DB::table('pegawai')
+    ->where('jabatan', 'Tenaga ADM/Umum')
+    ->count();
+
+
+        return view('landing',compact('slider','misi','visi','moto','jumlah_dokter','jumlah_kesehatan','jumlah_penunjang','jumlah_adm'));
     }
 
     public function sejarah()
@@ -35,7 +49,7 @@ class LandingController extends Controller
 
     public function struktur()
     {
-        $data_struktur=DB::table('struktur')->get();
+        $data_struktur=DB::table('strukturs')->get();
         return view('landing.struktur',compact('data_struktur'));
     }
 
