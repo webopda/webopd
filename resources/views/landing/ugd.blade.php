@@ -20,7 +20,7 @@
 
                       <div class="swiper-slide flex justify-center">
                           @if(in_array($ext, $videoExt))
-                              <video class="rounded-xl shadow-md max-h-96 object-cover" controls>
+                              <video class="rounded-xl shadow-md max-h-96 object-cover"   autoplay muted loop playsinline controls>
                                   <source src="{{ $path }}" type="video/{{ $ext }}">
                                   Browser Anda tidak mendukung tag video.
                               </video>

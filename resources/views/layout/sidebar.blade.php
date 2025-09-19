@@ -1,7 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{ url('dashboard') }}">
                     <i class="icon-grid menu-icon"></i>
                     <span class="menu-title">Dashboard</span>
                 </a>
@@ -48,17 +48,9 @@
                     <span class="menu-title">Poliklinik</span>
                     <!-- <i class="menu-arrow"></i> -->
                 </a>
-                <!-- <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-                    <i class="icon-bar-graph menu-icon"></i>
-                    <span class="menu-title">Poli</span>
-                    <i class="menu-arrow"></i>
-                </a> -->
-                <!-- <div class="collapse" id="charts">
-                    <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"> <a class="nav-link" href="pages/charts/chartjs.html">ChartJs</a></li>
-                    </ul>
-                </div> -->
+               
             </li>
+           
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
                     <i class="icon-grid-2 menu-icon"></i>
@@ -106,9 +98,17 @@
                     </ul>
                 </div>
             </li>
+             <li class="nav-item">
+                <!-- <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Poli</a></li> -->
+                 <a class="nav-link"  aria-expanded="false" aria-controls="charts" href="{{ route('pengaduan.index') }}">
+                    <i class="icon-bar-graph menu-icon"></i>
+                    <span class="menu-title">Pengaduan</span>
+                    <!-- <i class="menu-arrow"></i> -->
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-                    <i class="icon-users menu-icon"></i>
+                    <i class="mdi mdi-settings menu-icon"></i>
                     <span class="menu-title">User Setting</span>
                     <i class="menu-arrow"></i>
                 </a>
@@ -123,14 +123,27 @@
                     </ul>
                 </div>
             </li>
-            <li class="nav-item">
+           
+ <li class="nav-item">
                 <!-- <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Poli</a></li> -->
-                 <a class="nav-link"  aria-expanded="false" aria-controls="charts" href="{{ route('pengaduan.index') }}">
-                    <i class="icon-bar-graph menu-icon"></i>
-                    <span class="menu-title">Pengaduan</span>
+                 <a class="nav-link"  aria-expanded="false" aria-controls="chartsg" href="{{ url('admin/chat') }}">
+                    <i class="icon-chat menu-icon"></i>
+                    <span class="menu-title">Chatting</span>
                     <!-- <i class="menu-arrow"></i> -->
                 </a>
+               
             </li>
+
+             <li class="nav-item">
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="nav-link ml-3 btn btn-link d-flex align-items-center p-0" style="border:none; background:none;">
+            <i class="mdi mdi-power-settings menu-icon"></i>
+            <span class="menu-title">Logout</span>
+        </button>
+    </form>
+</li>
+
             <!-- <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
                     <i class="icon-head menu-icon"></i>

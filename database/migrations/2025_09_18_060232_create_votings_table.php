@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pengaduans', function (Blueprint $table) {
+        Schema::create('votings', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->BigInteger('nik');
-            $table->date('tanggal_kunjungan');
+            $table->string('pilihan');
             $table->string('email');
-            $table->text('pesan');
-            $table->text('balasan');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pengaduans');
+        Schema::dropIfExists('votings');
     }
 };

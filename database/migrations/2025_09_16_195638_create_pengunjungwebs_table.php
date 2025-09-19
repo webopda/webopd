@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('strukturs', function (Blueprint $table) {
+        Schema::create('pengunjungwebs', function (Blueprint $table) {
             $table->id();
-            $table->text('struktur');
-            $table->string('gambar');
+            $table->BigInteger('pengunjung');
+            $table->date('tanggal');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('strukturs');
+        Schema::dropIfExists('pengunjungwebs');
     }
 };

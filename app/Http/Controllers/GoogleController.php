@@ -37,6 +37,27 @@ public function callback()
 
     return redirect('landing/pengaduan');
 }
+public function callbackvoting()
+{
+    $googleUser = Socialite::driver('google')->user();
+
+    $login = LoginGoogle::updateOrCreate(
+        ['email' => $googleUser->getEmail()],
+        [
+            'nama' => $googleUser->getName(),
+            'tanggal_login' => now(),
+        ]
+    );
+
+    Session::put('login_google', [
+        'id' => $login->id,
+        'nama' => $login->nama,
+        'email' => $login->email,
+        'tanggal_login' => $login->tanggal_login,
+    ]);
+
+    return redirect('/');
+}
 
 public function logout()
     {

@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 use App\Models\Pegawai;
-
+use Carbon\Carbon;
+use App\Models\Pengunjungweb;
+ use Illuminate\Support\Facades\Crypt;
+use App\Models\Berita;
+use App\Models\Voting;
 
 class LandingController extends Controller
 {
@@ -14,6 +18,29 @@ class LandingController extends Controller
 
     public function index()
     {
+
+$tanggalHariIni = Carbon::now()->format('Y-m-d');
+    $kemarin = Carbon::yesterday()->format('d-m-Y');
+    $hariIni = Carbon::now()->format('d-m-Y');
+
+    $pengunjung = Pengunjungweb::where('tanggal', $tanggalHariIni)->first();
+    $pengunjungHariIni = Pengunjungweb::where('tanggal', $hariIni)->first();
+
+    if ($pengunjung) {
+        $pengunjung->pengunjung += 1;
+        $pengunjung->save();
+    } else {
+        Pengunjungweb::create([
+            'tanggal' => $tanggalHariIni,
+            'pengunjung' => 1
+        ]);
+    }
+  $pengunjungKemarin = Pengunjungweb::where('tanggal', $kemarin)->first();
+
+    // Hitung total semua pengunjung
+    $totalSemua = Pengunjungweb::sum('pengunjung');
+
+
         $slider= DB::table('foto_dashboard')->orderBy('urutan','desc')->get();
         $misi=DB::table('misis')->get();
         $visi=DB::table('visis')->get();
@@ -30,9 +57,36 @@ $jumlah_penunjang = DB::table('pegawai')
 $jumlah_adm = DB::table('pegawai')
     ->where('jabatan', 'Tenaga ADM/Umum')
     ->count();
+ $berita = DB::table('berita')
+            ->join('pegawai', 'berita.author', '=', 'pegawai.id')
+            ->select('berita.*', 'pegawai.nama as author_name')
+            ->orderBy('berita.tgl_publish', 'desc')
+            ->get();
 
+            $alamat = DB::table('kontak')
+            ->where('nama', 'Alamat')
+            ->value('keterangan');
 
-        return view('landing',compact('slider','misi','visi','moto','jumlah_dokter','jumlah_kesehatan','jumlah_penunjang','jumlah_adm'));
+            $email = DB::table('kontak')
+            ->where('nama', 'Email')
+            ->value('keterangan');
+
+            $ig = DB::table('kontak')
+            ->where('nama', 'Instagram')
+            ->value('keterangan');
+
+            $fb = DB::table('kontak')
+            ->where('nama', 'Facebook')
+            ->value('keterangan');
+
+            $tiktok = DB::table('kontak')
+            ->where('nama', 'TikTok')
+            ->value('keterangan');
+$total = Voting::count();
+        $puas = Voting::where('pilihan', 'puas')->count();
+        $cukup = Voting::where('pilihan', 'cukup')->count();
+        $tidak_puas = Voting::where('pilihan', 'tidak_puas')->count();
+        return view('landing',compact('total','puas','cukup','tidak_puas','tiktok','fb','ig','email','alamat','berita','slider','misi','visi','moto','jumlah_dokter','jumlah_kesehatan','jumlah_penunjang','jumlah_adm'));
     }
 
     public function sejarah()
@@ -112,16 +166,20 @@ $jumlah_adm = DB::table('pegawai')
 
     public function show($id)
     {
+                                            $cek_id= Crypt::decrypt($id);
+
         $berita = DB::table('berita')
             ->join('pegawai', 'berita.author', '=', 'pegawai.id')
             ->select('berita.*', 'pegawai.nama as author_name')
-            ->where('berita.id', $id)
+            ->where('berita.id', $cek_id)
             ->first();
 
         if (!$berita) {
             abort(404);
         }
-
+          DB::table('berita')
+    ->where('id', $cek_id)
+    ->update(['dilihat' => $berita->dilihat + 1]);
         return view('landing.berita_show', compact('berita'));
     }
 

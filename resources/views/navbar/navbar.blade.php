@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
   <title>Rumah Sakit Sadikin</title>
   <script src="https://cdn.tailwindcss.com"></script>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
   <link rel="icon" type="image/x-png" href="{{ asset('logo.png') }}">
-
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pusher-js@7.2.0/dist/web/pusher.min.js"></script>
+  <script src="{{ mix('js/app.js') }}" defer></script>
   <style>
     .stat-card {
       @apply bg-white rounded-xl shadow-md p-6 flex flex-col items-center justify-center transition hover:shadow-xl;
@@ -138,7 +142,7 @@
       </div>
 
       <!-- Mobile Button -->
-      <button id="burger" class="md:hidden text-white text-2xl">☰</button>
+      <button id="burger" class="md:hidden text-black text-2xl">☰</button>
     </div>
   </div>
 
@@ -150,43 +154,43 @@
       <summary class="py-2 cursor-pointer">👤 Profil</summary>
       <div class="pl-4 space-y-1">
         <a href="{{url('landing/sejarah')}}" class="block py-1">📖 Sejarah</a>
-        <a href="#" class="block py-1">🎯 Visi Misi</a>
-        <a href="#" class="block py-1">👥 Struktur Organisasi</a>
+        <a href="{{ route('landing.visi') }}" class="block py-1">🎯 Visi Misi</a>
+        <a href="{{ route('landing.struktur') }}" class="block py-1">👥 Struktur Organisasi</a>
       </div>
     </details>
 
     <details>
       <summary class="py-2 cursor-pointer">🩺 Layanan</summary>
       <div class="pl-4 space-y-1">
-        <a href="#" class="block py-1">🚑 UGD</a>
-        <a href="#" class="block py-1">🩺 Rawat Jalan</a>
-        <a href="#" class="block py-1">🛏️ Rawat Inap</a>
-        <a href="#" class="block py-1">⚗️ Penunjang</a>
+        <a href="{{ route('landing.ugd') }}" class="block py-1">🚑 UGD</a>
+        <a href="{{ route('landing.rawatjalan') }}" class="block py-1">🩺 Rawat Jalan</a>
+        <a href="{{ route('landing.rawatinap') }}" class="block py-1">🛏️ Rawat Inap</a>
+        <a href="{{ route('landing.penunjang') }}" class="block py-1">⚗️ Penunjang</a>
       </div>
     </details>
 
     <details>
       <summary class="py-2 cursor-pointer">ℹ️ Informasi Publik</summary>
       <div class="pl-4 space-y-1">
-        <a href="#" class="block py-1">📰 Berita</a>
-        <a href="#" class="block py-1">📊 Indikator Mutu</a>
-        <a href="#" class="block py-1">✅ Standar Pelayanan</a>
+        <a href="{{ route('landing.berita') }}" class="block py-1">📰 Berita</a>
+        <a href="{{ route('landing.indmutu') }}" class="block py-1">📊 Indikator Mutu</a>
+        <a href="{{ route('landing.standarp') }}" class="block py-1">✅ Standar Pelayanan</a>
       </div>
     </details>
 
     <details>
       <summary class="py-2 cursor-pointer">👥 SDM</summary>
       <div class="pl-4 space-y-1">
-        <a href="#" class="block py-1">👑 Pimpinan</a>
-        <a href="#" class="block py-1">➕ Tenaga Medis</a>
-        <a href="#" class="block py-1">❤️‍🩹 Tenaga Kesehatan</a>
-        <a href="#" class="block py-1">📋 Tenaga Penunjang Kesehatan</a>
-        <a href="#" class="block py-1">📂 Tenaga ADM/Umum</a>
+        <a href="{{ route('landing.pimpinan') }}" class="block py-1">👑 Pimpinan</a>
+        <a href="{{ route('landing.tenagamedis') }}" class="block py-1">➕ Tenaga Medis</a>
+        <a href="{{ route('landing.tenagakesehatan') }}" class="block py-1">❤️‍🩹 Tenaga Kesehatan</a>
+        <a href="{{ route('landing.tpk') }}" class="block py-1">📋 Tenaga Penunjang Kesehatan</a>
+        <a href="{{ route('landing.tau') }}" class="block py-1">📂 Tenaga ADM/Umum</a>
       </div>
     </details>
 
-    <a href="#" class="block py-2">✨ Inovasi</a>
-    <a href="#" class="block py-2">💬 Pengaduan</a>
+    <a href="{{ route('landing.inovasi') }}" class="block py-2">✨ Inovasi</a>
+    <a href="{{ route('landing.pengaduan') }}" class="block py-2">💬 Pengaduan</a>
   </div>
 </nav>
 
@@ -254,8 +258,8 @@
     document.getElementById('content').style.display = 'block';
   });
 </script>
-
+{{-- 
 <a href="https://wa.me/6281234567890" target="_blank"
    class="fixed bottom-5 z-10 right-5 w-14 h-14 rounded-full bg-green-500 flex items-center justify-center shadow-lg animate-bounce hover:scale-110 transform transition">
     <img src="{{ asset('whatsapp.png') }}" alt="WhatsApp" class="w-8 h-8">
-</a>
+</a> --}}

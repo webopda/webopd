@@ -1,6 +1,5 @@
 @include('navbar.navbar')
 <div id="content" style="display:none;">
-
   <section class="relative w-full h-screen overflow-hidden rellax" data-rellax-speed="-2">
     <div class="swiper h-full">
       <div class="swiper-wrapper">
@@ -10,8 +9,8 @@
         <div class="swiper-slide relative">
           <img src="{{ asset('slider/gambar') .'/'. $slider_depan->foto }}" class="w-full h-full object-cover" alt="">
           <div class="absolute inset-0 bg-black/40"></div>
-          <div class="absolute inset-0 flex items-center justify-center">
-            <h1 class="text-4xl md:text-6xl font-bold text-white">{{ $slider_depan->judul }}</h1>
+<div class="absolute inset-0 flex items-end justify-start px-10 pb-16">
+            <marquee behavior="" direction=""><p class="text-2xl md:text-2xl font-bold text-white">{{ $slider_depan->judul }}</p></marquee>
           </div>
         </div>
                 @endforeach
@@ -69,6 +68,135 @@
     </div>
   </div>
 {{-- end statistik --}}
+
+
+
+{{-- <div class="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-50 to-indigo-100 p-6">
+    <div class="bg-white shadow-2xl rounded-2xl p-6 max-w-4xl w-full">
+        <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">
+            📢 Informasi Terbaru dari Facebook
+        </h2>
+
+        <div class="flex justify-center">
+            <div class="w-full md:w-[500px] lg:w-[600px]">
+               <iframe 
+  src="https://www.facebook.com/plugins/page.php?
+       href=https%3A%2F%2Fwww.facebook.com%2Fkominfopariamankota
+       &tabs=timeline&width=500&height=600&small_header=false
+       &adapt_container_width=true&hide_cover=false&show_facepile=true" 
+  width="500" 
+  height="600" 
+  style="border:none;overflow:hidden" 
+  scrolling="no" 
+  frameborder="0" 
+  allowfullscreen="true" 
+  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+</iframe>
+
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+
+{{-- voting --}}
+<div class="min-h-screen bg-gradient-to-r from-blue-50 to-indigo-100 flex items-center justify-center p-8">
+    <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-10">
+        
+        {{-- Bagian Ilustrasi --}}
+        <div class="flex flex-col items-center justify-center text-center">
+ <lottie-player 
+          src="{{asset('vot.json')}}" 
+          background="transparent" 
+          speed="1" 
+          style="width: 400px; height: 400px;" 
+          loop 
+          autoplay>
+        </lottie-player>             <h2 class="text-2xl font-bold text-gray-800">Online Voting System</h2>
+              @if(session()->has('login_google'))
+            <p class="text-gray-500 mt-2">Berikan pendapat Anda untuk meningkatkan pelayanan rumah sakit.</p>
+                         
+@else
+            <a href="{{ url('auth/google') }}" class="flex  rounded-lg bg-blue-600 text-white hover:bg-blue-900"><img src="{{ asset('google.png') }}" alt="" width="50px" height="20px"><span class="px-2 border-l-4 border-gray-300"></span><span class="px-2 py-3"> Login Dengan Akun Google</span></a>
+        @endif
+          </div>
+ @php
+              $cek_voting=DB::table('votings')->where('email',Session::get('login_google.email'))->first();
+            @endphp
+
+        {{-- Bagian Voting Form --}}
+        <div class="flex flex-col justify-center">
+                      @if($cek_voting)
+@else
+            <h3 class="text-xl font-semibold text-gray-700 mb-6">🏥 Bagaimana pelayanan kami?</h3>
+            @endif
+
+            {{-- Alert --}}
+            @if(session('success'))
+                <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded mb-4 text-center animate-pulse">
+                    {{ session('success') }}
+                </div>
+            @endif 
+            @if(session('error'))
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 text-center animate-pulse">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            {{-- Form Voting --}}
+           
+            @if($cek_voting)
+                       <div class="bg-blue-100 border-t border-b border-blue-500 text-blue-700 px-4 py-3" role="alert">
+  <p class="font-bold">Hai</p>
+  <p class="text-sm">Terima Kasih Sudah melakukan Voting</p>
+</div>
+            @else
+            <form action="{{ route('voting.store') }}" method="POST" class="space-y-4">
+                @csrf
+                <button type="submit" name="pilihan" value="puas" 
+                    class="flex items-center gap-3 w-full py-3 px-4 rounded-xl text-lg font-semibold 
+                           bg-green-500 text-white shadow-lg transform transition duration-200 hover:scale-105 hover:bg-green-600">
+                    <span class="text-2xl">😊</span> Puas
+
+                </button>
+
+                <button type="submit" name="pilihan" value="cukup" 
+                    class="flex items-center gap-3 w-full py-3 px-4 rounded-xl text-lg font-semibold 
+                           bg-yellow-500 text-white shadow-lg transform transition duration-200 hover:scale-105 hover:bg-yellow-600">
+                    <span class="text-2xl">😐</span> Cukup
+                    
+                </button>
+
+                <button type="submit" name="pilihan" value="tidak_puas" 
+                    class="flex items-center gap-3 w-full py-3 px-4 rounded-xl text-lg font-semibold 
+                           bg-red-500 text-white shadow-lg transform transition duration-200 hover:scale-105 hover:bg-red-600">
+                    <span class="text-2xl">☹️</span> Tidak Puas
+                </button>
+            </form>
+@endif
+            {{-- Step Info seperti di gambar --}}
+            <div class="mt-8 space-y-4">
+                <div class="flex items-start gap-3">
+                    <span class="bg-blue-500 text-white font-bold w-8 h-8 flex items-center justify-center rounded-full">{{$puas}}</span>
+                    <p><span class="font-semibold">Puas</span><br><span class="text-gray-500 text-sm"></span></p>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="bg-green-500 text-white font-bold w-8 h-8 flex items-center justify-center rounded-full">{{$cukup}}</span>
+                    <p><span class="font-semibold">Cukup</span><br><span class="text-gray-500 text-sm"></span></p>
+                </div>
+                <div class="flex items-start gap-3">
+                    <span class="bg-red-500 text-white font-bold w-8 h-8 flex items-center justify-center rounded-full">{{$tidak_puas}}</span>
+                    <p><span class="font-semibold">Tidak Puas</span><br><span class="text-gray-500 text-sm"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{{-- end voting --}}
+
 {{-- fasilitas layanan --}}
 <div class="flex items-center justify-center min-h-screen bg-white ml-3 mr-3 mt-10">
   <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -88,27 +216,103 @@
     <div class="grid grid-cols-2 gap-6">
       
       <!-- UGD -->
-      <div href="{{ route('landing.ugd') }}"  class="bg-white rounded-xl shadow-lg border-2 border-orange-400 flex flex-col items-center justify-center h-28">
+      <a href="{{ url('landing/ugd') }}">
+      <div class="bg-white rounded-xl shadow-lg border-2 border-orange-400 flex flex-col items-center justify-center h-28">
         <div class="text-3xl mb-2">🏥</div>
         <h2 class="text-lg font-semibold">UGD</h2>
-      </div>
+      </div></a>
 
       <!-- Rawat Jalan -->
+            <a href="{{ url('landing/rawatjalan') }}">
+
       <div class="bg-white rounded-xl shadow-lg border-2 border-orange-400 flex flex-col items-center justify-center h-28">
         <div class="text-3xl mb-2">💉</div>
         <h2 class="text-lg font-semibold">Rawat Jalan</h2>
-      </div>
+      </div></a>
 
       <!-- Rawat Inap (Full width) -->
+                  <a href="{{ url('landing/rawatinap') }}">
+
       <div class="col-span-2 bg-white rounded-xl shadow-lg border-2 border-orange-400 flex flex-col items-center justify-center h-32">
         <div class="text-3xl mb-2">🛏️</div>
         <h2 class="text-lg font-semibold">Rawat Inap</h2>
-      </div>
+      </div></a>
       
     </div>
   </div>
 </div>
+{{-- berita --}}
 
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 px-10 mb-5 bg-white rounded-lg">
+    <!-- Slider / Berita Utama -->
+           <h1 class=" items-center text-center text-3xl justify-center mt-3">
+              <lottie-player 
+          src="{{asset('news.json')}}" 
+          background="transparent" 
+          speed="1" 
+          class="w-96 h-96"
+          loop 
+          autoplay>
+        </lottie-player>
+           </h1>
+
+    <div class="relative px-3 py-3">
+
+    <div class="swiper mySwiperber w-full h-72 rounded-xl shadow-lg overflow-hidden">
+        <div class="swiper-wrapper">
+            @foreach($berita->take(5) as $item)
+                <div class="swiper-slide relative">
+                  <a href="{{ route('berita.show',encrypt($item->id)) }}">
+                    <img src="{{ asset('img_berita/'.$item->img) }}"  
+                         alt="{{ $item->judul }}" 
+                         class="w-full h-72 object-cover">
+                    <div class="absolute bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent text-white p-4 w-full">
+                        <h2 class="text-lg font-bold">{{ $item->judul }}</h2>
+                        <p class="text-sm">{{ \Carbon\Carbon::parse($item->tgl_publish)->format('M d, Y') }}</p>
+                    </div>
+                  </a>
+                </div>
+            @endforeach
+        </div>
+
+        <!-- Navigasi & Pagination -->
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+</div>
+
+</div>
+    <!-- 3 Card Berita Terbaru -->
+    <div class="grid grid-cols-1 sm:grid-cols-5 gap-4  justify-end px-5">
+      @php
+        $berita = \App\Models\Berita::orderBy('dilihat', 'desc')
+            ->skip(1)
+            ->take(5)
+            ->get();
+
+      @endphp
+        @foreach($berita as $item)
+                                  <a href="{{ route('berita.show',encrypt($item->id)) }}">
+
+            <div class="relative rounded-xl overflow-hidden shadow-lg group justify-end">
+                <img src="{{ asset('img_berita/'.$item->img) }}" 
+                     alt="{{ $item->judul }}" 
+                     class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                <div class="absolute bottom-0 p-3 text-white">
+                    <span class="bg-red-500 text-xs px-2 py-1 rounded">NEWS</span>
+                    <h3 class="mt-2 text-sm font-semibold leading-tight">{{ $item->judul }}</h3>
+                    <p class="text-xs">{{ \Carbon\Carbon::parse($item->tgl_publish)->format('M d, Y') }}</p>
+                </div>
+            </div>
+                                  </a>
+        @endforeach
+</div>
+
+
+
+{{-- end berita --}}
 {{-- end fasilitas --}}
   <section class="bg-white py-16 px-6 md:px-20">
   <div class="grid md:grid-cols-2 gap-12 items-center">
@@ -127,7 +331,7 @@
         vaksinasi, hingga konsultasi khusus sesuai kebutuhan Anda.
       </p>
 
-      <div class="flex flex-col sm:flex-row gap-4 mt-6">
+      {{-- <div class="flex flex-col sm:flex-row gap-4 mt-6">
         <a href="#" 
            class="flex items-center gap-2 bg-teal-600 text-white px-6 py-3 rounded-xl shadow hover:bg-teal-700 transition">
           📞 Hubungi Kami
@@ -136,7 +340,7 @@
            class="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-xl shadow hover:bg-blue-700 transition">
           📅 Buat Janji
         </a>
-      </div>
+      </div> --}}
     </div>
 
     <div class="relative flex justify-center">
@@ -305,6 +509,24 @@
       };
       updateCounter();
     });
+
+
+
+     var swiper = new Swiper(".mySwiperber", {
+    loop: true,
+    autoplay: {
+      delay: 3000, // 3 detik
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
   </script>
 </body>
 </html>

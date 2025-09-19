@@ -8,7 +8,9 @@ use App\Http\Controllers\VisimisiController;
 use App\Http\Controllers\OrganisasiController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\KontakController;
+use App\Http\Controllers\VotingController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -33,17 +35,72 @@ Route::get('/dsfdf', function () {
 
 ///login google
 Route::get('auth/google/callback', [GoogleController::class, 'callback']);
+Route::get('auth/google/callbackvoting', [GoogleController::class, 'callbackvoting']);
 Route::get('auth/google', [GoogleController::class, 'redirect'])->name('google.redirect');
 Route::get('auth/logout', [GoogleController::class, 'logout'])->name('google.logout');
 Route::post('landing/pengaduan/create', [GoogleController::class, 'pengaduanmail'])->name('google.pengaduan');
 
+Route::post('/send-message', [App\Http\Controllers\ChatController::class, 'send'])->name('chat.store');
+Route::post('/send-message/admin', [App\Http\Controllers\ChatController::class, 'store'])->name('chat.store.admin');
+Route::get('/send-message/index', [App\Http\Controllers\ChatController::class, 'index'])->name('chat.index.admin');
+
+Route::post('/user/chat/set-username', [App\Http\Controllers\ChatController::class, 'setUsername']);
+
+Route::get('/admin/chat/list', [App\Http\Controllers\ChatController::class, 'getChats'])->name('admin.getChats')->withoutMiddleware('auth');
+Route::post('/admin/chat/reply/{id}', [App\Http\Controllers\ChatController::class, 'replyChat'])->name('admin.replyChat');
+Route::post('/chat/store', [App\Http\Controllers\ChatController::class, 'store'])->name('chat.store');
+Route::get('/admin/chat/thread/{id}', [App\Http\Controllers\ChatController::class, 'getChatThread'])->name('admin.chat.thread');
+
+Route::post('/user/chat/send', [App\Http\Controllers\ChatController::class, 'send'])->name('user.chat.send');
+
+// Ambil chat user termasuk balasan admin
+Route::get('/user/chat/list', [App\Http\Controllers\ChatController::class, 'getChatsForUser'])->name('user.chat.list');
 
 //landing
+
 ROute::get('/',[LandingController::class,'index'])->name('landing');
 
+//landing
+Route::get('/voting', [VotingController::class, 'index'])->name('voting.index');
+Route::post('/voting', [VotingController::class, 'store'])->name('voting.store');
+
+Route::get('landing/sejarah',[LandingController::class,'sejarah'])->name('landing.sejarah');
+Route::get('landing/visi',[LandingController::class,'visi'])->name('landing.visi');
+Route::get('landing/struktur',[LandingController::class,'struktur'])->name('landing.struktur');
+Route::get('landing/ugd',[LandingController::class,'ugd'])->name('landing.ugd');
+Route::get('landing/rawatjalan',[LandingController::class,'rawatjalan'])->name('landing.rawatjalan');
+Route::get('/rawatjalan/poli/{id}', [LandingController::class, 'detailPoli'])->name('rawatjalan.poli');
+Route::get('/jadwal-dokter/{id}', [LandingController::class, 'jadwalDokter'])->name('jadwal.dokter');
+Route::get('landing/penunjang',[LandingController::class,'penunjang'])->name('landing.penunjang');
+Route::get('landing/berita',[LandingController::class,'berita'])->name('landing.berita');
+Route::get('/berita/{id}', [LandingController::class, 'show'])->name('berita.show');
+Route::get('landing/indmutu',[LandingController::class,'indmutu'])->name('landing.indmutu');
+Route::get('landing/standarp',[LandingController::class,'standarp'])->name('landing.standarp');
+Route::get('landing/pimpinan',[LandingController::class,'pimpinan'])->name('landing.pimpinan');
+Route::get('landing/tenagamedis',[LandingController::class,'tenagamedis'])->name('landing.tenagamedis');
+Route::get('landing/tenagakesehatan',[LandingController::class,'tenagakesehatan'])->name('landing.tenagakesehatan');
+Route::get('landing/tpk',[LandingController::class,'tpk'])->name('landing.tpk');
+Route::get('landing/tau',[LandingController::class,'tau'])->name('landing.tau');
+Route::get('landing/inovasi',[LandingController::class,'inovasi'])->name('landing.inovasi');
+Route::get('/inovasi/{id}', [LandingController::class, 'showInovasi'])->name('landing.inovasi.show');
+Route::get('landing/pengaduan',[LandingController::class,'pengaduan'])->name('landing.pengaduan');
+Route::get('landing/rawatinap',[LandingController::class,'rawatinap'])->name('landing.rawatinap');
+
+
+
+
+//end landing
 //end landing
 Route::middleware('auth')->group(function () {
 //register user
+
+//dashboard admin
+Route::get('/dashboard',[DashboardController::class,'index'])->name('admin.user');
+
+//catting
+Route::get('/admin/chat', [App\Http\Controllers\ChatController::class, 'index'])->name('admin.chat');
+
+
 Route::get('admin/user',[RegisterController::class,'index'])->name('admin.user');
 Route::post('admin/user/create',[RegisterController::class,'create'])->name('admin.user.create');
 Route::put('admin/user/update/{id}',[RegisterController::class,'update'])->name('admin.user.update');
@@ -145,40 +202,10 @@ Route::post('/img/{id}/update', [App\Http\Controllers\ImgController::class, 'upd
 
 Route::get('/pengaduan', [App\Http\Controllers\PengaduanController::class, 'index'])->name('pengaduan.index');
 Route::delete('/pengaduan/{id}', [App\Http\Controllers\PengaduanController::class,'destroy'])->name('pengaduan.destroy');
-Route::post('/pengaduan/{id}/balas', [App\Http\Controllers\PengaduanController::class, 'balas'])->name('pengaduan.balas');
+Route::post('admin/kirim/email/{id}', [App\Http\Controllers\PengaduanController::class, 'balas'])->name('pengaduan.balas');
 Route::get('/pengaduan/{id}/get-balasan', [App\Http\Controllers\PengaduanController::class, 'getBalasan'])->name('pengaduan.getBalasan');
 
 
-ROute::get('/',[LandingController::class,'index'])->name('landing');
-
-//landing
-
-Route::get('landing/sejarah',[LandingController::class,'sejarah'])->name('landing.sejarah');
-Route::get('landing/visi',[LandingController::class,'visi'])->name('landing.visi');
-Route::get('landing/struktur',[LandingController::class,'struktur'])->name('landing.struktur');
-Route::get('landing/ugd',[LandingController::class,'ugd'])->name('landing.ugd');
-Route::get('landing/rawatjalan',[LandingController::class,'rawatjalan'])->name('landing.rawatjalan');
-Route::get('/rawatjalan/poli/{id}', [LandingController::class, 'detailPoli'])->name('rawatjalan.poli');
-Route::get('/jadwal-dokter/{id}', [LandingController::class, 'jadwalDokter'])->name('jadwal.dokter');
-Route::get('landing/penunjang',[LandingController::class,'penunjang'])->name('landing.penunjang');
-Route::get('landing/berita',[LandingController::class,'berita'])->name('landing.berita');
-Route::get('/berita/{id}', [LandingController::class, 'show'])->name('berita.show');
-Route::get('landing/indmutu',[LandingController::class,'indmutu'])->name('landing.indmutu');
-Route::get('landing/standarp',[LandingController::class,'standarp'])->name('landing.standarp');
-Route::get('landing/pimpinan',[LandingController::class,'pimpinan'])->name('landing.pimpinan');
-Route::get('landing/tenagamedis',[LandingController::class,'tenagamedis'])->name('landing.tenagamedis');
-Route::get('landing/tenagakesehatan',[LandingController::class,'tenagakesehatan'])->name('landing.tenagakesehatan');
-Route::get('landing/tpk',[LandingController::class,'tpk'])->name('landing.tpk');
-Route::get('landing/tau',[LandingController::class,'tau'])->name('landing.tau');
-Route::get('landing/inovasi',[LandingController::class,'inovasi'])->name('landing.inovasi');
-Route::get('/inovasi/{id}', [LandingController::class, 'showInovasi'])->name('landing.inovasi.show');
-Route::get('landing/pengaduan',[LandingController::class,'pengaduan'])->name('landing.pengaduan');
-Route::get('landing/rawatinap',[LandingController::class,'rawatinap'])->name('landing.rawatinap');
-
-
-
-
-//end landing
 
 //admin profil
 Route::get('admin/profil', [App\Http\Controllers\ProfilController::class, 'index'])->name('admin.profil');
@@ -218,9 +245,9 @@ Route::post('admin/slider/tambah',[FotoDashboardController::class,'create'])->na
 Route::put('admin/slider/update/{id}',[FotoDashboardController::class,'update'])->name('landing');
 Route::delete('admin/slider/hapus/{id}',[FotoDashboardController::class,'hapus'])->name('landing');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

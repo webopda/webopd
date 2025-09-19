@@ -6,7 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Skydash Admin</title>
+    
+    <title>RSUD Sadikin Kota Pariaman</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{asset('template/vendors/feather/feather.css')}}">
     <link rel="stylesheet" href="{{asset('template/vendors/ti-icons/css/themify-icons.css')}}">
@@ -18,6 +19,8 @@
     <link rel="stylesheet" type="text/css" href="{{asset('template/js/select.dataTables.min.css')}}">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
     <link rel="stylesheet" href="{{asset('template/css/vertical-layout-light/style.css')}}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{asset('logo.png')}}" />
@@ -28,6 +31,9 @@
     <link rel="stylesheet" href="{{asset('ckeditor/ckeditor5.css')}}">
 
     <script src="{{asset('ckeditor/ckeditor5.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pusher-js@7.2.0/dist/web/pusher.min.js"></script>
+  <script src="{{ mix('js/app.js') }}" defer></script>
 @livewireStyles
 
     <!-- SweetAlert2 -->
@@ -44,6 +50,31 @@
         @include('layout.sidebar')
         <!-- partial -->
         <div class="main-panel">
+
+         @php
+    $belum_balas = DB::table('pengaduans')
+        ->whereNull('balasan')
+        ->orWhere('balasan', '')
+        ->count();
+@endphp
+
+@if($belum_balas > 0)
+<a href="{{ url('pengaduan') }}">
+    <div class="alert alert-danger alert-dismissible fade show fw-bold blink-text text-center" role="alert">
+        🚨 Ada <b>{{ $belum_balas }}</b> pesan pengaduan yang belum dibalas!
+        <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"></button>
+    </div></a>
+@endif
+
+<style>
+    .blink-text {
+        animation: blinker 2.2s linear infinite;
+    }
+    @keyframes blinker {
+        50% { opacity: 0; }
+    }
+</style>
+
         @yield('content')
           <!-- content-wrapper ends -->
           @include('layout.footer')
