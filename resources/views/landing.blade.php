@@ -262,7 +262,7 @@
         <div class="swiper-wrapper">
             @foreach($berita->take(5) as $item)
                 <div class="swiper-slide relative">
-                  <a href="{{ route('berita.show',encrypt($item->id)) }}">
+                  <a href="{{ route('beritalanding.show',encrypt($item->id)) }}">
                     <img src="{{ asset('img_berita/'.$item->img) }}"  
                          alt="{{ $item->judul }}" 
                          class="w-full h-72 object-cover">
@@ -293,7 +293,7 @@
 
       @endphp
         @foreach($berita as $item)
-                                  <a href="{{ route('berita.show',encrypt($item->id)) }}">
+                                  <a href="{{ route('beritalanding.show',encrypt($item->id)) }}">
 
             <div class="relative rounded-xl overflow-hidden shadow-lg group justify-end">
                 <img src="{{ asset('img_berita/'.$item->img) }}" 

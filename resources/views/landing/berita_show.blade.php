@@ -61,7 +61,7 @@ $popular = \App\Models\Berita::orderBy('dilihat', 'desc')
                             <img src="{{ asset('img_berita/'.$pop->img) }}" 
                                  class="w-16 h-12 object-cover rounded">
                             <div>
-                                <a href="{{ route('berita.show', encrypt($pop->id)) }}" class="hover:text-blue-600 font-medium">
+                                <a href="{{ route('beritalanding.show', encrypt($pop->id)) }}" class="hover:text-blue-600 font-medium">
                                     {{ \Illuminate\Support\Str::limit($pop->judul, 50) }}
                                 </a>
                                 <p class="text-xs text-gray-500">{{ \Carbon\Carbon::parse($pop->tgl_publish)->format('M d, Y') }}</p>

@@ -27,7 +27,7 @@
         <div class="swiper-wrapper">
             @foreach($headline as $item)
                 <div class="swiper-slide relative">
-                  <a href="{{ route('berita.show',encrypt($item->id)) }}">
+                  <a href="{{ route('beritalanding.show',encrypt($item->id)) }}">
                     <img src="{{ asset('img_berita/'.$item->img) }}"  
                          alt="{{ $item->judul }}" 
                          class="w-full h-72 object-cover">
@@ -76,7 +76,7 @@
                                 <p class="text-gray-600 text-sm">
                                     {{ \Illuminate\Support\Str::limit(strip_tags($item->keterangan), 100, '...') }}
                                 </p>
-                                <a href="{{ route('berita.show',encrypt($item->id)) }}" class="text-blue-600 text-sm">Read more →</a>
+                                <a href="{{ route('beritalanding.show',encrypt($item->id)) }}" class="text-blue-600 text-sm">Read more →</a>
                                 <p class="text-xs text-gray-500 mt-1">
     {{ \Carbon\Carbon::parse($item->tgl_publish)->format('Y-m-d H:i') }} 
     • {{ $item->author_name }} <br>
@@ -118,7 +118,7 @@
                     @endphp
                     @foreach($beritapopuler as $item)
                         <li>
-                            <a href="{{ route('berita.show', encrypt($item->id)) }}" class="hover:text-blue-600">
+                            <a href="{{ route('beritalanding.show', encrypt($item->id)) }}" class="hover:text-blue-600">
                                 {{ \Illuminate\Support\Str::limit($item->judul, 60) }}
                             </a>
                         </li>
@@ -141,7 +141,7 @@
                             <img src="{{ asset('img_berita/'.$pop->img) }}" 
                                  class="w-16 h-12 object-cover rounded">
                             <div>
-                                <a href="{{ route('berita.show', encrypt($pop->id)) }}" class="hover:text-blue-600 font-medium">
+                                <a href="{{ route('beritalanding.show', encrypt($pop->id)) }}" class="hover:text-blue-600 font-medium">
                                     {{ \Illuminate\Support\Str::limit($pop->judul, 50) }}
                                 </a>
                                 <p class="text-xs text-gray-500">{{ \Carbon\Carbon::parse($pop->tgl_publish)->format('M d, Y') }}</p>
@@ -175,7 +175,7 @@
                     @endphp
                     @foreach($beritaterbaru as $item)
                         <li>
-                            <a href="{{ route('berita.show', encrypt($item->id)) }}" class="hover:text-blue-600">
+                            <a href="{{ route('beritalanding.show', encrypt($item->id)) }}" class="hover:text-blue-600">
                                 {{ \Illuminate\Support\Str::limit($item->judul, 60) }}
                             </a>
                         </li>
@@ -196,7 +196,7 @@
                             <img src="{{ asset('img_berita/'.$terbaru->img) }}" 
                                  class="w-16 h-12 object-cover rounded">
                             <div>
-                                <a href="{{ route('berita.show', encrypt($terbaru->id)) }}" class="hover:text-blue-600 font-medium">
+                                <a href="{{ route('beritalanding.show', encrypt($terbaru->id)) }}" class="hover:text-blue-600 font-medium">
                                     {{ \Illuminate\Support\Str::limit($terbaru->judul, 50) }}
                                 </a>
                                 <p class="text-xs text-gray-500">{{ \Carbon\Carbon::parse($terbaru->tgl_publish)->format('M d, Y') }}</p>

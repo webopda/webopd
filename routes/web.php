@@ -73,7 +73,7 @@ Route::get('/rawatjalan/poli/{id}', [LandingController::class, 'detailPoli'])->n
 Route::get('/jadwal-dokter/{id}', [LandingController::class, 'jadwalDokter'])->name('jadwal.dokter');
 Route::get('landing/penunjang',[LandingController::class,'penunjang'])->name('landing.penunjang');
 Route::get('landing/berita',[LandingController::class,'berita'])->name('landing.berita');
-Route::get('/berita/{id}', [LandingController::class, 'show'])->name('berita.show');
+Route::get('/beritalanding/{id}', [LandingController::class, 'show'])->name('beritalanding.show');
 Route::get('landing/indmutu',[LandingController::class,'indmutu'])->name('landing.indmutu');
 Route::get('landing/standarp',[LandingController::class,'standarp'])->name('landing.standarp');
 Route::get('landing/pimpinan',[LandingController::class,'pimpinan'])->name('landing.pimpinan');
@@ -82,7 +82,7 @@ Route::get('landing/tenagakesehatan',[LandingController::class,'tenagakesehatan'
 Route::get('landing/tpk',[LandingController::class,'tpk'])->name('landing.tpk');
 Route::get('landing/tau',[LandingController::class,'tau'])->name('landing.tau');
 Route::get('landing/inovasi',[LandingController::class,'inovasi'])->name('landing.inovasi');
-Route::get('/inovasi/{id}', [LandingController::class, 'showInovasi'])->name('landing.inovasi.show');
+Route::get('/landinginovasi/{id}', [LandingController::class, 'showInovasi'])->name('landing.inovasi.show');
 Route::get('landing/pengaduan',[LandingController::class,'pengaduan'])->name('landing.pengaduan');
 Route::get('landing/rawatinap',[LandingController::class,'rawatinap'])->name('landing.rawatinap');
 
