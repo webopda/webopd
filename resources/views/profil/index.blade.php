@@ -47,7 +47,7 @@
                         title="Hapus Data">
                         <i class="bi bi-trash3"></i>
                     </button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong{{ $item->id }}" 
+                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalLong{{ $item->id }}" 
                         >
                         <i class="bi bi-list-columns"></i>
                     </button>

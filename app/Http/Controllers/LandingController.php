@@ -8,7 +8,7 @@ use Yajra\DataTables\Facades\DataTables;
 use App\Models\Pegawai;
 use Carbon\Carbon;
 use App\Models\Pengunjungweb;
- use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Crypt;
 use App\Models\Berita;
 use App\Models\Voting;
 

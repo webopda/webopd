@@ -204,7 +204,7 @@ $(document).ready(function() {
 
 window.showJadwalInfo = function(dokterId) {
     $.ajax({
-        url: "{{ url('/jadwal-dokter') }}/" + dokterId,
+        url: "{{ url('/dokterjadwal') }}/" + dokterId,
         method: "GET",
         success: function(res) {
             if (res.length === 0) {
