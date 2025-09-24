@@ -43,7 +43,7 @@
     <div class="col-md-3 stretch-card transparent">
         <div class="card card-light-danger">
             <div class="card-body">
-                <p class="mb-4 fw-bold fs-5" style="font-size: 20px">Pengunjung Perbulan</p>
+                <p class="mb-4 fw-bold fs-5" style="font-size: 20px">Pengunjung Bulan Ini</p>
                 <p class="fs-30 mb-2">{{ $thisMonth }}</p>
             </div>
         </div>
