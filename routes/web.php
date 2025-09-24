@@ -92,7 +92,7 @@ Route::middleware('auth')->group(function () {
 //register user
 
 //dashboard admin
-Route::get('/dashboard',[DashboardController::class,'index'])->name('admin.user');
+Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
 
 //catting
 Route::get('/admin/chat', [App\Http\Controllers\ChatController::class, 'index'])->name('admin.chat');

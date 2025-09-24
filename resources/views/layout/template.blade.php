@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{asset('template/vendors/datatables.net-bs4/dataTables.bootstrap4.css')}}">
     <link rel="stylesheet" href="{{asset('template/vendors/ti-icons/css/themify-icons.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('template/js/select.dataTables.min.css')}}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css">
     <!-- End plugin css for this page -->
     <!-- inject:css -->
         <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>

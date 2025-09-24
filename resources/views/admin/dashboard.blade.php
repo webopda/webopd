@@ -1,157 +1,85 @@
 @extends('layout.template')
 
 @section('content')
-{{-- <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-    <!-- Total Pengunjung -->
-    <div class="flex items-center bg-white shadow rounded-lg p-4 border-b-4 border-blue-500">
-        <div class="p-2 rounded-full bg-blue-100 text-blue-600">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M12 11c0-1.657-1.343-3-3-3S6 9.343 6 11s1.343 3 3 3 3-1.343 3-3zm0 0c0-1.657 1.343-3 3-3s3 1.343 3 3-1.343 3-3 3-3-1.343-3-3zm-6 8a6 6 0 1112 0H6z"/>
-            </svg>
-        </div>
-        <div class="ml-3">
-            <p class="text-xs text-gray-500">Total Pengunjung</p>
-            <p class="text-lg font-bold text-gray-800">{{ $totalPengunjung }}</p>
-        </div>
-    </div>
-
-    <!-- Hari Ini -->
-    <div class="flex items-center bg-white shadow rounded-lg p-4 border-b-4 border-green-500">
-        <div class="p-2 rounded-full bg-green-100 text-green-600">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-            </svg>
-        </div>
-        <div class="ml-3">
-            <p class="text-xs text-gray-500">Hari Ini</p>
-            <p class="text-lg font-bold text-gray-800">{{ $today }}</p>
-        </div>
-    </div>
-
-    <!-- Minggu Ini -->
-    <div class="flex items-center bg-white shadow rounded-lg p-4 border-b-4 border-yellow-500">
-        <div class="p-2 rounded-full bg-yellow-100 text-yellow-600">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M3 10h18M3 6h18M3 14h18M3 18h18"/>
-            </svg>
-        </div>
-        <div class="ml-3">
-            <p class="text-xs text-gray-500">Minggu Ini</p>
-            <p class="text-lg font-bold text-gray-800">{{ $thisWeek }}</p>
-        </div>
-    </div>
-
-    <!-- Bulan Ini -->
-    <div class="flex items-center bg-white shadow rounded-lg p-4 border-b-4 border-red-500">
-        <div class="p-2 rounded-full bg-red-100 text-red-600">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2"
-                viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-            </svg>
-        </div>
-        <div class="ml-3">
-            <p class="text-xs text-gray-500">Bulan Ini</p>
-            <p class="text-lg font-bold text-gray-800">{{ $thisMonth }}</p>
-        </div>
-    </div>
-</div> --}}
-
-
-
-{{-- card --}}
-<div class="row mt-10" style="margin-top: 30px">
-           <div class="col-md-6 grid-margin stretch-card">
-  <div class="card tale-bg">
-    <div class="card-people mt-auto relative">
-
-
-      <!-- Digital Clock -->
-      <div class="absolute inset-0 flex flex-col items-center justify-center text-black px-5">
-        <h2 id="liveClock" class="text-5xl font-bold"></h2>
-        <p id="liveDate" class="text-lg mt-2"></p>
-      </div>
-      <div class="w-[10px] h-[10px]">
-    <lottie-player 
-  src="{{ asset('time.json') }}" 
-  background="transparent" 
-  speed="1" 
-  class="w-12 h-12"  
-  loop 
-  autoplay>
-</lottie-player>
-</div>
-    </div>
-  </div>
-</div>
-            <div class="col-md-6 grid-margin transparent">
-              <div class="row">
-                <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-tale">
-                    <div class="card-body">
-                      <p class="mb-4">Total Pengunjung</p>
-                      <p class="fs-30 mb-2">{{ $totalPengunjung }}</p>
-                      <p></p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-4 stretch-card transparent">
-                  <div class="card card-dark-blue">
-                    <div class="card-body">
-                      <p class="mb-4">Pengunjung Hari ini</p>
-                      <p class="fs-30 mb-2">{{ $today }}</p>
-                      <p></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
-                  <div class="card card-light-blue">
-                    <div class="card-body">
-                      <p class="mb-4">Pengunjung Minggu Ini</p>
-                      <p class="fs-30 mb-2">{{ $thisWeek }}</p>
-                      <p></p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6 stretch-card transparent">
-                  <div class="card card-light-danger">
-                    <div class="card-body">
-                      <p class="mb-4">Pengunjung Perbulan</p>
-                      <p class="fs-30 mb-2">{{ $thisMonth }}</p>
-                      <p></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+<style>
+  .clock-circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: #0d6efd; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+</style>
+<div class="row mt-4">
+    <div class="col-md-3 stretch-card transparent">
+        <div class="card card-tale">
+            <div class="card-body">
+                <p class="mb-4 fw-bold fs-5" style="font-size: 20px">Total Pengunjung</p>
+                <p class="fs-30 mb-2">{{ $totalPengunjung }}</p>
             </div>
+        </div>
+    </div>
+    <div class="col-md-3 stretch-card transparent">
+        <div class="card card-dark-blue">
+            <div class="card-body">
+                <p class="mb-4 fw-bold fs-5" style="font-size: 20px">Pengunjung Hari ini</p>
+                <p class="fs-30 mb-2">{{ $today }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 stretch-card transparent">
+        <div class="card card-light-blue">
+            <div class="card-body">
+                <p class="mb-4 fw-bold fs-5" style="font-size: 20px">Pengunjung Minggu Ini</p>
+                <p class="fs-30 mb-2">{{ $thisWeek }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 stretch-card transparent">
+        <div class="card card-light-danger">
+            <div class="card-body">
+                <p class="mb-4 fw-bold fs-5" style="font-size: 20px">Pengunjung Perbulan</p>
+                <p class="fs-30 mb-2">{{ $thisMonth }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-10" style="margin-top: 30px">
+    <!-- KIRI: JAM -->
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card h-100 d-flex align-items-center justify-content-center">
+          <div class="clock-circle text-center">
+              <h2 id="liveClock" class="fw-bold fs-3 mb-1"></h2>
+              <p id="liveDate" class="fs-6 mb-0"></p>
           </div>
+      </div>
+  </div>
 
-{{-- 
-endcard --}}
-<div class="p-6 space-y-6">
-
-    {{-- === CARD INFO === --}}
-   
-
-    {{-- === CHARTS === --}}
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
-        <div class="bg-white shadow-lg rounded-xl p-5">
-            <h3 class="text-gray-700 font-semibold mb-3">Pengunjung Per Hari</h3>
+    <!-- KANAN: CHART PENGUNJUNG PER HARI -->
+    <div class="col-md-6 grid-margin stretch-card">
+        <div class="card h-100 shadow-lg rounded-xl p-4">
+            <h3 class="text-gray-700 fw-semibold mb-3">Pengunjung Per Hari</h3>
             <canvas id="chartHari"></canvas>
         </div>
-        <div class="bg-white shadow-lg rounded-xl p-5">
+    </div>
+</div>
+
+<!-- BARIS BARU: CHART MINGGU & BULAN -->
+<div class="row mt-4">
+    <div class="col-md-6 stretch-card">
+        <div class="card shadow-lg rounded-xl p-4">
             <h3 class="text-gray-700 font-semibold mb-3">Pengunjung Per Minggu</h3>
             <canvas id="chartMinggu"></canvas>
         </div>
-        <div class="bg-white shadow-lg rounded-xl p-5">
+    </div>
+    <div class="col-md-6 stretch-card">
+        <div class="card shadow-lg rounded-xl p-4">
             <h3 class="text-gray-700 font-semibold mb-3">Pengunjung Per Bulan</h3>
             <canvas id="chartBulan"></canvas>
         </div>

@@ -1,8 +1,10 @@
+
+
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="{{ url('dashboard') }}">
-                    <i class="icon-grid menu-icon"></i>
+                <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
+                    <i class="mdi mdi-home menu-icon"></i>
                     <span class="menu-title">Dashboard</span>
                 </a>
             </li>
@@ -29,7 +31,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
-                    <i class="icon-columns menu-icon"></i>
+                    <i class="mdi mdi-heart-pulse menu-icon"></i>
                     <span class="menu-title">Layanan</span>
                     <i class="menu-arrow"></i>
                 </a>
@@ -44,7 +46,7 @@
             <li class="nav-item">
                 <!-- <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Poli</a></li> -->
                  <a class="nav-link"  aria-expanded="false" aria-controls="charts" href="{{ route('poli.index') }}">
-                    <i class="icon-bar-graph menu-icon"></i>
+                    <i class="mdi mdi-hospital menu-icon"></i>
                     <span class="menu-title">Poliklinik</span>
                     <!-- <i class="menu-arrow"></i> -->
                 </a>
@@ -53,7 +55,7 @@
            
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-                    <i class="icon-grid-2 menu-icon"></i>
+                    <i class="mdi mdi-account-multiple menu-icon menu-icon"></i>
                     <span class="menu-title">SDM</span>
                     <i class="menu-arrow"></i>
                 </a>
@@ -68,12 +70,12 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-toggle="collapse" href="#user" aria-expanded="false" aria-controls="user">
-                    <i class="icon-contract menu-icon"></i>
+                <a class="nav-link" data-toggle="collapse" href="#informasi" aria-expanded="false" aria-controls="informasi">
+                    <i class="mdi mdi-newspaper menu-icon"></i>
                     <span class="menu-title">Informasi</span>
                     <i class="menu-arrow"></i>
                 </a>
-                <div class="collapse {{ request()->routeIs('berita.*') ? 'show' : '' }}" id="user">
+                <div class="collapse {{ request()->routeIs('berita.*') ? 'show' : '' }}" id="informasi">
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('berita.index') ? 'active' : '' }}" href="{{ route('berita.index') }}">
@@ -108,7 +110,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-                    <i class="icon-contract menu-icon"></i>
+                    <i class="mdi mdi-account-plus menu-icon"></i>
                     <span class="menu-title">User Setting</span>
                     <i class="menu-arrow"></i>
                 </a>
@@ -127,7 +129,7 @@
             <li class="nav-item">
                 <!-- <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Poli</a></li> -->
                  <a class="nav-link"  aria-expanded="false" aria-controls="chartsg" href="{{ url('admin/chat') }}">
-                    <i class="icon-contract menu-icon"></i>
+                    <i class="mdi mdi-message-outline menu-icon"></i>
                     <span class="menu-title">Chatting</span>
                     <!-- <i class="menu-arrow"></i> -->
                 </a>
@@ -136,7 +138,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#form-elements2" aria-expanded="false" aria-controls="form-elements">
-                    <i class="icon-columns menu-icon"></i>
+                    <i class="mdi mdi-near-me menu-icon"></i>
                     <span class="menu-title">Navbar</span>
                     <i class="menu-arrow"></i>
                 </a>
@@ -151,7 +153,7 @@
     <form method="POST" action="{{ route('logout') }}">
         @csrf
         <button type="submit" class="nav-link ml-3 btn btn-link d-flex align-items-center p-0" style="border:none; background:none;">
-            <i class="icon-contract menu-icon"></i>
+            <i class="mdi mdi-logout menu-icon"></i>
             <span class="menu-title">Logout</span>
         </button>
     </form>
