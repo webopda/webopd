@@ -48,17 +48,34 @@
             </div>
             <div class="form-group">
                 <label>Foto Profil</label>
-                <input type="file" name="img" class="file-upload-default" id="img">
+                <input type="file" name="img" class="file-upload-default" id="img" hidden>
                 <div class="input-group col-xs-12">
                     <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
                     <span class="input-group-append">
-                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                        <button class="file-upload-browse btn btn-primary" type="button" data-target="#img" data-input=".file-upload-info">Upload</button>
                     </span>
                 </div>
 
                 @if($dokter->img) 
                     <div class="mt-2">
                         <img src="{{ asset('img_dokter/'.$dokter->img) }}" alt="Foto Dokter" width="150" class="img-thumbnail">
+                    </div>
+                @endif
+            </div>
+
+            <div class="form-group">
+                <label>Image Jadwal</label>
+                <input type="file" name="img_jadwal" class="file-upload-default" id="img_jadwal" hidden>
+                <div class="input-group col-xs-12">
+                    <input type="text" class="form-control file-upload-info-jadwal" disabled placeholder="Upload Image">
+                    <span class="input-group-append">
+                        <button class="file-upload-browse btn btn-primary" type="button" data-target="#img_jadwal" data-input=".file-upload-info-jadwal">Upload</button>
+                    </span>
+                </div>
+
+                @if($dokter->img_jadwal) 
+                    <div class="mt-2">
+                        <img src="{{ asset('img_jadwal/'.$dokter->img_jadwal) }}" alt="Jadwal Dokter" width="150" class="img-thumbnail">
                     </div>
                 @endif
             </div>
@@ -79,11 +96,14 @@
 <script>
     $(document).ready(function() {
         $('.file-upload-browse').on('click', function() {
-            $('#img').trigger('click');
+            var target = $(this).data('target');
+            $(target).trigger('click');
         });
-        $('#img').on('change', function() {
-            var fileName1 = $(this).val().split('\\').pop();
-            $('.file-upload-info').val(fileName1);
+
+        $('input[type="file"]').on('change', function() {
+            var fileName = $(this).val().split('\\').pop();
+            var inputClass = $('button[data-target="#' + this.id + '"]').data('input');
+            $(inputClass).val(fileName);
         });
     });
 </script>

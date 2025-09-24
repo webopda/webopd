@@ -45,12 +45,23 @@
             </div>
             <div class="form-group">
                 <label>Gambar</label>
-                <input type="file" name="img" class="file-upload-default" id="img">
+                <input type="file" name="img" class="file-upload-default" id="img" hidden>
                 <div class="input-group col-xs-12">
-                <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                <span class="input-group-append">
-                    <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                </span>
+                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
+                    <span class="input-group-append">
+                        <button class="file-upload-browse btn btn-primary" type="button" data-target="#img" data-input=".file-upload-info">Upload</button>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Image Jadwal</label>
+                <input type="file" name="img_jadwal" class="file-upload-default" id="img_jadwal" hidden>
+                <div class="input-group col-xs-12">
+                    <input type="text" class="form-control file-upload-info2" disabled placeholder="Upload Image">
+                    <span class="input-group-append">
+                        <button class="file-upload-browse btn btn-primary" type="button" data-target="#img_jadwal" data-input=".file-upload-info2">Upload</button>
+                    </span>
                 </div>
             </div>
             <div class="d-flex">
@@ -70,11 +81,14 @@
 <script>
     $(document).ready(function() {
         $('.file-upload-browse').on('click', function() {
-            $('#img').trigger('click');
+            var target = $(this).data('target');
+            $(target).trigger('click');
         });
-        $('#img').on('change', function() {
-            var fileName1 = $(this).val().split('\\').pop();
-            $('.file-upload-info').val(fileName1);
+
+        $('input[type="file"]').on('change', function() {
+            var fileName = $(this).val().split('\\').pop();
+            var inputClass = $('button[data-target="#' + this.id + '"]').data('input');
+            $(inputClass).val(fileName);
         });
     });
 </script>

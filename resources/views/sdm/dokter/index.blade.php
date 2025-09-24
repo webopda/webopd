@@ -21,6 +21,7 @@
                                 <th class="text-center">Jabatan</th>
                                 <th class="text-center">Poliklinik</th>
                                 <th class="text-center">Profil</th>
+                                <th class="text-center">Jadwal</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -63,6 +64,7 @@ $(document).ready(function() {
             {data: 'detail_jabatan', name: 'detail_jabatan', class: 'text-center'},
             {data: 'poli_name', name: 'poli.nama_poli', class: 'text-center wrap-text'},
             {data: 'img', name: 'img', class: 'text-center wrap-text'},
+            {data: 'img_jadwal', name: 'img_jadwal', class: 'text-center wrap-text'},
             {data: 'action', name: 'action', orderable: false, searchable: false, class: 'text-center'},
         ]
     });

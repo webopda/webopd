@@ -39,6 +39,15 @@ class DokterController extends Controller
                         return '-';
                     }
                 })
+                ->addColumn('img_jadwal', function($row){
+                    if ($row->img_jadwal) {
+                        $url = asset('img_jadwal/'.$row->img_jadwal);
+                        $nama = e($row->nama);
+                        return '<img src="'.$url.'" alt="Gambar" class="img-thumbnail preview-img" style="max-width:180px;cursor:pointer" data-title="'.$nama.'">';
+                    } else {
+                        return '-';
+                    }
+                })
                 ->addColumn('action', function($row){
                     $editUrl = route('dokter.edit', $row->id);
                     $btn = '<a href="'.$editUrl.'" class="edit btn btn-icon icon-left btn-warning btn-sm" style="padding: 10px 10px; font-size: 12px;">
@@ -66,7 +75,7 @@ class DokterController extends Controller
                             </a>';
                     return $btn;
                 })
-                ->rawColumns(['action','img'])
+                ->rawColumns(['action','img', 'img_jadwal'])
                 ->make(true);
         }
         return view('sdm.dokter.index');
@@ -104,6 +113,7 @@ class DokterController extends Controller
                 'img' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'jk' => 'required|string|max:255',
                 'detail_jabatan' => 'required|string|max:800',
+                'img_jadwal' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
             ]);
 
             if ($request->hasFile('img')) {
@@ -113,6 +123,13 @@ class DokterController extends Controller
                 $imageName = null;
             }
 
+            if ($request->hasFile('img_jadwal')) {
+                $imageName2 = time() . '.' . $request->img_jadwal->extension();
+                $request->img_jadwal->move(public_path('img_jadwal'), $imageName2);
+            } else {
+                $imageName2 = null;
+            }
+
             $dokter = new Dokter;
             $dokter->poli_id = $request->poli_id;
             $dokter->nama = $request->nama;
@@ -120,6 +137,7 @@ class DokterController extends Controller
             $dokter->jk = $request->jk;
             $dokter->detail_jabatan = $request->detail_jabatan;
             $dokter->jabatan = "Tenaga Medis";
+            $dokter->img_jadwal = $imageName2;
             $dokter->save();
 
             \Session::flash('success', __('Data Dokter Berhasil Ditambahkan'));
@@ -172,6 +190,7 @@ class DokterController extends Controller
             'img'     => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'jk'      => 'required|string|max:255',
             'detail_jabatan' => 'required|string|max:800',
+            'img_jadwal' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120',
         ]);
 
         // kalau ada file baru
@@ -188,6 +207,21 @@ class DokterController extends Controller
             $file->move(public_path('img_dokter'), $namafile);
 
             $dokter->img = $namafile;
+        }
+
+        if ($request->hasFile('img_jadwal')) {
+            // hapus file lama kalau ada
+            $oldPath = public_path('img_jadwal/'.$dokter->img_jadwal);
+            if ($dokter->img_jadwal && file_exists($oldPath) && is_file($oldPath)) {
+                unlink($oldPath);
+            }
+
+            // simpan file baru
+            $file = $request->file('img_jadwal');
+            $namafile2 = Str::random(20).'_'.$file->getClientOriginalName();
+            $file->move(public_path('img_jadwal'), $namafile2);
+
+            $dokter->img_jadwal = $namafile2;
         }
 
         // update field lain

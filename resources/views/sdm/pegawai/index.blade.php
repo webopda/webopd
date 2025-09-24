@@ -56,7 +56,7 @@
             autoWidth: false, 
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', class: 'text-center', orderable: false, searchable: false},
-                {data: 'nama', name: 'nama', class: 'text-center'}, 
+                {data: 'nama', name: 'nama', class: 'text-center wrap-text'}, 
                 {data: 'jk', name: 'jk', class: 'text-center wrap-text'}, 
                 {data: 'jabatan', name: 'jabatan', class: 'text-center wrap-text'},    
                 {data: 'detail_jabatan', name: 'detail_jabatan', class: 'text-center wrap-text'},          

@@ -11,6 +11,9 @@ use App\Models\Pengunjungweb;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Berita;
 use App\Models\Voting;
+use App\Models\Navbar;
+use App\Models\Submenu;
+use App\Models\KontenNavbar;
 
 class LandingController extends Controller
 {
@@ -86,7 +89,15 @@ $total = Voting::count();
         $puas = Voting::where('pilihan', 'puas')->count();
         $cukup = Voting::where('pilihan', 'cukup')->count();
         $tidak_puas = Voting::where('pilihan', 'tidak_puas')->count();
-        return view('landing',compact('total','puas','cukup','tidak_puas','tiktok','fb','ig','email','alamat','berita','slider','misi','visi','moto','jumlah_dokter','jumlah_kesehatan','jumlah_penunjang','jumlah_adm'));
+
+$navbars = \App\Models\Navbar::with('submenus')
+    ->where(function($q) {
+        $q->whereHas('submenus') // navbar yang punya submenu
+          ->orWhereDoesntHave('submenus'); // navbar tanpa submenu
+    })
+    ->orderBy('urutan')
+    ->get();
+        return view('landing',compact('navbars','total','puas','cukup','tidak_puas','tiktok','fb','ig','email','alamat','berita','slider','misi','visi','moto','jumlah_dokter','jumlah_kesehatan','jumlah_penunjang','jumlah_adm'));
     }
 
     public function sejarah()
@@ -138,14 +149,6 @@ $total = Voting::count();
         return view('landing.detailpoli', compact('poli', 'dokter'));
     }
 
-    public function jadwalDokter($id)
-    {
-        $jadwal = DB::table('jadwal_dokter')
-            ->where('dokter_id', $id)
-            ->get();
-
-        return response()->json($jadwal);
-    }
 
      public function penunjang()
     {
@@ -306,5 +309,24 @@ $total = Voting::count();
         }
 
         return view('landing.rawatinap', compact('rawat_inap'));
+    }
+
+    public function showKonten($slug)
+    {
+        $submenu = Submenu::where('slug', $slug)->firstOrFail();
+
+        $kontenList = KontenNavbar::where('submenu_id', $submenu->id)->get();
+
+        return view('landing.konten.show', compact('submenu', 'kontenList'));
+    }
+
+    public function jadwaldokter()
+    {
+      $jadwal = DB::table('img')
+    ->whereNotNull('jadwal_dokter')
+    ->orderByDesc('id')
+    ->value('jadwal_dokter');
+
+        return view('landing.jadwaldokter', compact('jadwal'));
     }
 }

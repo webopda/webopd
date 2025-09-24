@@ -10,7 +10,7 @@ class Dokter extends Model
     use HasFactory;
     protected $table = 'dokter';
     protected $fillable = [
-        'nama', 'poli_id', 'jk', 'jabatan', 'detail_jabatan'
+        'nama', 'poli_id', 'jk', 'jabatan', 'detail_jabatan', 'img_jadwal'
     ];
 
     public function Poli()

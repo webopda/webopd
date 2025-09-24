@@ -82,63 +82,51 @@
 
       <!-- Desktop Menu -->
       <div class="hidden md:flex space-x-6 items-center">
+        <!-- Beranda -->
         <a href="{{ url('/') }}" class="nav-link flex items-center gap-2 dropdown-btn">
           Beranda
         </a>
 
-        <!-- Profil -->
-        <div class="relative group">
-          <button class="nav-link flex items-center gap-2 dropdown-btn">
-            Profil ▼
-          </button>
-          <div class="absolute hidden group-hover:block bg-white shadow-lg mt-2 rounded-lg w-48 dropdown-menu">
-            <a href="{{ route('landing.sejarah') }}" class="dropdown-link flex hover:bg-blue-500 border-b-2 px-2 py-3 hover:text-white"> Sejarah</a>
-            <a href="{{ route('landing.visi') }}" class="dropdown-link flex hover:bg-blue-500 border-b-2 px-2 py-3 hover:text-white"> Visi Misi</a>
-            <a href="{{ route('landing.struktur') }}" class="dropdown-link flex hover:bg-blue-500 border-b-2 px-2 py-3 hover:text-white"> Struktur Organisasi</a>
-          </div>
-        </div>
-
-        <!-- Layanan -->
-        <div class="relative group">
-          <button class="nav-link flex items-center gap-2 dropdown-btn">
-            Layanan ▼
-          </button>
-          <div class="absolute hidden group-hover:block bg-white shadow-lg mt-2 rounded-lg w-48 dropdown-menu">
-            <a href="{{ route('landing.ugd') }}" class="dropdown-link flex hover:bg-blue-500 border-b-2 px-2 py-3 hover:text-white"> UGD</a>
-            <a href="{{ route('landing.rawatjalan') }}" class="dropdown-link flex hover:bg-blue-500 border-b-2 px-2 py-3 hover:text-white"> Rawat Jalan</a>
-            <a href="{{ route('landing.rawatinap') }}" class="dropdown-link flex hover:bg-blue-500 border-b-2 px-2 py-3 hover:text-white"> Rawat Inap</a>
-            <a href="{{ route('landing.penunjang') }}" class="dropdown-link flex hover:bg-blue-500 border-b-2 px-2 py-3 hover:text-white"> Penunjang</a>
-          </div>
-        </div>
-
-        <!-- Informasi Publik -->
-        <div class="relative group">
-          <button class="nav-link flex items-center gap-2 dropdown-btn">
-           Informasi Publik ▼
-          </button>
-          <div class="absolute hidden group-hover:block bg-white shadow-lg mt-2 rounded-lg w-56 dropdown-menu">
-            <a href="{{ route('landing.berita') }}" class="dropdown-link flex hover:bg-blue-500 border-b-2 px-2 py-3 hover:text-white" >Berita</a>
-            <a href="{{ route('landing.indmutu') }}" class="dropdown-link flex hover:bg-blue-500 border-b-2 px-2 py-3 hover:text-white"> Indikator Mutu</a>
-            <a href="{{ route('landing.standarp') }}" class="dropdown-link flex hover:bg-blue-500 border-b-2 px-2 py-3 hover:text-white"> Standar Pelayanan</a>
-          </div>
-        </div>
-
-        <!-- SDM -->
-        <div class="relative group">
-          <button class="nav-link flex items-center gap-2 dropdown-btn">
-            SDM ▼
-          </button>
-          <div class="absolute hidden group-hover:block bg-white shadow-lg mt-2 rounded-lg w-56 dropdown-menu">
-            <a href="{{ route('landing.pimpinan') }}" class="dropdown-link flex hover:bg-blue-500 border-b-2 px-2 py-3 hover:text-white"> Pimpinan</a>
-            <a href="{{ route('landing.tenagamedis') }}" class="dropdown-link flex hover:bg-blue-500 border-b-2 px-2 py-3 hover:text-white"> Tenaga Medis</a>
-            <a href="{{ route('landing.tenagakesehatan') }}" class="dropdown-link flex hover:bg-blue-500 border-b-2 px-2 py-3 hover:text-white"> Tenaga Kesehatan</a>
-            <a href="{{ route('landing.tpk') }}" class="dropdown-link flex hover:bg-blue-500 border-b-2 px-2 py-3 hover:text-white"> Tenaga Penunjang Kesehatan</a>
-            <a href="{{ route('landing.tau') }}" class="dropdown-link flex hover:bg-blue-500 border-b-2 px-2 py-3 hover:text-white"> Tenaga ADM/Umum</a>
-          </div>
-        </div>
-
-        <a href="{{ route('landing.inovasi') }}" class="nav-link flex items-center gap-2 dropdown-btn">Inovasi</a>
-        <a href="{{ route('landing.pengaduan') }}" class="nav-link flex items-center gap-2 dropdown-btn"> Pengaduan</a>
+        <!-- Loop Navbar -->
+        @foreach($navbars as $navbar)
+          {{-- tampilkan hanya jika punya url atau punya submenu --}}
+          @if($navbar->url || $navbar->submenus->count() > 0)
+            @if($navbar->submenus->count() > 0)
+              <!-- Navbar dengan submenu -->
+              <div class="relative group">
+                <button class="nav-link flex items-center gap-2 dropdown-btn">
+                  {{ $navbar->menu }} ▼
+                </button>
+                <div class="absolute hidden group-hover:block bg-white shadow-lg mt-2 rounded-lg w-56 dropdown-menu">
+                  @foreach($navbar->submenus as $submenu)
+                    @if($submenu->is_dynamic == 0)
+                      <a href="{{ route($submenu->url) }}" 
+                         class="dropdown-link flex hover:bg-blue-500 border-b-2 px-2 py-3 hover:text-white">
+                        {{ $submenu->submenu }}
+                      </a>
+                    @else
+                      <a href="{{ url($submenu->slug) }}" 
+                         class="dropdown-link flex hover:bg-blue-500 border-b-2 px-2 py-3 hover:text-white">
+                        {{ $submenu->submenu }}
+                      </a>
+                    @endif
+                  @endforeach
+                </div>
+              </div>
+            @else
+              <!-- Navbar tanpa submenu tapi punya URL -->
+              @if($navbar->is_dynamic == 0)
+                <a href="{{ route($navbar->url) }}" class="nav-link flex items-center gap-2 dropdown-btn">
+                  {{ $navbar->menu }}
+                </a>
+              @else
+                <a href="{{ url($navbar->url) }}" class="nav-link flex items-center gap-2 dropdown-btn">
+                  {{ $navbar->menu }}
+                </a>
+              @endif
+            @endif
+          @endif
+        @endforeach
       </div>
 
       <!-- Mobile Button -->
@@ -148,49 +136,34 @@
 
   <!-- Mobile Menu -->
   <div id="mobile-menu" class="hidden md:hidden bg-white px-4 py-3 space-y-2 shadow">
-    <a href="{{ url('/') }}"class="block py-2">🏠 Beranda</a>
+    <a href="{{ url('/') }}" class="block py-2">🏠 Beranda</a>
 
-    <details>
-      <summary class="py-2 cursor-pointer">👤 Profil</summary>
-      <div class="pl-4 space-y-1">
-        <a href="{{url('landing/sejarah')}}" class="block py-1">📖 Sejarah</a>
-        <a href="{{ route('landing.visi') }}" class="block py-1">🎯 Visi Misi</a>
-        <a href="{{ route('landing.struktur') }}" class="block py-1">👥 Struktur Organisasi</a>
-      </div>
-    </details>
-
-    <details>
-      <summary class="py-2 cursor-pointer">🩺 Layanan</summary>
-      <div class="pl-4 space-y-1">
-        <a href="{{ route('landing.ugd') }}" class="block py-1">🚑 UGD</a>
-        <a href="{{ route('landing.rawatjalan') }}" class="block py-1">🩺 Rawat Jalan</a>
-        <a href="{{ route('landing.rawatinap') }}" class="block py-1">🛏️ Rawat Inap</a>
-        <a href="{{ route('landing.penunjang') }}" class="block py-1">⚗️ Penunjang</a>
-      </div>
-    </details>
-
-    <details>
-      <summary class="py-2 cursor-pointer">ℹ️ Informasi Publik</summary>
-      <div class="pl-4 space-y-1">
-        <a href="{{ route('landing.berita') }}" class="block py-1">📰 Berita</a>
-        <a href="{{ route('landing.indmutu') }}" class="block py-1">📊 Indikator Mutu</a>
-        <a href="{{ route('landing.standarp') }}" class="block py-1">✅ Standar Pelayanan</a>
-      </div>
-    </details>
-
-    <details>
-      <summary class="py-2 cursor-pointer">👥 SDM</summary>
-      <div class="pl-4 space-y-1">
-        <a href="{{ route('landing.pimpinan') }}" class="block py-1">👑 Pimpinan</a>
-        <a href="{{ route('landing.tenagamedis') }}" class="block py-1">➕ Tenaga Medis</a>
-        <a href="{{ route('landing.tenagakesehatan') }}" class="block py-1">❤️‍🩹 Tenaga Kesehatan</a>
-        <a href="{{ route('landing.tpk') }}" class="block py-1">📋 Tenaga Penunjang Kesehatan</a>
-        <a href="{{ route('landing.tau') }}" class="block py-1">📂 Tenaga ADM/Umum</a>
-      </div>
-    </details>
-
-    <a href="{{ route('landing.inovasi') }}" class="block py-2">✨ Inovasi</a>
-    <a href="{{ route('landing.pengaduan') }}" class="block py-2">💬 Pengaduan</a>
+    @foreach($navbars as $navbar)
+      {{-- tampilkan hanya jika punya url atau punya submenu --}}
+      @if($navbar->url || $navbar->submenus->count() > 0)
+        @if($navbar->submenus->count() > 0)
+          <details>
+            <summary class="py-2 cursor-pointer">{{ $navbar->menu }}</summary>
+            <div class="pl-4 space-y-1">
+              @foreach($navbar->submenus as $submenu)
+                @if($submenu->is_dynamic == 0)
+                  <a href="{{ route($submenu->url) }}" class="block py-1"> {{ $submenu->submenu }} </a>
+                @else
+                  <a href="{{ url($submenu->slug) }}" class="block py-1"> {{ $submenu->submenu }} </a>
+                @endif
+              @endforeach
+            </div>
+          </details>
+        @else
+          <!-- Navbar tanpa submenu tapi punya URL -->
+          @if($navbar->is_dynamic == 0)
+            <a href="{{ route($navbar->url) }}" class="block py-2"> {{ $navbar->menu }} </a>
+          @else
+            <a href="{{ url($navbar->url) }}" class="block py-2"> {{ $navbar->menu }} </a>
+          @endif
+        @endif
+      @endif
+    @endforeach
   </div>
 </nav>
 

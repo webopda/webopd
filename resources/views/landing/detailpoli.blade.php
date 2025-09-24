@@ -17,7 +17,7 @@
                              alt="{{ $d->nama }}" 
                              class="w-24 h-24 mx-auto mb-3 rounded-full object-cover">
                         <h3 class="text-lg font-semibold text-blue-700 cursor-pointer"
-                            onclick="showJadwal({{ $d->id }}, '{{ $d->nama }}')">
+                            onclick="showJadwal('{{ $d->nama }}', '{{ asset('img_jadwal/'.$d->img_jadwal) }}')">
                             {{ $d->nama }}
                         </h3>
                     </div>
@@ -28,9 +28,12 @@
 </div>
 
 <div id="jadwalModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-    <div class="bg-white rounded-lg shadow-lg w-96 p-6">
-        <h3 class="text-xl font-bold mb-4" id="modalDokterNama"></h3>
-        <div id="jadwalContent" class="space-y-2 text-gray-700"></div>
+    <div class="bg-white rounded-lg shadow-lg w-[600px] max-w-3xl p-6">
+        <h3 class="text-2xl font-bold mb-4 text-center" id="modalDokterNama"></h3>
+        <div id="jadwalContent" class="text-center">
+            <img id="jadwalImage" src="" alt="Jadwal Dokter" 
+                 class="mx-auto rounded shadow max-h-[80vh] w-full object-contain">
+        </div>
         <div class="mt-4 text-right">
             <button onclick="closeModal()" class="px-4 py-2 bg-red-500 text-white rounded">Tutup</button>
         </div>
@@ -38,24 +41,10 @@
 </div>
 
 <script>
-function showJadwal(dokterId, nama) {
+function showJadwal(nama, imgUrl) {
     document.getElementById('modalDokterNama').innerText = nama;
-    document.getElementById('jadwalContent').innerHTML = 'Loading...';
+    document.getElementById('jadwalImage').src = imgUrl;
     document.getElementById('jadwalModal').classList.remove('hidden');
-
-    fetch(`/jadwal-dokter/${dokterId}`)
-        .then(res => res.json())
-        .then(data => {
-            if (data.length > 0) {
-                let html = '';
-                data.forEach(j => {
-                    html += `<p><strong>${j.hari}</strong>: ${j.jam_mulai} - ${j.jam_selesai}</p>`;
-                });
-                document.getElementById('jadwalContent').innerHTML = html;
-            } else {
-                document.getElementById('jadwalContent').innerHTML = '<p>Tidak ada jadwal.</p>';
-            }
-        });
 }
 
 function closeModal() {

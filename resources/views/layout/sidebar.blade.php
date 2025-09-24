@@ -108,7 +108,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-                    <i class="mdi mdi-settings menu-icon"></i>
+                    <i class="icon-contract menu-icon"></i>
                     <span class="menu-title">User Setting</span>
                     <i class="menu-arrow"></i>
                 </a>
@@ -124,21 +124,34 @@
                 </div>
             </li>
            
- <li class="nav-item">
+            <li class="nav-item">
                 <!-- <li class="nav-item"> <a class="nav-link" href="pages/tables/basic-table.html">Poli</a></li> -->
                  <a class="nav-link"  aria-expanded="false" aria-controls="chartsg" href="{{ url('admin/chat') }}">
-                    <i class="icon-chat menu-icon"></i>
+                    <i class="icon-contract menu-icon"></i>
                     <span class="menu-title">Chatting</span>
                     <!-- <i class="menu-arrow"></i> -->
                 </a>
                
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#form-elements2" aria-expanded="false" aria-controls="form-elements">
+                    <i class="icon-columns menu-icon"></i>
+                    <span class="menu-title">Navbar</span>
+                    <i class="menu-arrow"></i>
+                </a>
+                <div class="collapse" id="form-elements2">
+                    <ul class="nav flex-column sub-menu">
+                        <li class="nav-item"><a class="nav-link" href="{{ route('submenu.index') }}">Submenu Navbar</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('kontennavbar.index') }}">Konten Navbar</a></li>              
+                    </ul>
+                </div>
+            </li>
              <li class="nav-item">
     <form method="POST" action="{{ route('logout') }}">
         @csrf
         <button type="submit" class="nav-link ml-3 btn btn-link d-flex align-items-center p-0" style="border:none; background:none;">
-            <i class="mdi mdi-power-settings menu-icon"></i>
+            <i class="icon-contract menu-icon"></i>
             <span class="menu-title">Logout</span>
         </button>
     </form>

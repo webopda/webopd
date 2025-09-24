@@ -85,11 +85,8 @@ Route::get('landing/inovasi',[LandingController::class,'inovasi'])->name('landin
 Route::get('/landinginovasi/{id}', [LandingController::class, 'showInovasi'])->name('landing.inovasi.show');
 Route::get('landing/pengaduan',[LandingController::class,'pengaduan'])->name('landing.pengaduan');
 Route::get('landing/rawatinap',[LandingController::class,'rawatinap'])->name('landing.rawatinap');
+Route::get('landing/jadwald',[LandingController::class,'jadwaldokter'])->name('landing.jadwald');
 
-
-
-
-//end landing
 //end landing
 Route::middleware('auth')->group(function () {
 //register user
@@ -245,6 +242,22 @@ Route::post('admin/slider/tambah',[FotoDashboardController::class,'create'])->na
 Route::put('admin/slider/update/{id}',[FotoDashboardController::class,'update'])->name('landing');
 Route::delete('admin/slider/hapus/{id}',[FotoDashboardController::class,'hapus'])->name('landing');
 
+//submenu
+Route::get('/submenu', [App\Http\Controllers\SubmenuController::class, 'index'])->name('submenu.index');
+Route::get('/submenu/create', [App\Http\Controllers\SubmenuController::class, 'create'])->name('submenu.create');
+Route::post('/submenu/store', [App\Http\Controllers\SubmenuController::class, 'store'])->name('submenu.store');
+Route::delete('/submenu/{id}', [App\Http\Controllers\SubmenuController::class,'destroy'])->name('submenu.destroy');
+Route::get('/submenu/{id}/edit', [App\Http\Controllers\SubmenuController::class, 'edit'])->name('submenu.edit');
+Route::post('/submenu/{id}/update', [App\Http\Controllers\SubmenuController::class, 'update'])->name('submenu.update');
+
+//konten navbar
+Route::get('/kontennavbar', [App\Http\Controllers\KontenNavbarController::class, 'index'])->name('kontennavbar.index');
+Route::get('/kontennavbar/create', [App\Http\Controllers\KontenNavbarController::class, 'create'])->name('kontennavbar.create');
+Route::post('/kontennavbar/store', [App\Http\Controllers\KontenNavbarController::class, 'store'])->name('kontennavbar.store');
+Route::delete('/kontennavbar/{id}', [App\Http\Controllers\KontenNavbarController::class,'destroy'])->name('kontennavbar.destroy');
+Route::get('/kontennavbar/{id}/edit', [App\Http\Controllers\KontenNavbarController::class, 'edit'])->name('kontennavbar.edit');
+Route::post('/kontennavbar/{id}/update', [App\Http\Controllers\KontenNavbarController::class, 'update'])->name('kontennavbar.update');
+
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
@@ -256,3 +269,5 @@ Route::delete('admin/slider/hapus/{id}',[FotoDashboardController::class,'hapus']
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/{slug}', [LandingController::class, 'showKonten'])->name('landing.konten');
