@@ -21,6 +21,7 @@
                                 <th class="text-center" width="300px">Deskripsi</th>
                                 <th class="text-center" width="100px">SOP</th>
                                 <th class="text-center"  width="100px">Manual Book</th>
+                                <th class="text-center"  width="100px">Proposal</th>
                                 <th class="text-center"  width="100px">Foto Inovasi 1</th>
                                 <th class="text-center"  width="100px">Foto Inovasi 2</th> 
                                 <th class="text-center"  width="100px">Tanggal Publish</th>                              
@@ -64,6 +65,7 @@
                 {data: 'deskripsi', name: 'deskripsi', class: 'text-center wrap-text'},                                 
                 {data: 'sop', name: 'sop', class: 'text-center wrap-text'},
                 {data: 'manual_book', name: 'manual_book', class: 'text-center wrap-text'},
+                {data: 'proposal', name: 'proposal', class: 'text-center wrap-text'},
                 {data: 'img1', name: 'img1', class: 'text-center wrap-text'},
                 {data: 'img2', name: 'img2', class: 'text-center wrap-text'},
                 {data: 'tgl_publish', name: 'tgl_publish', class: 'text-center wrap-text'},  

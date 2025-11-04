@@ -37,6 +37,14 @@
                     <p class="text-gray-500">Tidak ada file Manual Book</p>
                 @endif
             </div>
+             <div>
+                <h3 class="font-semibold mb-2">Proposal</h3>
+                @if($inovasi->proposal)
+                    <iframe src="{{ asset('file_proposal_inovasi/'.$inovasi->proposal) }}" class="w-full h-96 rounded-lg" frameborder="0"></iframe>
+                @else
+                    <p class="text-gray-500">Tidak ada file Proposal</p>
+                @endif
+            </div>
         </div>
     </div>
 </div>

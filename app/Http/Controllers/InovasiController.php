@@ -45,6 +45,16 @@ class InovasiController extends Controller
                 }
                 
             })
+            ->addColumn('proposal', function ($row) {
+                if ($row->proposal) {
+                    $url = asset('file_proposal_inovasi/' . $row->proposal);
+                    $namaFile = basename($row->proposal);
+                    return '<a href="'.$url.'" target="_blank">'.$namaFile.'</a>';
+                } else {
+                    return '<span class="text-muted">Belum ada file</span>';
+                }
+                
+            })
             ->addColumn('img1', function($row){
                     if ($row->img1) {
                         $url = asset('img1_inovasi/'.$row->img1);
@@ -79,7 +89,7 @@ class InovasiController extends Controller
                         </a>';
                 return $btn;
             })
-            ->rawColumns(['sop','manual_book','img1','img2','action', 'deskripsi']) // tambahkan 'file' di sini
+            ->rawColumns(['proposal','sop','manual_book','img1','img2','action', 'deskripsi']) // tambahkan 'file' di sini
             ->make(true);
         }
         return view('informasi.inovasi.index');
@@ -119,6 +129,7 @@ class InovasiController extends Controller
                 'img1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'img2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
                 'tgl_publish' => 'required|date',
+                'proposal' => 'nullable|file|mimes:pdf|max:2048',
                 
             ]);
 
@@ -146,6 +157,12 @@ class InovasiController extends Controller
             } else {
                 $imageName3 = null;
             }
+            if ($request->hasFile('proposal')) {
+                $imageName4 = time() . '.' . $request->proposal->extension();
+                $request->proposal->move(public_path('file_proposal_inovasi'), $imageName4);
+            } else {
+                $imageName4 = null;
+            }
 
             $inovasi = new Inovasi;
            
@@ -157,6 +174,7 @@ class InovasiController extends Controller
             $inovasi->img1 = $imageName2;
             $inovasi->img2 = $imageName3;
             $inovasi->tgl_publish = $request->tgl_publish; 
+            $inovasi->proposal = $imageName4;
             $inovasi->save();
 
             \Session::flash('success', __('Inovasi Berhasil Ditambahkan'));
@@ -211,6 +229,7 @@ class InovasiController extends Controller
             'img1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'img2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'tgl_publish' => 'required|date',
+            'proposal' => 'nullable|file|mimes:pdf|max:2048',
         ]);
 
         // Simpan nama file lama
@@ -218,6 +237,7 @@ class InovasiController extends Controller
         $oldFile1 = $inovasi->manual_book;
         $oldFile2 = $inovasi->img1;
         $oldFile3 = $inovasi->img2;
+        $oldFile4 = $inovasi->proposal;
 
         // Jika ada file baru diupload
         if ($request->hasFile('sop')) {
@@ -279,6 +299,20 @@ class InovasiController extends Controller
             $inovasi->img2 = $imageName3;
         } else {
             $imageName3 = $inovasi->img2;
+        }
+        if ($request->hasFile('proposal')) {
+            // Hapus file lama jika ada
+            if ($oldFile4 && file_exists(public_path('file_proposal_inovasi/' . $oldFile4))) {
+                unlink(public_path('file_proposal_inovasi/' . $oldFile4));
+            }
+
+            // Simpan file baru
+            $proposal = $request->file('proposal');
+            $filename4 = time() . '_' . $proposal->getClientOriginalName();
+            $proposal->move(public_path('file_proposal_inovasi'), $filename4);
+
+            // Update field file di database
+            $inovasi->proposal = $filename4;
         }
 
         // Update field lain

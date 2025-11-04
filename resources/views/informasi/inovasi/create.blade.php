@@ -62,6 +62,16 @@
                 </div> 
             </div>
             <div class="form-group">
+                <label>Proposal</label>
+                <input type="file" name="proposal" class="file-upload-default" id="proposal">
+                <div class="input-group col-xs-12">
+                <input type="text" class="form-control file-upload-info" disabled placeholder="Upload File">
+                <span class="input-group-append">
+                    <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                </span>
+                </div>
+            </div>
+            <div class="form-group">
                 <label for="tgl_publish">Tanggal Publish</label>
                 <input type="date" class="form-control" id="tgl_publish" name="tgl_publish" placeholder="Tanggal Publish">
             </div>  
